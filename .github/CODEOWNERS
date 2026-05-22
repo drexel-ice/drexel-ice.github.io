@@ -1,0 +1,28 @@
+# Ownership rules for ICE Lab website
+# These owners will be requested for review on PRs that touch their areas.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+*                       @icelab-admin
+
+# Site configuration (requires admin review)
+_config.yml             @icelab-admin
+_data/                  @icelab-admin
+.github/                @icelab-admin
+Gemfile                 @icelab-admin
+Gemfile.lock            @icelab-admin
+Dockerfile              @icelab-admin
+docker-compose.yml      @icelab-admin
+
+# Content areas (lab members can self-review)
+_posts/                 @icelab-admin
+_news/                  @icelab-admin
+_projects/              @icelab-admin
+_bibliography/          @icelab-admin
+_pages/                 @icelab-admin
+
+# Styling and templates (requires admin review)
+_sass/                  @icelab-admin
+_layouts/               @icelab-admin
+_includes/              @icelab-admin
+assets/                 @icelab-admin

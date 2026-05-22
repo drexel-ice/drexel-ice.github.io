@@ -1,0 +1,35 @@
+name: 🐛 Report a bug
+description: Report a website issue
+labels: ["bug"]
+body:
+  - type: input
+    attributes:
+      label: Bug description
+      description: A short description of the issue
+      placeholder: "e.g., Publication page not rendering correctly"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      placeholder: What should happen instead?
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Screenshots or logs
+      description: Add screenshots or error logs if applicable
+    validations:
+      required: false

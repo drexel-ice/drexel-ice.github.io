@@ -1,0 +1,222 @@
+name: CI - Pull Request Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ci-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── Build Validation ──────────────────────────────────────────────────
+  build:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Install Python dependencies
+        run: pip3 install --upgrade nbconvert
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Purge unused CSS
+        run: |
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: _site/
+          retention-days: 3
+
+  # ── Broken Link Check ─────────────────────────────────────────────────
+  links:
+    name: Check Links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2.0.2
+        with:
+          fail: true
+          args: >
+            --user-agent 'curl/7.54'
+            --exclude-path README.md
+            --exclude-path _pages/404.md
+            --exclude-path RESEARCH_REPORT.md
+            --timeout 30
+            --max-retries 3
+            --verbose
+            --no-progress
+            './**/*.md' './**/*.html'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ── Code Formatting ───────────────────────────────────────────────────
+  format:
+    name: Code Format
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install Prettier
+        run: npm install --save-dev --save-exact prettier @shopify/prettier-plugin-liquid
+
+      - name: Check formatting
+        id: prettier
+        run: npx prettier . --check
+
+      - name: Generate diff on failure
+        if: failure()
+        run: |
+          npx prettier . --write
+          git diff -- . ':(exclude)package-lock.json' ':(exclude)package.json' > diff.txt
+          npm install -g diff2html-cli
+          diff2html -i file -s side -F diff.html -- diff.txt
+
+      - name: Upload diff
+        if: failure() && steps.prettier.conclusion == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: prettier-diff
+          path: diff.html
+          retention-days: 7
+
+      - name: Comment on PR
+        if: failure() && steps.prettier.conclusion == 'failure'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: prettier-check
+          message: |
+            :warning: **Code formatting issues detected**
+
+            Some files are not properly formatted. Please run:
+            ```bash
+            npx prettier . --write
+            ```
+            Then commit the changes.
+
+            [View the formatting diff](${{ steps.artifact-upload.outputs.artifact-url || 'in the Actions artifacts' }})
+
+  # ── Markdown Lint ──────────────────────────────────────────────────────
+  markdown:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            _posts/**/*.md
+            _news/**/*.md
+            _projects/**/*.md
+            _pages/**/*.md
+          config: .markdownlint.jsonc
+
+  # ── YAML Validation ───────────────────────────────────────────────────
+  yaml:
+    name: YAML Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate YAML
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          file_or_dir: |
+            _config.yml
+            _data/*.yml
+          config_data: |
+            extends: default
+            rules:
+              line-length:
+                max: 300
+                allow-non-breakable-inline-mappings: true
+              truthy:
+                check-keys: false
+              document-start: disable
+              comments:
+                min-spaces-from-content: 1
+
+  # ── BibTeX Validation ──────────────────────────────────────────────────
+  bibtex:
+    name: BibTeX Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Validate BibTeX
+        run: |
+          pip install bibtexparser
+          python3 -c "
+          import bibtexparser
+          import sys
+          try:
+              with open('_bibliography/papers.bib', 'r') as f:
+                  bib = bibtexparser.load(f)
+              print(f'✅ BibTeX valid: {len(bib.entries)} entries found')
+              for entry in bib.entries:
+                  if 'title' not in entry:
+                      print(f'⚠️  Entry {entry.get(\"ID\", \"unknown\")} missing title')
+                  if 'year' not in entry:
+                      print(f'⚠️  Entry {entry.get(\"ID\", \"unknown\")} missing year')
+              sys.exit(0)
+          except Exception as e:
+              print(f'❌ BibTeX parse error: {e}')
+              sys.exit(1)
+          "

@@ -1,0 +1,127 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/**"
+      - "_bibliography/**"
+      - "_data/**"
+      - "_includes/**"
+      - "_layouts/**"
+      - "_news/**"
+      - "_pages/**"
+      - "_plugins/**"
+      - "_posts/**"
+      - "_projects/**"
+      - "_sass/**"
+      - "_scripts/**"
+      - "_teachings/**"
+      - "_books/**"
+      - "_config.yml"
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "**.bib"
+      - "**.html"
+      - "**.js"
+      - "**.liquid"
+      - "**/*.md"
+      - "!.github/**"
+      - "!README.md"
+      - "!CONTRIBUTING.md"
+      - "!RESEARCH_REPORT.md"
+      - "!LICENSE"
+
+  # Allow manual deploys
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Install Python dependencies
+        run: pip3 install --upgrade nbconvert
+
+      - name: Update dynamic config
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          commitChange: false
+          valueFile: "_config.yml"
+          propertyPath: "giscus.repo"
+          value: ${{ github.repository }}
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Purge unused CSS
+        run: |
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: _site
+          branch: gh-pages
+          clean: true
+          single-commit: true
+
+  # Post-deploy link check on the live site
+  post-deploy-check:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Wait for GitHub Pages propagation
+        run: sleep 30
+
+      - name: Check deployed site for broken links
+        uses: lycheeverse/lychee-action@v2.0.2
+        with:
+          fail: false # Don't fail the deploy, just report
+          args: >
+            --user-agent 'curl/7.54'
+            --exclude-path README.md
+            --exclude-path _pages/404.md
+            --timeout 30
+            --max-retries 3
+            --verbose
+            --no-progress
+            './**/*.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

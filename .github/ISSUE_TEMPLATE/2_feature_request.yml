@@ -1,0 +1,18 @@
+name: 🚀 Feature request
+description: Suggest a website improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: What would you like to see on the website?
+      placeholder: "e.g., Add a research areas page with interactive visualizations"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Why is this useful?
+      placeholder: How would this benefit the lab or visitors?
+    validations:
+      required: false
