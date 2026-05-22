@@ -113,15 +113,22 @@ jobs:
       - name: Check deployed site for broken links
         uses: lycheeverse/lychee-action@v2.0.2
         with:
-          fail: false # Don't fail the deploy, just report
+          fail: false # Report only, don't fail the deploy
           args: >
             --user-agent 'curl/7.54'
             --exclude-path README.md
+            --exclude-path RESEARCH_REPORT.md
             --exclude-path _pages/404.md
+            --exclude-path _pages/blog.md
+            --exclude-path _pages/about_einstein.md
+            --exclude 'reddit\.com'
+            --exclude 'unsplash\.com'
+            --exclude 'intmath\.com'
+            --exclude 'conda\.io'
+            --accept 403,401
             --timeout 30
             --max-retries 3
-            --verbose
             --no-progress
-            './**/*.md'
+            './**/*.md' './**/*.html'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

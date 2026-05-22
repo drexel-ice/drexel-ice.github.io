@@ -31,7 +31,7 @@
 
 The recommended approach for using **al-folio** is to first create your own site using the template with as few changes as possible, and only when it is up and running customize it however you like. This way it is easier to pinpoint what causes a potential issue in case of a bug.
 
-**For the quickest setup**, follow the [Quick Start Guide](QUICKSTART.md), which will have you up and running in 5 minutes.
+**For the quickest setup**, follow the [Setup Guide](SETUP.md), which will have you up and running in 5 minutes.
 
 ### Template vs. Fork: Which Should I Use?
 
