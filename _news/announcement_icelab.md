@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-**ICE Lab website is live!** Our new research lab website is now deployed and auto-updating from GitHub.
+Welcome to the new **ICE Lab website**! We've launched our lab website to share our research, publications, and team updates with the broader community. Stay tuned for news about our latest projects in integrated circuits and electronics.

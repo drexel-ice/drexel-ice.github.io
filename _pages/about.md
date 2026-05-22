@@ -2,33 +2,42 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: >
+  <strong>Integrated Circuits & Electronics Laboratory</strong><br>
+  Department of Electrical & Computer Engineering, Drexel University
 
 profile:
   align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image: icelab_logo.png
+  image_circular: false
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Bossone Research Enterprise Center</p>
+    <p>3140 Market Street</p>
+    <p>Philadelphia, PA 19104</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: true
+social: false
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: true
+  scrollable: true
+  limit: 5
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Welcome to the **ICE Lab** (Integrated Circuits & Electronics Laboratory) at Drexel University. Our research spans the design, fabrication, and testing of integrated circuits and electronic systems, with a focus on pushing the boundaries of performance, power efficiency, and novel applications.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+## Research Focus
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Our lab works at the intersection of:
+
+- **Analog & Mixed-Signal IC Design** -- high-performance data converters, PLLs, and sensor interfaces
+- **Digital VLSI Design** -- low-power architectures, hardware accelerators, and ASIC design
+- **RF & Millimeter-Wave Circuits** -- communication systems, radar, and imaging
+- **Emerging Technologies** -- novel device integration, cryogenic electronics, and neuromorphic computing
+
+## Join Us
+
+We are always looking for motivated **PhD students**, **MS students**, and **undergraduate researchers** to join our team. If you are interested in integrated circuits and electronics research, please check our [openings](/icelab-website/openings/) page or [contact us](/icelab-website/contact/).
