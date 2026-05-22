@@ -121,6 +121,7 @@ jobs:
             --exclude-path _pages/404.md
             --exclude-path _pages/blog.md
             --exclude-path _pages/about_einstein.md
+            --exclude '%7B%7B'
             --exclude 'reddit\.com'
             --exclude 'unsplash\.com'
             --exclude 'intmath\.com'
