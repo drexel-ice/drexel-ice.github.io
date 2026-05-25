@@ -2,6 +2,7 @@
 layout: page
 title: TSV Modeling and Characterization
 description: The critical component of a 3-D IC is the through-silicon via. Our seminal work on the electrical characterization of the TSV resistance, capacitance, and inductance as a function of the diameter, len...
+img: assets/img/research/3d-ics.jpg
 importance: 10
 category: completed
 ---

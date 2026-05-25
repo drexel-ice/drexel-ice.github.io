@@ -2,6 +2,7 @@
 layout: page
 title: 3-D Integrated Free-Space Optical Interconnect for Multi-Core Systems
 description: State of the art microprocessors and SoCs experience a degradation in the performance and signal integrity of on-chip metal interconnects with each successive technology generation due to increased re...
+img: assets/img/research/3d-ics.jpg
 importance: 5
 category: completed
 ---

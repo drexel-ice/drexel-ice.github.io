@@ -2,7 +2,16 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
-      {% if page.permalink != '/' %}
+      {% if site.logo %}
+        <a class="navbar-brand icelab-logo" href="{{ '/' | relative_url }}">
+          <img
+            src="{{ site.logo | relative_url }}"
+            class="icelab-logo-img"
+            alt="Integrated Circuits and Electronics (ICE) Design and Analysis Laboratory — Drexel University"
+            loading="eager"
+          >
+        </a>
+      {% elsif page.permalink != '/' %}
         <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
           {% if site.title == 'blank' %}
             {% if site.first_name %}

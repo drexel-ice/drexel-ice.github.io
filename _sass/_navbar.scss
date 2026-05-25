@@ -63,6 +63,23 @@
     .font-weight-bold {
       color: var(--md-secondary);
     }
+
+    &.icelab-logo {
+      padding: 0.35rem 0;
+      line-height: 1;
+      background-color: var(--md-navbar-bg);
+
+      &:hover {
+        opacity: 0.92;
+      }
+
+      .icelab-logo-img {
+        display: block;
+        height: 2.85rem;
+        width: auto;
+        max-width: min(calc(100vw - 8rem), 18rem);
+      }
+    }
   }
 
   .navbar-nav .nav-item .nav-link {

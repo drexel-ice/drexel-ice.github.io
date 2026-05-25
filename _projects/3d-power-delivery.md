@@ -2,6 +2,7 @@
 layout: page
 title: 3-D Integrated Circuit Power Delivery
 description: An important issue for 3-D integrated circuits is the design of a robust power distribution network that can provide sufficient current to every load within a system. Power delivery in 3-D integrated ...
+img: assets/img/research/3d-ics.jpg
 importance: 7
 category: completed
 ---

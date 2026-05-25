@@ -2,6 +2,7 @@
 layout: page
 title: Attack Prevention Through Design for Trust Algorithms and Methodologies
 description: EDA tools used for circuit design implement algorithms and methodologies that account for the power, area, and performance of the many blocks comprising the IC. With the more recent threat of untruste...
+img: assets/img/research/hardware-security.jpg
 importance: 2
 category: active
 ---

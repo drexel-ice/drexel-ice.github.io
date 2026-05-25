@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 
 title: blank # the website title (if blank, full name will be used instead)
+logo: assets/img/icelab_logo.png # navbar brand (legacy Drexel ICE lab banner)
 first_name: ICE
 middle_name:
 last_name: Lab

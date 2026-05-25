@@ -2,6 +2,7 @@
 layout: page
 title: Thermal Modeling and Mitigation
 description: Two of the most omnipresent and challenging issues in high performance 3-D systems are power delivery and thermal management. The interdependence of these issues is of critical importance to 3-D syste...
+img: assets/img/research/3d-ics.jpg
 importance: 4
 category: completed
 ---

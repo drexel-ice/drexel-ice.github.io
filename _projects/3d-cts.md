@@ -2,6 +2,7 @@
 layout: page
 title: Clock Tree Synthesis (CTS) for 3-D Integrated Circuits
 description: Recent work has explored CTS for 3-D ICs by extending algorithms devised for 2D ICs such as the Methods of Means and Medians (MMM), Nearest Neighbor Graph (NNG) and Deferred Merging Algorithm (DME) fo...
+img: assets/img/research/3d-ics.jpg
 importance: 8
 category: active
 ---

@@ -49,18 +49,9 @@ Modifications to integrated circuits (ICs) or the insertion of foreign intellect
 
 ## Sub/Near-Threshold Circuits with Current-Mode Logic
 
-<div class="row">
-<div class="col-sm-8 mt-3 mt-md-0">
-
 Since power and energy have not scaled similarly to the dimension of the transistor, it has become difficult to operate all transistors simultaneously for a given power budget and time (concept of dark silicon). One potential solution is to operate circuits in the sub-threshold or near-threshold regime. A reduction in supply voltage reduces dynamic power quadratically and static power exponentially. Our group explores near-threshold circuits (NTC) combined with dynamic current-mode logic (DCML) to trade off power and performance.
 
 > **Sub-projects:** Power reduction using NTC with CML
 {: .block-tip}
 
 [View NTC/CML project]({{ '/projects/' | relative_url }}#active)
-
-</div>
-<div class="col-sm-4 mt-3 mt-md-0">
-{% include figure.liquid loading="lazy" path="assets/img/icelab_logo.png" title="ICE Lab" class="img-fluid rounded z-depth-1" %}
-</div>
-</div>
