@@ -1,5 +1,16 @@
-# Coauthors - add lab members and frequent collaborators here
-# Format:
-# "lastname":
-#   - firstname: ["First", "F.", "F. M."]
-#     url: https://example.com
+"savidis":
+  - firstname: ["Ioannis", "I."]
+    url: https://ece.drexel.edu/savidis/
+"pathak":
+  - firstname: ["Divy", "Divya"]
+    url: https://research.coe.drexel.edu/ece/ice/team_member/divya-pathak/
+"chen":
+  - firstname: ["Ziyi", "Z."]
+"rao":
+  - firstname: ["Vaibhav", "V."]
+"juretus":
+  - firstname: ["Kyle", "K."]
+"hossain":
+  - firstname: ["Shazzad", "M."]
+"shrestha":
+  - firstname: ["Pratik", "P."]

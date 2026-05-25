@@ -3,6 +3,8 @@
 Thank you for contributing to the ICE Lab website! This guide will help you
 make changes smoothly.
 
+For a lab-member-friendly guide (no coding background required), see [CONTENT.md](CONTENT.md).
+
 ## Quick Start
 
 ### Adding Content (No Coding Required)
@@ -12,8 +14,9 @@ make changes smoothly.
 | News item        | `_news/`                   | `YYYY-MM-DD-title.md` |
 | Blog post        | `_posts/`                  | `YYYY-MM-DD-title.md` |
 | Project          | `_projects/`               | `name.md`             |
-| Publication      | `_bibliography/papers.bib` | BibTeX entry          |
-| Team member info | `_pages/`                  | Markdown              |
+| Team member      | `_team/`                   | `slug.md` + photo in `assets/img/team/` |
+| Publication      | `_bibliography/papers.bib` | BibTeX entry + PDF in `assets/pdf/` |
+| Static page      | `_pages/`                  | Markdown with `nav: true` |
 
 ### Workflow
 
@@ -66,7 +69,7 @@ Use prefixes to categorize your commits:
 Examples:
 
 ```
-content: add NeurIPS 2026 paper to publications
+content: add ISCAS 2026 paper to publications
 content: add Jane Doe as new PhD student
 feat: add research areas page
 fix: broken image on projects page
@@ -99,12 +102,13 @@ Add a BibTeX entry to `_bibliography/papers.bib`:
   author    = {Last, First and Last2, First2},
   booktitle = {Conference Name},
   year      = {2026},
+  abbr      = {ISCAS},
   selected  = {true},
-  preview   = {paper-thumbnail.png},
-  pdf       = {https://arxiv.org/pdf/XXXX.XXXXX.pdf},
-  abstract  = {Your abstract here.}
+  pdf       = {assets/pdf/conferences/your-paper.pdf},
 }
 ```
+
+Upload the PDF to `assets/pdf/` (subfolders: `journals/`, `conferences/`, `dissertations/`, `tutorials/`).
 
 ## Adding a Project
 
@@ -115,13 +119,48 @@ Create a file in `_projects/` with this template:
 layout: page
 title: Project Name
 description: A short description of the project
-img: assets/img/project-thumbnail.jpg
 importance: 1
-category: research
+category: active
 ---
 
 Your project description in markdown...
 ```
+
+Use `category: active` or `category: completed`.
+
+## Adding a Team Member
+
+Create a file in `_team/` with this template:
+
+```markdown
+---
+layout: page
+title: First Last
+description: Ph.D. Student | email@drexel.edu
+img: assets/img/team/first-last.jpg
+importance: 1
+category: phd
+---
+
+Bio and research interests...
+```
+
+Categories: `faculty`, `phd`, `alumni`.
+
+## Image conventions
+
+- Team photos: `assets/img/team/{slug}.jpg`
+- Research figures: `assets/img/research/{topic}.jpg`
+- Project thumbnails: `assets/img/projects/{slug}.jpg` (optional)
+- Publication PDFs: `assets/pdf/{journals,conferences,dissertations,tutorials}/`
+
+## Migration scripts
+
+One-time and maintenance scripts live in `bin/`:
+
+- `bin/legacy_pubs_to_bib.py` — regenerate BibTeX from `_data/legacy-publications.json`
+- `bin/mirror_pdfs.py` — download PDFs referenced in `papers.bib`
+- `bin/generate_migration_content.py` — regenerate team, projects, and news from legacy JSON
 
 ## Formatting
 

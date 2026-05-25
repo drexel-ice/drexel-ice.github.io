@@ -22,7 +22,9 @@ Drexel University<br>
 3140 Market Street<br>
 Philadelphia, PA 19104
 
-**Email:** [icelab@drexel.edu](mailto:icelab@drexel.edu)
+**Primary Contact:** [Prof. Ioannis Savidis](https://ece.drexel.edu/savidis/)<br>
+**Email:** [isavidis@coe.drexel.edu](mailto:isavidis@coe.drexel.edu)<br>
+**Phone:** (215) 571-4584
 
 </div>
 <div class="col-sm-6">
@@ -38,37 +40,26 @@ Philadelphia, PA 19104
 
 ## Prospective Students
 
-We are currently recruiting for the following positions:
+We are recruiting motivated students interested in:
 
-### PhD Students (Fall 2027)
-
-We are looking for motivated PhD students interested in:
-
-- Analog & mixed-signal IC design
-- Digital VLSI and hardware accelerators
-- RF and millimeter-wave circuits
-- Emerging circuit technologies
+- 3-D integrated circuit design and power delivery
+- Hardware security, obfuscation, and design for trust
+- Near-threshold and energy-efficient circuit design
+- Machine learning for analog and digital EDA
 
 **Requirements:**
 
 - BS or MS in Electrical Engineering, Computer Engineering, or related field
 - Strong background in circuit design and/or VLSI
-- Experience with Cadence Virtuoso, Synopsys tools, or FPGA design is a plus
-- GRE scores (recommended but not required)
+- Experience with Cadence, Synopsys, or FPGA design is a plus
 
-**Funding:** Full tuition waiver + competitive stipend + health insurance
-
-### Undergraduate Researchers
-
-Drexel undergraduate students interested in IC design research during co-op or academic terms are welcome to apply. This is a great opportunity to gain hands-on experience with chip design before pursuing graduate studies.
-
-Please send an email to [icelab@drexel.edu](mailto:icelab@drexel.edu) with:
+Please send an email to [isavidis@coe.drexel.edu](mailto:isavidis@coe.drexel.edu) with:
 
 1. **Subject line:** `[ICE Lab Application] Your Name - Position`
 2. Your CV/resume (PDF)
 3. Unofficial transcripts
 4. A brief statement of your research interests (1 paragraph)
-5. Contact information for 2-3 references
+5. Contact information for 2–3 references
 
 _We review applications on a rolling basis._
 

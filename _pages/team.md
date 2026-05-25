@@ -5,7 +5,7 @@ permalink: /team/
 description: Current and former members of the ICE Lab.
 nav: true
 nav_order: 2
-display_categories: [faculty, phd, masters, undergraduate, alumni]
+display_categories: [faculty, phd, alumni]
 horizontal: false
 ---
 

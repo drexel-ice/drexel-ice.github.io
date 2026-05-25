@@ -1,0 +1,9 @@
+---
+layout: page
+title: Synchronization in 3-D Integrated Circuits
+description: Synchronization amongst various sequential elements of a two-dimensional IC is a challenge which is further exacerbated when considering a three-dimensional IC. Our work focused on multi-plane synchro...
+importance: 9
+category: completed
+---
+
+Synchronization amongst various sequential elements of a two-dimensional IC is a challenge which is further exacerbated when considering a three-dimensional IC. Our work focused on multi-plane synchronization, providing an understanding of the impact that clock distribution topology has on clock skew, clock delay, signal slew, and power dissipation. A comparison of three 3-D clock distribution network topologies was performed both experimentally and through simulation. Simulations of the three clock distribution topologies also included the electrical characteristics of the TSV based on the closed-form expressions developed. The resulting modelled root to leaf delays were compared to experimental data, and good agreement was shown between the modelled and experimental results. The 3-D test circuit was designed by us and fabricated MIT Lincoln Laboratory and was composed of three device planes, 150 nm technology, and TSVs with 1.75 μm diameter and ˜10 μm length. Successful operation of the 3-D test circuit at 1.4 GHz was demonstrated. The measurements of the clock skew, clock delay, signal slew, and power dissipation suggested that each topology provides certain advantages and disadvantages in terms of different performance criteria. The proper choice, consequently, of a clock distribution network is not dictated by a single design objective but rather by the overall 3-D system design requirements including availability of resources and number of bonded planes.

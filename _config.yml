@@ -7,15 +7,15 @@ first_name: ICE
 middle_name:
 last_name: Lab
 contact_note: >
-  Reach us at icelab@drexel.edu or visit us at the Bossone Research Enterprise Center.
+  Reach Prof. Ioannis Savidis at isavidis@coe.drexel.edu or visit us at the Bossone Research Enterprise Center.
 description: >
-  ICE Lab (Integrated Circuits & Electronics Laboratory) at Drexel University.
-  Research in analog/mixed-signal IC design, digital VLSI, RF circuits, and emerging technologies.
+  ICE Lab (Integrated Circuits & Electronics Design and Analysis Laboratory) at Drexel University.
+  Research in 3-D integrated circuits, hardware security, near-threshold circuits, and design for trust.
 footer_text: >
   &copy; ICE Lab, Drexel University.
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-keywords: integrated-circuits, VLSI, analog-design, drexel-university, research-lab, electronics
+keywords: integrated-circuits, 3d-ics, hardware-security, design-for-trust, near-threshold, VLSI, drexel-university, research-lab
 lang: en
 icon: ⚡ # the emoji used as the favicon
 
@@ -266,8 +266,8 @@ display_categories: ["research"] # these categories will be displayed on the fro
 # -----------------------------------------------------------------------------
 
 scholar:
-  last_name: []
-  first_name: []
+  last_name: [Savidis, Rao, Pathak, Juretus, Hossain, Shrestha, Chen, Wu, Venugopal]
+  first_name: [Ioannis, I., Vaibhav, Divy, Kyle, Shazzad, Pratik, Ziyi, Jeff]
 
   style: apa
   locale: en
