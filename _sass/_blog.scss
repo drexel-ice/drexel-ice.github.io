@@ -5,7 +5,7 @@
 .header-bar {
   border-bottom: 1px solid var(--global-divider-color);
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 2.5rem;
   padding-bottom: 3rem;
 
   h1 {
@@ -104,14 +104,16 @@
   .post-meta {
     color: var(--global-text-color-light);
     font-size: 0.875rem;
-    margin-bottom: 0;
+    margin-bottom: 0.35rem;
+    line-height: 1.5;
   }
 
   .post-tags {
     color: var(--global-text-color-light);
     font-size: 0.875rem;
     padding-top: 0.25rem;
-    padding-bottom: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 0.5rem;
 
     a {
       color: var(--global-text-color-light);
@@ -153,8 +155,9 @@
 }
 
 .post-description {
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
   font-size: 0.875rem;
+  line-height: 1.55;
 
   a {
     color: inherit;

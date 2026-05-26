@@ -4,13 +4,23 @@
 
 // Page headers & main headings
 .post-header {
+  padding-top: 0.35rem;
+  margin-bottom: 2rem;
+
   .post-title {
     color: var(--md-heading-color);
+    margin-top: 0;
+    margin-bottom: 0.85rem;
+    line-height: 1.25;
   }
 
   .post-description,
   .desc {
     color: var(--md-text-secondary);
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.55;
+    max-width: 42rem;
   }
 }
 
@@ -23,7 +33,40 @@ article h2 {
   color: var(--md-heading-color);
   border-bottom: 1px solid var(--md-outline-variant);
   padding-bottom: 0.35rem;
-  margin-top: 2rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+
+// Body copy rhythm
+.post article,
+.post .post-content {
+  padding-top: 0.15rem;
+  line-height: 1.65;
+
+  p {
+    margin-bottom: 1.15rem;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 1.15rem;
+    padding-left: 1.4rem;
+  }
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+
+  > h2:first-child,
+  .clearfix > h2:first-child {
+    margin-top: 0.75rem;
+  }
+}
+
+// Intro paragraph after page title (research, publications, etc.)
+.post-header + article > p:first-child,
+.post-header + article > .clearfix > p:first-child {
+  margin-top: 0;
 }
 
 article h3,
@@ -123,7 +166,7 @@ html[data-theme="dark"] {
 
 // Homepage featured news slider
 .featured-slider {
-  margin: 0 0 1.75rem;
+  margin: 0.25rem 0 2rem;
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--md-outline-variant);
@@ -270,7 +313,8 @@ html[data-theme="dark"] {
   .more-info {
     font-family: inherit;
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.55;
+    margin-top: 0.75rem;
   }
 }
 
@@ -279,15 +323,26 @@ html[data-theme="dark"] {
   .featured-slider + .profile.float-right {
     margin-top: 0;
   }
+
+  .social {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--md-outline-variant);
+  }
+
+  hr {
+    margin: 2.25rem 0;
+  }
 }
 
 // News archive page
 .page .news {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 // News table on homepage
 .news {
+  margin-top: 0.35rem;
   th {
     color: var(--md-text-secondary);
     font-weight: 500;
@@ -322,6 +377,8 @@ html[data-theme="dark"] {
   h1 {
     color: var(--md-heading-color);
   }
+
+  margin-top: 0.5rem;
 
   h2.bibliography {
     color: var(--md-heading-color);
@@ -370,20 +427,64 @@ blockquote.block-warning {
   border-left-color: var(--md-secondary);
 }
 
+// Publications search filter
+#bibsearch.bibsearch-form-input {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0.5rem 0 1.75rem;
+}
+
 // Main content area sits on surface over background
 .container[role="main"] {
   background-color: var(--md-surface);
   border: 1px solid var(--md-outline-variant);
   border-radius: 4px;
+  padding-top: 2rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  padding-bottom: 2rem;
-  margin-top: 1.5rem !important;
+  padding-bottom: 2.5rem;
+  margin-top: 2rem !important;
   box-shadow: 0 1px 4px rgba(7, 41, 77, 0.04);
 }
 
 body.fixed-top-nav .container[role="main"] {
-  margin-top: 1.75rem !important;
+  margin-top: 2.25rem !important;
+}
+
+@media (min-width: 768px) {
+  .container[role="main"] {
+    padding-top: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 3rem;
+    margin-top: 2.5rem !important;
+  }
+
+  body.fixed-top-nav .container[role="main"] {
+    margin-top: 2.75rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .container[role="main"] {
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    margin-top: 1.25rem !important;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  body.fixed-top-nav .container[role="main"] {
+    margin-top: 1.5rem !important;
+  }
+
+  .post-header {
+    margin-bottom: 1.5rem;
+  }
 }
 
 html[data-theme="dark"] {
