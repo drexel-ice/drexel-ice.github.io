@@ -265,6 +265,27 @@ html[data-theme="dark"] {
   }
 }
 
+// About page profile card
+.profile {
+  .more-info {
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+// About page: keep slider full-width above floated profile
+.post article {
+  .featured-slider + .profile.float-right {
+    margin-top: 0;
+  }
+}
+
+// News archive page
+.page .news {
+  margin-top: 1rem;
+}
+
 // News table on homepage
 .news {
   th {

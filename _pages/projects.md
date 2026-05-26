@@ -15,7 +15,7 @@ Explore our current and completed research projects.
 <div class="projects">
 {% if site.enable_project_categories and page.display_categories %}
   {% for category in page.display_categories %}
-    <a id="{{ category }}" href=".#{{ category }}">
+    <a id="{{ category }}" href="#{{ category }}">
       {% if category == "active" %}
         <h2 class="category">Active Projects</h2>
       {% elsif category == "completed" %}
