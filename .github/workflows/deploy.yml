@@ -120,14 +120,13 @@ jobs:
             --max-retries 3
             --no-progress
             --max-concurrency 4
-            --base https://jiwanizakir.github.io/icelab-website/
-            /
-            /team/
-            /projects/
-            /research/
-            /publications/
-            /contact/
-            /blog/
-            /news/
+            https://jiwanizakir.github.io/icelab-website/
+            https://jiwanizakir.github.io/icelab-website/team/
+            https://jiwanizakir.github.io/icelab-website/projects/
+            https://jiwanizakir.github.io/icelab-website/research/
+            https://jiwanizakir.github.io/icelab-website/publications/
+            https://jiwanizakir.github.io/icelab-website/contact/
+            https://jiwanizakir.github.io/icelab-website/blog/
+            https://jiwanizakir.github.io/icelab-website/news/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
