@@ -1,0 +1,81 @@
+name: 📰 Add News Post
+description: Homepage announcement and blog post (opens a draft PR for review)
+labels: ["content", "content:news_post"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a **news post** for the ICE Lab website. Fill in the fields below — no JSON required.
+        A bot validates your submission and opens a **draft pull request**. Nothing goes live until a maintainer merges.
+
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: Publication date (YYYY-MM-DD)
+      placeholder: "2026-06-01"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Headline for the announcement
+      placeholder: Paper Accepted at ISCAS 2026
+    validations:
+      required: true
+
+  - type: textarea
+    id: body
+    attributes:
+      label: Body
+      description: Full announcement text (Markdown supported)
+      placeholder: |
+        Our paper on hardware obfuscation was accepted at ISCAS 2026.
+        Authors: ...
+    validations:
+      required: true
+
+  - type: input
+    id: slug-optional
+    attributes:
+      label: Slug (optional)
+      description: URL slug (auto-generated from title if blank)
+      placeholder: paper-accepted-iscas-2026
+    validations:
+      required: false
+
+  - type: input
+    id: short-description-optional
+    attributes:
+      label: Short description (optional)
+      description: Preview text for search and social cards
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: show-on-homepage
+    attributes:
+      label: Show on homepage
+      options:
+        - label: Show on homepage news table
+          required: false
+    validations:
+      required: false
+
+  - type: input
+    id: tags-comma-separated
+    attributes:
+      label: Tags (comma-separated)
+      placeholder: news, publications
+    validations:
+      required: false
+
+  - type: textarea
+    id: attachments-notes
+    attributes:
+      label: Attachments / notes
+      description: Links to images or extra context. Upload images in a follow-up comment if needed.
+    validations:
+      required: false

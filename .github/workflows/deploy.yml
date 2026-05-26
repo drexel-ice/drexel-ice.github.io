@@ -25,10 +25,11 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
-      - "!.github/**"
+      - ".github/workflows/**"
       - "!README.md"
       - "!CONTRIBUTING.md"
       - "!LICENSE"
+      - "!CONTENT.md"
       - "bin/**"
       - "purgecss.config.js"
 
@@ -128,3 +129,15 @@ jobs:
             https://jiwanizakir.github.io/icelab-website/news/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Smoke check publications page
+        run: |
+          python3 - <<'PY'
+          import re
+          import urllib.request
+          url = "https://jiwanizakir.github.io/icelab-website/publications/"
+          html = urllib.request.urlopen(url, timeout=30).read().decode("utf-8", errors="replace")
+          if re.search(r"\b2077\b", html):
+              raise SystemExit("Bad year 2077 found on publications page")
+          print("Publications smoke check passed.")
+          PY

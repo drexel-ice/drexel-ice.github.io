@@ -1,0 +1,66 @@
+name: 🔬 Add Research Project
+description: Add a research project page (opens a draft PR for review)
+labels: ["content", "content:project"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a **research project** for the ICE Lab website. A bot opens a **draft PR** for maintainer review.
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+    validations:
+      required: true
+
+  - type: input
+    id: slug-optional
+    attributes:
+      label: Slug (optional)
+      description: URL slug (auto-generated from title if blank)
+    validations:
+      required: false
+
+  - type: input
+    id: short-description
+    attributes:
+      label: Short description
+      description: One-line summary for project cards
+    validations:
+      required: true
+
+  - type: textarea
+    id: full-description
+    attributes:
+      label: Full description
+      description: Project page body (Markdown supported)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - active
+        - completed
+    validations:
+      required: true
+
+  - type: input
+    id: display-order-importance
+    attributes:
+      label: Display order / importance
+      description: Lower numbers appear first (default 5)
+      placeholder: "5"
+    validations:
+      required: false
+
+  - type: input
+    id: image-path-optional
+    attributes:
+      label: Image path (optional)
+      description: Project card image, e.g. assets/img/research/my-project.jpg
+    validations:
+      required: false

@@ -19,6 +19,13 @@
 - [ ] BibTeX entries are valid (if applicable)
 - [ ] Links are not broken
 
+### Content agent submissions
+
+- [ ] Intake JSON validates: `python3 bin/content/intake.py content-intake/...json`
+- [ ] Preflight passes: `python3 bin/content/validate.py --skip-build`
+- [ ] Expected live URLs documented in PR body
+- [ ] After merge: `python3 bin/content/verify_live.py --intake ...`
+
 ## Screenshots
 
 <!-- If applicable, add before/after screenshots -->

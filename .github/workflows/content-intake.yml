@@ -1,0 +1,161 @@
+name: Content Intake
+
+on:
+  issues:
+    types: [opened, edited]
+  push:
+    branches: [main]
+    paths:
+      - "content-intake/inbox/**/*.json"
+  workflow_dispatch:
+    inputs:
+      intake_path:
+        description: Path to intake JSON in repo (e.g. content-intake/examples/pilot-news.json)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  intake:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'content'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install bibtexparser
+
+      - name: Prepare intake JSON
+        id: intake
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ',') }}
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_INTAKE: ${{ github.event.inputs.intake_path }}
+        run: |
+          set -euo pipefail
+          mkdir -p content-intake
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            INTAKE="$MANUAL_INTAKE"
+            if [ ! -f "$INTAKE" ]; then
+              echo "Intake file not found: $INTAKE" >&2
+              exit 1
+            fi
+            export INTAKE
+            BRANCH=$(python3 - <<'PY'
+          import json, os
+          d = json.load(open(os.environ["INTAKE"]))
+          t = d["type"]
+          key = d.get("slug") or d.get("date") or d.get("year") or "item"
+          print(f"content/manual-{t}-{key}")
+          PY
+            )
+            TITLE="content: manual intake $(basename "$INTAKE")"
+          elif [ "$EVENT_NAME" = "push" ]; then
+            INTAKE=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | grep '^content-intake/inbox/.*\.json$' | head -1)
+            if [ -z "$INTAKE" ]; then
+              INTAKE=$(ls -1t content-intake/inbox/*.json 2>/dev/null | head -1)
+            fi
+            if [ -z "$INTAKE" ] || [ ! -f "$INTAKE" ]; then
+              echo "No inbox intake JSON found in push" >&2
+              exit 1
+            fi
+            BRANCH="content/inbox-$(basename "$INTAKE" .json)"
+            TITLE="content: inbox $(basename "$INTAKE")"
+          else
+            INTAKE="content-intake/issue-${ISSUE_NUMBER}.json"
+            printf '%s' "$ISSUE_BODY" > /tmp/issue-body.md
+            if ! python3 bin/content/from_issue.py \
+              --body-file /tmp/issue-body.md \
+              --output "$INTAKE" \
+              --labels "$ISSUE_LABELS"; then
+              exit 1
+            fi
+            TYPE=$(python3 -c "import json; print(json.load(open('$INTAKE'))['type'])")
+            BRANCH="content/issue-${ISSUE_NUMBER}-${TYPE}"
+            TITLE="content: issue #${ISSUE_NUMBER}"
+          fi
+
+          echo "path=$INTAKE" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+
+      - name: Validate intake
+        id: validate
+        env:
+          INTAKE_PATH: ${{ steps.intake.outputs.path }}
+        run: python3 bin/content/intake.py "$INTAKE_PATH" --write-normalized "$INTAKE_PATH"
+
+      - name: Post plan preview on issue
+        if: github.event_name == 'issues' && steps.validate.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INTAKE_PATH: ${{ steps.intake.outputs.path }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          PLAN=$(python3 bin/content/plan.py "$INTAKE_PATH")
+          gh issue comment "$ISSUE_NUMBER" --body "$PLAN"
+
+      - name: Relocate inbox file for PR commit
+        if: github.event_name == 'push'
+        env:
+          INTAKE_PATH: ${{ steps.intake.outputs.path }}
+        run: |
+          mkdir -p content-intake/processed
+          git mv "$INTAKE_PATH" "content-intake/processed/$(basename "$INTAKE_PATH")"
+          echo "path=content-intake/processed/$(basename "$INTAKE_PATH")" >> "$GITHUB_OUTPUT"
+        id: relocate
+
+      - name: Run content pipeline
+        uses: ./.github/actions/content-pipeline
+        with:
+          intake_path: ${{ steps.relocate.outputs.path || steps.intake.outputs.path }}
+          branch: ${{ steps.intake.outputs.branch }}
+          pr_title: ${{ steps.intake.outputs.title }}
+          draft: "true"
+          force_generate: "true"
+          skip_build: "true"
+
+      - name: Comment on issue
+        if: github.event_name == 'issues' && env.PR_URL != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_URL: ${{ env.PR_URL }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "Draft content PR opened: $PR_URL
+
+          Review the diff and CI checks. A maintainer will merge when ready."
+
+      - name: Report validation failure on issue
+        if: failure() && github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "Content intake failed. Check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+
+          Common fixes:
+          - Fill all required fields in the issue form
+          - Use YYYY-MM-DD for dates
+          - For publications, include venue and one author per line
+          - For advanced JSON, wrap intake in a \`\`\`json code block"

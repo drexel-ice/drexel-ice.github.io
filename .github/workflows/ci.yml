@@ -155,3 +155,34 @@ jobs:
               print(f'❌ BibTeX parse error: {e}')
               sys.exit(1)
           "
+
+  # ── Content Agent Preflight (REQUIRED on content tooling changes) ────────
+  content-validation:
+    name: Content Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: pip install bibtexparser
+
+      - name: Validate intake examples
+        run: |
+          for f in content-intake/examples/*.json; do
+            echo "Validating $f"
+            python3 bin/content/intake.py "$f"
+          done
+
+      - name: Check PDF paths
+        run: python3 bin/check_pdf_paths.py
+
+      - name: Content preflight
+        run: python3 bin/content/validate.py --skip-build

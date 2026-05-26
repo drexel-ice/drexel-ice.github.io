@@ -1,0 +1,90 @@
+name: Site snapshot
+
+on:
+  workflow_run:
+    workflows: ["Deploy site"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout main at deployed commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - name: Create snapshot tag and update manifest
+        env:
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          TAG="site-snapshot/$(date -u +%Y-%m-%dT%H%M%SZ)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Site snapshot after deploy run ${RUN_ID}"
+          git push origin "$TAG"
+
+          python3 - <<'PY'
+          import json
+          import os
+          import subprocess
+          from datetime import datetime, timezone
+
+          sha = os.environ["HEAD_SHA"]
+          tag = subprocess.check_output(["git", "describe", "--tags", "--exact-match"], text=True).strip()
+          changed = subprocess.check_output(
+              ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", sha],
+              text=True,
+          ).splitlines()
+          content_prefixes = ("_posts/", "_news/", "_team/", "_projects/", "_bibliography/", "_data/", "content-intake/")
+          changed_files = [p for p in changed if p.startswith(content_prefixes)]
+
+          path = "content-snapshots/manifest.json"
+          try:
+              entries = json.loads(open(path).read())
+          except (FileNotFoundError, json.JSONDecodeError):
+              entries = []
+          entries.append({
+              "tag": tag,
+              "commit": sha,
+              "deployed_at": datetime.now(timezone.utc).isoformat(),
+              "workflow_run_id": int(os.environ["RUN_ID"]),
+              "changed_files": changed_files,
+          })
+          open(path, "w").write(json.dumps(entries, indent=2) + "\n")
+          PY
+
+      - name: Commit manifest update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-snapshots/manifest.json
+          if git diff --cached --quiet; then
+            echo "Manifest unchanged"
+            exit 0
+          fi
+          git commit -m "chore: record site snapshot in manifest"
+          git push origin HEAD:main
+
+      - name: Upload content dirs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-snapshot-${{ github.event.workflow_run.head_sha }}
+          retention-days: 90
+          path: |
+            _posts/
+            _news/
+            _team/
+            _projects/
+            _bibliography/papers.bib
+            _data/featured_slides.yml
+            content-intake/pending/

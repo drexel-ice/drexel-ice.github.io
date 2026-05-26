@@ -1,0 +1,52 @@
+name: ⚙️ Add Content (Advanced JSON)
+description: Power-user intake via raw JSON (opens a draft PR for review)
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit structured content using **intake JSON** (for maintainers and advanced users).
+        See [content-schemas/](../../content-schemas/) and [content-intake/examples/](../../content-intake/examples/).
+
+        For most lab members, use the typed forms: **Add News Post**, **Add Publication**, etc.
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Content Type
+      description: Must match the `"type"` field in your JSON
+      options:
+        - news_post
+        - news_brief
+        - publication
+        - team_member
+        - project
+    validations:
+      required: true
+
+  - type: textarea
+    id: intake-json
+    attributes:
+      label: Intake JSON
+      description: Paste validated JSON in a ```json code block
+      placeholder: |
+        ```json
+        {
+          "type": "news_post",
+          "date": "2026-06-01",
+          "title": "Paper Accepted at ISCAS 2026",
+          "body_markdown": "Full announcement text...",
+          "show_on_homepage": true,
+          "tags": ["news"]
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: attachments-notes
+    attributes:
+      label: Attachments / notes
+      description: Link to photos or PDFs (upload separately in a follow-up comment if needed)
+    validations:
+      required: false

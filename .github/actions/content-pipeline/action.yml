@@ -1,0 +1,66 @@
+name: Content Pipeline
+description: Validate intake JSON, generate site files, and open a content PR
+
+inputs:
+  intake_path:
+    description: Path to intake JSON in the repo
+    required: true
+  branch:
+    description: Git branch name for the content PR
+    required: true
+  pr_title:
+    description: Pull request title
+    required: true
+  draft:
+    description: Open a draft PR
+    required: false
+    default: "true"
+  force_generate:
+    description: Skip pending/plan approval gate in generate.py
+    required: false
+    default: "true"
+  skip_build:
+    description: Skip Jekyll build in validate.py
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Validate intake
+      shell: bash
+      run: python3 bin/content/intake.py "${{ inputs.intake_path }}" --write-normalized "${{ inputs.intake_path }}"
+
+    - name: Generate content files
+      shell: bash
+      run: |
+        if [ "${{ inputs.force_generate }}" = "true" ]; then
+          python3 bin/content/generate.py "${{ inputs.intake_path }}" --force
+        else
+          python3 bin/content/generate.py "${{ inputs.intake_path }}"
+        fi
+
+    - name: Preflight validate
+      shell: bash
+      run: |
+        if [ "${{ inputs.skip_build }}" = "true" ]; then
+          python3 bin/content/validate.py --skip-build
+        else
+          python3 bin/content/validate.py
+        fi
+
+    - name: Create branch and PR
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        DRAFT_FLAG="--draft"
+        if [ "${{ inputs.draft }}" != "true" ]; then
+          DRAFT_FLAG="--no-draft"
+        fi
+        python3 bin/content/publish_ci.py \
+          --intake "${{ inputs.intake_path }}" \
+          --branch "${{ inputs.branch }}" \
+          --title "${{ inputs.pr_title }}" \
+          $DRAFT_FLAG \
+          --force-push

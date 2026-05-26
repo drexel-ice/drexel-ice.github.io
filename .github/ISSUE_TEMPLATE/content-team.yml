@@ -1,0 +1,87 @@
+name: 👤 Add Team Member
+description: Add or update a team profile (opens a draft PR for review)
+labels: ["content", "content:team_member"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a **team member profile**. A bot opens a **draft PR** for maintainer review.
+        Upload a headshot in a follow-up comment (roughly square, ≥400×400 px).
+
+  - type: input
+    id: full-name
+    attributes:
+      label: Full name
+      placeholder: Jane Doe
+    validations:
+      required: true
+
+  - type: input
+    id: slug-optional
+    attributes:
+      label: Slug (optional)
+      description: URL slug (auto-generated from name if blank)
+      placeholder: jane-doe
+    validations:
+      required: false
+
+  - type: input
+    id: role-title
+    attributes:
+      label: Role / title
+      placeholder: Ph.D. Student
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      placeholder: jdoe@drexel.edu
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - faculty
+        - phd
+        - alumni
+    validations:
+      required: true
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: Bio
+      description: Profile text (Markdown supported)
+    validations:
+      required: true
+
+  - type: input
+    id: photo-path-in-repo
+    attributes:
+      label: Photo path in repo
+      description: Where the headshot will live (default assets/img/team/{slug}.jpg)
+      placeholder: assets/img/team/jane-doe.jpg
+    validations:
+      required: false
+
+  - type: input
+    id: display-order-importance
+    attributes:
+      label: Display order / importance
+      description: Lower numbers appear first (default 5)
+      placeholder: "5"
+    validations:
+      required: false
+
+  - type: textarea
+    id: attachments-notes
+    attributes:
+      label: Attachments / notes
+      description: Attach headshot in a comment on this issue after submitting.
+    validations:
+      required: false

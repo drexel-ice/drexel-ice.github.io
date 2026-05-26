@@ -1,0 +1,95 @@
+name: 📄 Add Publication
+description: Add a BibTeX entry and publication listing (opens a draft PR for review)
+labels: ["content", "content:publication"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a **publication** for the ICE Lab website. A bot adds a BibTeX entry and opens a **draft PR**.
+        Upload PDFs separately (see notes below).
+
+  - type: dropdown
+    id: entry-type
+    attributes:
+      label: Entry type
+      description: BibTeX entry type
+      options:
+        - inproceedings
+        - article
+        - phdthesis
+        - book
+        - incollection
+        - misc
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+    validations:
+      required: true
+
+  - type: textarea
+    id: authors-one-per-line
+    attributes:
+      label: Authors (one per line)
+      description: Full author names, one per line
+      placeholder: |
+        A. Author
+        B. Coauthor
+        I. Savidis
+    validations:
+      required: true
+
+  - type: input
+    id: venue-journal-or-conference
+    attributes:
+      label: Venue (journal or conference)
+      placeholder: IEEE ISCAS
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      placeholder: "2026"
+    validations:
+      required: true
+
+  - type: input
+    id: abbreviation-optional
+    attributes:
+      label: Abbreviation (optional)
+      description: Short venue label for the publications page
+      placeholder: ISCAS
+    validations:
+      required: false
+
+  - type: input
+    id: pdf-path-relative-to-assets-pdf
+    attributes:
+      label: PDF path (relative to assets/pdf/)
+      description: e.g. conferences/MyPaper_ISCAS_2026.pdf — leave blank if uploading later
+      placeholder: conferences/MyPaper_ISCAS_2026.pdf
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: feature-on-homepage
+    attributes:
+      label: Feature on homepage
+      options:
+        - label: Highlight on homepage publications list
+          required: false
+    validations:
+      required: false
+
+  - type: textarea
+    id: attachments-notes
+    attributes:
+      label: Attachments / notes
+      description: Comment on this issue with the PDF file, or note that a maintainer will add it in the PR.
+    validations:
+      required: false

@@ -104,11 +104,11 @@ Add a BibTeX entry to `_bibliography/papers.bib`:
   year      = {2026},
   abbr      = {ISCAS},
   selected  = {true},
-  pdf       = {assets/pdf/conferences/your-paper.pdf},
+  pdf       = {conferences/your-paper.pdf},
 }
 ```
 
-Upload the PDF to `assets/pdf/` (subfolders: `journals/`, `conferences/`, `dissertations/`, `tutorials/`).
+The `pdf` path is **relative to `assets/pdf/`** (do not include the `assets/pdf/` prefix). Upload the file to `assets/pdf/` (subfolders: `journals/`, `conferences/`, `dissertations/`, `tutorials/`).
 
 ## Adding a Project
 
@@ -156,7 +156,8 @@ Categories: `faculty`, `phd`, `alumni`.
 
 ## Maintenance scripts
 
-- `bin/check_pdf_paths.py` — verify every `pdf = {...}` entry in `papers.bib` has a file under `assets/pdf/`
+- `bin/check_pdf_paths.py` — verify every `pdf = {...}` entry in `papers.bib` has a matching file under `assets/pdf/` (paths are relative to that folder, e.g. `conferences/file.pdf`)
+- `bin/content/cli.py` — agent-assisted content workflow (validate → generate → publish)
 
 ## Formatting
 

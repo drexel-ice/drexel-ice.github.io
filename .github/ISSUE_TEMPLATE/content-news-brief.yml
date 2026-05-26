@@ -1,0 +1,35 @@
+name: 📌 Add News Brief
+description: Short homepage-only announcement (opens a draft PR for review)
+labels: ["content", "content:news_brief"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a **brief homepage note** (no full blog page). A bot opens a **draft PR** for maintainer review.
+
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: Display date (YYYY-MM-DD)
+      placeholder: "2026-06-01"
+    validations:
+      required: true
+
+  - type: textarea
+    id: body
+    attributes:
+      label: Brief text
+      description: Short announcement (Markdown supported)
+      placeholder: |
+        **PhD openings** — We are recruiting students for Fall 2026. [Contact us]({{ '/contact/' | relative_url }}).
+    validations:
+      required: true
+
+  - type: input
+    id: slug-optional
+    attributes:
+      label: Slug (optional)
+      description: Auto-generated from text if blank
+    validations:
+      required: false
