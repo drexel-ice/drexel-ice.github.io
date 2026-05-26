@@ -3,6 +3,9 @@ layout: about
 title: about
 permalink: /
 hide_title: true
+featured_slider: true
+images:
+  slider: true
 subtitle: >
   <strong>Integrated Circuits & Electronics Design and Analysis Laboratory</strong><br>
   Department of Electrical & Computer Engineering, Drexel University

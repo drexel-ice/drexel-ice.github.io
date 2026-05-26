@@ -17,6 +17,10 @@ layout: default
   </header>
 
   <article>
+    {% if page.featured_slider %}
+      {% include featured_slider.liquid %}
+    {% endif %}
+
     {% if page.profile %}
       <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
         {% if page.profile.image %}

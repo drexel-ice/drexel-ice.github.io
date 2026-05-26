@@ -11,6 +11,7 @@ This guide is for lab members who want to add news, team profiles, projects, or 
 | Project cards | `_projects/*.md` |
 | Team page | `_team/*.md` |
 | Short homepage announcements | `_news/YYYY-MM-DD-title.md` |
+| Homepage featured slider | `_data/featured_slides.yml` |
 | Full news archive (blog) | `_posts/YYYY-MM-DD-title.md` |
 | Publications list | `_bibliography/papers.bib` |
 | PDF reprints | `assets/pdf/` |
@@ -42,6 +43,26 @@ related_posts: false
 ```
 
 2. Open a pull request. CI will build the site and check formatting.
+
+### Update the homepage featured slider
+
+The rotating banner at the top of the homepage is configured in `_data/featured_slides.yml`. Each slide needs:
+
+- `image` — path to a photo in `assets/img/` (place banner images in `assets/img/banners/`)
+- `title` — headline shown on the slide
+- `caption` — optional short description
+- `link` — where the slide goes when clicked (e.g. `/news/2026-06-01-your-title/`)
+
+Example:
+
+```yaml
+- image: assets/img/banners/your-banner.jpg
+  title: Paper Accepted at ISCAS 2026
+  caption: Our work on hardware obfuscation was accepted.
+  link: /news/2026-06-01-your-title/
+```
+
+Add, remove, or reorder entries in that file. Slides autoplay every 6 seconds and link to the news item or blog post you specify.
 
 ### Add a full news / blog post
 
