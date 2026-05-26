@@ -11,29 +11,40 @@ nav_order: 6
 
 The ICE Lab is located in the **Bossone Research Enterprise Center** at Drexel University.
 
-<div class="row mt-3">
-<div class="col-sm-6">
+<div class="row mt-4 contact-location">
+  <div class="col-md-6 mb-4 mb-md-0">
+    <div class="contact-card">
+      <h3 class="contact-card__heading">Mailing Address</h3>
+      <address class="contact-card__address">
+        ICE Lab<br>
+        Department of Electrical &amp; Computer Engineering<br>
+        Drexel University<br>
+        3140 Market Street<br>
+        Philadelphia, PA 19104
+      </address>
 
-**Mailing Address:**
-
-ICE Lab<br>
-Department of Electrical & Computer Engineering<br>
-Drexel University<br>
-3140 Market Street<br>
-Philadelphia, PA 19104
-
-**Primary Contact:** [Prof. Ioannis Savidis](https://ece.drexel.edu/savidis/)<br>
-**Email:** [isavidis@coe.drexel.edu](mailto:isavidis@coe.drexel.edu)<br>
-**Phone:** (215) 571-4584
-
-</div>
-<div class="col-sm-6">
-
-<div class="card rounded z-depth-1 overflow-hidden">
-<iframe src="https://www.google.com/maps?q=Bossone+Research+Enterprise+Center,+3140+Market+Street,+Philadelphia,+PA+19104&amp;hl=en&amp;z=16&amp;output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ICE Lab location at Bossone Research Enterprise Center, Drexel University"></iframe>
-</div>
-
-</div>
+      <h3 class="contact-card__heading">Primary Contact</h3>
+      <ul class="contact-card__list">
+        <li>
+          <span class="contact-card__label">Name</span>
+          <a href="https://ece.drexel.edu/savidis/" rel="external nofollow noopener" target="_blank">Prof. Ioannis Savidis</a>
+        </li>
+        <li>
+          <span class="contact-card__label">Email</span>
+          <a href="mailto:isavidis@coe.drexel.edu">isavidis@coe.drexel.edu</a>
+        </li>
+        <li>
+          <span class="contact-card__label">Phone</span>
+          <a href="tel:+12155714584">(215) 571-4584</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="contact-map card rounded z-depth-1 overflow-hidden">
+      <iframe src="https://www.google.com/maps?q=Bossone+Research+Enterprise+Center,+3140+Market+Street,+Philadelphia,+PA+19104&amp;hl=en&amp;z=16&amp;output=embed" width="100%" height="100%" style="border:0; min-height: 280px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="ICE Lab location at Bossone Research Enterprise Center, Drexel University"></iframe>
+    </div>
+  </div>
 </div>
 
 ---

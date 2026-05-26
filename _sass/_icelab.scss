@@ -557,6 +557,105 @@ html[data-theme="dark"] {
   color: var(--md-heading-color);
 }
 
+// Contact page — location card + map
+.contact-location {
+  align-items: stretch;
+}
+
+.contact-card {
+  height: 100%;
+  padding: 1.35rem 1.5rem;
+  background-color: var(--md-surface-variant);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 4px;
+}
+
+.contact-card__heading {
+  margin: 0 0 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--md-text-secondary);
+}
+
+.contact-card__heading + .contact-card__heading {
+  margin-top: 1.35rem;
+}
+
+.contact-card__address {
+  margin: 0 0 0.25rem;
+  font-style: normal;
+  line-height: 1.65;
+  color: var(--md-text-primary);
+}
+
+.contact-card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.45rem 0;
+    border-top: 1px solid var(--md-outline-variant);
+
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+}
+
+.contact-card__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--md-text-secondary);
+}
+
+.contact-card a,
+.post article .contact-card a {
+  color: var(--md-primary-600);
+  text-decoration: none;
+  word-break: break-word;
+
+  &:hover {
+    color: var(--md-primary-800);
+    text-decoration: underline;
+  }
+}
+
+.contact-map {
+  height: 100%;
+  min-height: 280px;
+  border: 1px solid var(--md-outline-variant);
+}
+
+html[data-theme="dark"] {
+  .contact-card {
+    background-color: var(--md-primary-900);
+    border-color: var(--md-outline);
+  }
+
+  .contact-card a {
+    color: var(--md-primary-300);
+
+    &:hover {
+      color: var(--md-secondary);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-card__list li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
 // Links in body text
 .post article a:not(.btn):not(.card):not(.news-title) {
   color: var(--md-primary-600);
