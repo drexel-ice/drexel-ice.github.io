@@ -64,8 +64,8 @@ body:
     id: photo-path-in-repo
     attributes:
       label: Photo path in repo
-      description: Where the headshot will live (default assets/img/team/{slug}.jpg)
-      placeholder: assets/img/team/jane-doe.jpg
+      description: Square headshot, at least 800×800 px (saved as assets/img/team/{slug}.jpeg)
+      placeholder: assets/img/team/jane-doe.jpeg
     validations:
       required: false
 

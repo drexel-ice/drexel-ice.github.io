@@ -2,7 +2,7 @@
 layout: page
 title: Alec Aversa
 description: Ph.D. Student | aja367@drexel.edu
-img: assets/img/team/alec-aversa.jpg
+img: assets/img/team/alec-aversa.jpeg
 importance: 5
 category: phd
 ---

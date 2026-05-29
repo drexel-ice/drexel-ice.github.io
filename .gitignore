@@ -24,7 +24,9 @@ Thumbs.db
 *.swp
 *~
 
-# IDE
+# Local originals backup (run bin/normalize_team_photos.py)
+assets/img/team/_originals/
+
 .idea/
 .vscode/
 *.code-workspace

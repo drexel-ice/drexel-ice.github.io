@@ -2,7 +2,7 @@
 layout: page
 title: Dr. Divy Pathak
 description: Ph.D. | divya.pathak@dragons.drexel.edu
-img: assets/img/team/divya-pathak.jpg
+img: assets/img/team/divya-pathak.jpeg
 importance: 2
 category: alumni
 ---

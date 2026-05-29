@@ -137,7 +137,7 @@ Create a file in `_team/` with this template:
 layout: page
 title: First Last
 description: Ph.D. Student | email@drexel.edu
-img: assets/img/team/first-last.jpg
+img: assets/img/team/first-last.jpeg
 importance: 1
 category: phd
 ---
@@ -149,7 +149,7 @@ Categories: `faculty`, `phd`, `alumni`.
 
 ## Image conventions
 
-- Team photos: `assets/img/team/{slug}.jpg`
+- Team photos: `assets/img/team/{slug}.jpeg` — square, at least 800×800 px (`python3 bin/normalize_team_photos.py`)
 - Research figures: `assets/img/research/{topic}.jpg`
 - Project thumbnails: `assets/img/projects/{slug}.jpg` (optional)
 - Publication PDFs: `assets/pdf/{journals,conferences,dissertations,tutorials}/`

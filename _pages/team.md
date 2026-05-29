@@ -12,7 +12,7 @@ horizontal: false
 Meet the researchers and students driving innovation at the ICE Lab.
 
 <!-- _pages/team.md -->
-<div class="projects">
+<div class="projects team-members">
 {% if site.enable_project_categories and page.display_categories %}
   {% for category in page.display_categories %}
     {% assign categorized_members = site.team | where: "category", category %}

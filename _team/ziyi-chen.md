@@ -2,7 +2,7 @@
 layout: page
 title: Ziyi Chen
 description: Ph.D. Student | zc372@drexel.edu
-img: assets/img/team/ziyi-chen.png
+img: assets/img/team/ziyi-chen.jpeg
 importance: 3
 category: phd
 ---

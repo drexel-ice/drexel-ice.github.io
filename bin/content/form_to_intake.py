@@ -128,7 +128,7 @@ def build_intake(content_type: str, sections: dict[str, str]) -> dict[str, Any]:
             "category": field(sections, "category"),
             "bio_markdown": field(sections, "bio", "bio_markdown"),
             "photo_path": field(sections, "photo_path_in_repo", "photo_path")
-            or f"assets/img/team/{slug}.jpg",
+            or f"assets/img/team/{slug}.jpeg",
             "importance": parse_int(field(sections, "display_order_importance", "importance"), 5),
         }
 

@@ -2,7 +2,7 @@
 layout: page
 title: Pratik Shrestha
 description: Ph.D. Student | ps937@drexel.edu
-img: assets/img/team/pratik-shrestha.png
+img: assets/img/team/pratik-shrestha.jpeg
 importance: 1
 category: phd
 ---
