@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Pratik Shrestha
 description: Ph.D. Student | ps937@drexel.edu
 img: assets/img/team/pratik-shrestha.jpeg

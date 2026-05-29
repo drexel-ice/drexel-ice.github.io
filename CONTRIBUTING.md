@@ -134,7 +134,7 @@ Create a file in `_team/` with this template:
 
 ```markdown
 ---
-layout: page
+layout: team
 title: First Last
 description: Ph.D. Student | email@drexel.edu
 img: assets/img/team/first-last.jpeg
@@ -145,7 +145,7 @@ category: phd
 Bio and research interests...
 ```
 
-Categories: `faculty`, `phd`, `alumni`.
+Categories: `faculty`, `phd`, `masters`, `alumni`.
 
 ## Image conventions
 

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Dr. Shazzad Hossain
 description: Staff Engineer, Qualcomm | msh89@dragons.drexel.edu
 img: assets/img/team/shazzad-hossain.jpeg

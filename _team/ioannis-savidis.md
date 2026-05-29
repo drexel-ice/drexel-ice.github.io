@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Ioannis Savidis
 description: Associate Professor | isavidis@coe.drexel.edu
 img: assets/img/team/ioannis-savidis.jpeg

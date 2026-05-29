@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Saran Phatharodom
 description: Ph.D. Student
 img: assets/img/team/saran-phatharodom.jpeg

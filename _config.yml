@@ -151,6 +151,8 @@ collections:
   projects:
     output: true
   team:
+    defaults:
+      layout: team
     output: true
 
 # -----------------------------------------------------------------------------

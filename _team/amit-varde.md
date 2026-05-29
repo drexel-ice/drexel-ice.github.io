@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Amit Varde
 description: Ph.D. Student | avv39@drexel.edu
 img: assets/img/team/amit-varde.jpeg

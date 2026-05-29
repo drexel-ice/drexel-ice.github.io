@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Alec Aversa
 description: Ph.D. Student | aja367@drexel.edu
 img: assets/img/team/alec-aversa.jpeg

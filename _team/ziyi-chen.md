@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Ziyi Chen
 description: Ph.D. Student | zc372@drexel.edu
 img: assets/img/team/ziyi-chen.jpeg

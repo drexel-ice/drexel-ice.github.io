@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Nnaemeka Achebe
 description: Ph.D. Student | nma334@drexel.edu
 img: assets/img/team/nnaemeka-achebe.jpeg

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: {{ name }}
 description: {{ role }} | {{ email }}
 img: {{ photo_path }}

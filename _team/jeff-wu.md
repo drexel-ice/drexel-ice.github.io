@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Jeff Wu
 description: Ph.D. Student | jw3723@drexel.edu
 img: assets/img/team/jeff-wu.jpeg

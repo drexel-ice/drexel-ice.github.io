@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Ashish Sharma
 description: Ph.D. Student | as5463@drexel.edu
 img: assets/img/team/ashish-sharma.jpeg

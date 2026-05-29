@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: team
 title: Dr. Divy Pathak
 description: Ph.D. | divya.pathak@dragons.drexel.edu
 img: assets/img/team/divya-pathak.jpeg

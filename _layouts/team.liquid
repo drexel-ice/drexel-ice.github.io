@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<div class="post team-profile">
+  <p class="team-profile-back">
+    <a href="{{ '/team/' | relative_url }}">&larr; Back to team</a>
+  </p>
+
+  <header class="team-profile-header">
+    {% if page.img %}
+      <div class="team-profile-photo">
+        {%
+          include figure.liquid
+          loading="eager"
+          path=page.img
+          alt=page.title
+          sizes="(min-width: 768px) 280px, 70vw"
+        %}
+      </div>
+    {% endif %}
+
+    <div class="team-profile-meta">
+      <h1 class="post-title">{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="post-description">{{ page.description }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <article class="team-profile-bio">
+    {{ content }}
+  </article>
+
+  {% if page.related_publications %}
+    <h2>References</h2>
+    <div class="publications">
+      {% bibliography --cited_in_order %}
+    </div>
+  {% endif %}
+
+  {% if site.giscus and page.giscus_comments %}
+    {% include giscus.liquid %}
+  {% endif %}
+</div>
