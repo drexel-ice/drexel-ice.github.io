@@ -78,7 +78,7 @@ def render_plan(data: dict[str, Any], meta: dict[str, Any], risks: list[str]) ->
     lines.extend(["", "## Expected live URLs after maintainer merge"])
     for url in meta.get("urls", []):
         if url.startswith("/"):
-            lines.append(f"- https://jiwanizakir.github.io/icelab-website{url}")
+            lines.append(f"- https://drexel-ice.github.io{url}")
         else:
             lines.append(f"- {url}")
 

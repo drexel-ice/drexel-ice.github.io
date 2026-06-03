@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📰 Add website content (issue forms)
-    url: https://github.com/jiwanizakir/icelab-website/issues/new/choose
+    url: https://github.com/drexel-ice/drexel-ice.github.io/issues/new/choose
     about: Submit news, publications, team profiles, or projects — opens a draft PR.
   - name: 📖 Contributing Guide
-    url: https://github.com/jiwanizakir/icelab-website/blob/main/CONTRIBUTING.md
+    url: https://github.com/drexel-ice/drexel-ice.github.io/blob/main/CONTRIBUTING.md
     about: Developer setup and manual editing workflows.

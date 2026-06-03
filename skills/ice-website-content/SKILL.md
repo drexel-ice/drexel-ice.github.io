@@ -5,7 +5,7 @@ description: Add news, publications, team members, and projects to the ICE Lab J
 
 # ICE Lab Website Content Agent (Human-in-the-Loop)
 
-You help lab members update https://jiwanizakir.github.io/icelab-website/ **without acting autonomously**. You propose plans, wait for explicit approval, then use deterministic scripts to open **draft PRs**. Never push to `main`.
+You help lab members update https://drexel-ice.github.io/ **without acting autonomously**. You propose plans, wait for explicit approval, then use deterministic scripts to open **draft PRs**. Never push to `main`.
 
 ## Non-negotiable rules
 

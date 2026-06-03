@@ -77,19 +77,19 @@ def main() -> int:
     elif content_type == "news_brief":
         branch = args.branch or f"content/brief-{data['date']}-{data['slug']}"
         pr_title = args.title or f"content: news brief {data['date']}"
-        live_url = "/icelab-website/news/"
+        live_url = "/news/"
     elif content_type == "publication":
         branch = args.branch or f"content/pub-{data['year']}-{slugify_title(data['title'])}"
         pr_title = args.title or f"content: add publication — {data['title'][:60]}"
-        live_url = "https://jiwanizakir.github.io/icelab-website/publications/"
+        live_url = "https://drexel-ice.github.io/publications/"
     elif content_type == "team_member":
         branch = args.branch or f"content/team-{data['slug']}"
         pr_title = args.title or f"content: add team member {data['name']}"
-        live_url = "https://jiwanizakir.github.io/icelab-website/team/"
+        live_url = "https://drexel-ice.github.io/team/"
     elif content_type == "project":
         branch = args.branch or f"content/project-{data['slug']}"
         pr_title = args.title or f"content: add project {data['title'][:60]}"
-        live_url = "https://jiwanizakir.github.io/icelab-website/projects/"
+        live_url = "https://drexel-ice.github.io/projects/"
     else:
         print(f"Unsupported type: {content_type}", file=sys.stderr)
         return 1

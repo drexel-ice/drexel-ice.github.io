@@ -60,4 +60,4 @@ Run live verification:
 python3 bin/content/verify_live.py --intake content-intake/pending/<thread>/intake.json
 ```
 
-Or spot-check https://jiwanizakir.github.io/icelab-website/
+Or spot-check https://drexel-ice.github.io/

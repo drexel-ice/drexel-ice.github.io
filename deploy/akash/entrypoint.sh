@@ -3,7 +3,7 @@ set -euo pipefail
 
 HERMES_HOME="${HERMES_HOME:-/opt/data}"
 REPO_DIR="${REPO_DIR:-/data/icelab-website}"
-REPO_URL="${REPO_URL:-https://github.com/JiwaniZakir/icelab-website.git}"
+REPO_URL="${REPO_URL:-https://github.com/drexel-ice/drexel-ice.github.io.git}"
 SKILL_SRC="${REPO_DIR}/skills/ice-website-content/SKILL.md"
 
 mkdir -p "$HERMES_HOME/skills/ice-website-content" "$REPO_DIR"

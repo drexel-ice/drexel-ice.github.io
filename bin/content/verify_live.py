@@ -14,7 +14,7 @@ from pathlib import Path
 from common import blog_url_full
 from intake import validate_intake
 
-BASE = "https://jiwanizakir.github.io/icelab-website"
+BASE = "https://drexel-ice.github.io"
 
 
 def fetch(url: str) -> tuple[int, str]:

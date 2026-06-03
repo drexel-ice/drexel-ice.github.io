@@ -4,7 +4,7 @@
 
 Built with [al-folio](https://github.com/alshedivat/al-folio) and deployed automatically via GitHub Actions to GitHub Pages.
 
-**Live site:** https://jiwanizakir.github.io/icelab-website/
+**Live site:** https://drexel-ice.github.io/
 
 ---
 
@@ -31,7 +31,7 @@ docker compose up
 # Or native Ruby
 bundle install
 bundle exec jekyll serve
-# Visit http://localhost:4000/icelab-website/
+# Visit http://localhost:4000/
 ```
 
 ## Repository Structure
@@ -56,7 +56,7 @@ bundle exec jekyll serve
 
 ## Deployment
 
-Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds the site with Jekyll and publishes `_site/` to the `gh-pages` branch. GitHub Pages serves that branch at `/icelab-website`.
+Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds the site with Jekyll and publishes `_site/` to the `gh-pages` branch. GitHub Pages serves that branch at https://drexel-ice.github.io/.
 
 Pull requests run `.github/workflows/ci.yml` (build, YAML lint, BibTeX validation).
 

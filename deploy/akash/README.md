@@ -7,7 +7,7 @@ Google Chat is the input channel. Hermes runs on Akash with **human-in-the-loop*
 - [Akash Console](https://console.akash.network) account (free trial OK for POC — **24h max lease**)
 - Personal GCP project with Chat app + Pub/Sub ([gcp-setup.md](gcp-setup.md))
 - Google Chat space **ICE Lab Website Updates**
-- Fine-grained GitHub PAT (`GH_TOKEN`): Contents + Pull requests on `icelab-website`
+- Fine-grained GitHub PAT (`GH_TOKEN`): Contents + Pull requests on `drexel-ice.github.io`
 - LLM API key (e.g. OpenRouter)
 
 ## Build and push image

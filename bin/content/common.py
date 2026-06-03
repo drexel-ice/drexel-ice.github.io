@@ -54,7 +54,7 @@ def blog_url(date: str, slug: str) -> str:
     return f"/blog/{year}/{slug}/"
 
 
-def blog_url_full(date: str, slug: str, baseurl: str = "/icelab-website") -> str:
+def blog_url_full(date: str, slug: str, baseurl: str = "") -> str:
     return f"{baseurl.rstrip('/')}{blog_url(date, slug)}"
 
 

@@ -119,14 +119,14 @@ jobs:
             --max-retries 3
             --no-progress
             --max-concurrency 4
-            https://jiwanizakir.github.io/icelab-website/
-            https://jiwanizakir.github.io/icelab-website/team/
-            https://jiwanizakir.github.io/icelab-website/projects/
-            https://jiwanizakir.github.io/icelab-website/research/
-            https://jiwanizakir.github.io/icelab-website/publications/
-            https://jiwanizakir.github.io/icelab-website/contact/
-            https://jiwanizakir.github.io/icelab-website/blog/
-            https://jiwanizakir.github.io/icelab-website/news/
+            https://drexel-ice.github.io/
+            https://drexel-ice.github.io/team/
+            https://drexel-ice.github.io/projects/
+            https://drexel-ice.github.io/research/
+            https://drexel-ice.github.io/publications/
+            https://drexel-ice.github.io/contact/
+            https://drexel-ice.github.io/blog/
+            https://drexel-ice.github.io/news/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -135,7 +135,7 @@ jobs:
           python3 - <<'PY'
           import re
           import urllib.request
-          url = "https://jiwanizakir.github.io/icelab-website/publications/"
+          url = "https://drexel-ice.github.io/publications/"
           html = urllib.request.urlopen(url, timeout=30).read().decode("utf-8", errors="replace")
           if re.search(r"\b2077\b", html):
               raise SystemExit("Bad year 2077 found on publications page")

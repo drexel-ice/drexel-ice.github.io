@@ -5,7 +5,7 @@ services:
     image: ghcr.io/jiwanizakir/icelab-hermes:0.1.0
     env:
       - MESSAGING_CWD=/data/icelab-website
-      - REPO_URL=https://github.com/JiwaniZakir/icelab-website.git
+      - REPO_URL=https://github.com/drexel-ice/drexel-ice.github.io.git
       - GOOGLE_CHAT_PROJECT_ID=your-gcp-project-id
       - GOOGLE_CHAT_SUBSCRIPTION_NAME=projects/your-gcp-project-id/subscriptions/hermes-chat-events-sub
       - GOOGLE_CHAT_SERVICE_ACCOUNT_JSON=/opt/data/google-chat-sa.json

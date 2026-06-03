@@ -4,7 +4,7 @@ This guide is for lab members who want to add news, team profiles, projects, or 
 
 ## Recommended: GitHub issue forms (no JSON, no LLM)
 
-1. Open **[New Issue](https://github.com/JiwaniZakir/icelab-website/issues/new/choose)** on the repo.
+1. Open **[New Issue](https://github.com/drexel-ice/drexel-ice.github.io/issues/new/choose)** on the repo.
 2. Choose the right template:
    - **Add News Post** — optional homepage line + **full blog article** (use when the story needs its own page)
    - **Add News Brief** — homepage / news page only (no blog page)
@@ -91,7 +91,7 @@ python3 bin/content/cli.py publish $INTAKE
 1. Submit via issue form (or inbox JSON)
 2. Bot opens **draft PR** → CI runs (build, BibTeX, content validation)
 3. Maintainer reviews diff + CI
-4. Merge to `main` → deploys to https://jiwanizakir.github.io/icelab-website/
+4. Merge to `main` → deploys to https://drexel-ice.github.io/
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for developer setup.
 
