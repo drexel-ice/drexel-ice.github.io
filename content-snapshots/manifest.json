@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "tag": "site-snapshot/2026-06-10T174633Z",
+    "commit": "f6fcd4f5def53551311c33a0fbadec6ca5830769",
+    "deployed_at": "2026-06-10T17:46:34.347600+00:00",
+    "workflow_run_id": 27294741481,
+    "changed_files": []
+  }
+]
