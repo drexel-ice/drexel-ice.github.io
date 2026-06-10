@@ -194,7 +194,7 @@
     {% assign entrytype_text = entrytype | strip_html | strip %}
     {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %}, {% endif %}{{ entrymonth }}{{ entryyear }}{% endcapture %}
     <div class="periodical">{{ periodical | strip }}</div>
-    {%- if entry.note -%}
+    {%- if entry.note and pub_compact == false -%}
       <div class="periodical pub-note">{{ entry.note | strip }}</div>
     {%- endif -%}
 
@@ -227,7 +227,7 @@
           <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
         {% endif %}
       {% endif %}
-      {% if entry.pdf %}
+      {% if entry.pdf and pub_compact == false %}
         {% if entry.pdf contains '://' %}
           <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
         {% else %}
