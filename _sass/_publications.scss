@@ -16,23 +16,29 @@
 
     ol.bibliography {
       counter-reset: pub-item;
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
       li {
-        margin-bottom: 0.65rem;
+        counter-increment: pub-item;
+        margin-bottom: 0.35rem;
         padding-left: 0.15rem;
 
-        &::marker {
-          content: none;
+        .row.pub-entry {
+          margin-bottom: 0;
         }
 
-        .pub-entry {
-          counter-increment: pub-item;
-        }
+        .publication-text {
+          margin: 0;
+          font-size: 0.95rem;
+          line-height: 1.45;
 
-        .title::before {
-          content: counter(pub-item) ". ";
-          font-weight: 600;
-          color: var(--md-primary-600, var(--global-theme-color));
+          &::before {
+            content: counter(pub-item) ". ";
+            font-weight: 600;
+            color: var(--md-primary-600, var(--global-theme-color));
+          }
         }
       }
 
@@ -49,12 +55,6 @@
       li .periodical {
         font-size: 0.92rem;
         line-height: 1.45;
-      }
-
-      li .title {
-        font-size: 0.98rem;
-        line-height: 1.4;
-        margin-bottom: 0.15rem;
       }
     }
   }
