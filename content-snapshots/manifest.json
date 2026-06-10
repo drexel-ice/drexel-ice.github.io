@@ -5,5 +5,12 @@
     "deployed_at": "2026-06-10T17:46:34.347600+00:00",
     "workflow_run_id": 27294741481,
     "changed_files": []
+  },
+  {
+    "tag": "site-snapshot/2026-06-10T182909Z",
+    "commit": "c864b06939ea30b2ceabe7ffefed2c2f2ad11002",
+    "deployed_at": "2026-06-10T18:29:10.450788+00:00",
+    "workflow_run_id": 27297256217,
+    "changed_files": []
   }
 ]
