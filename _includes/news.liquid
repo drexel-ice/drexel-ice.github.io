@@ -1,6 +1,5 @@
 <div class="news">
-  {% assign homepage_posts = site.posts | where_exp: 'item', 'item.inline == true' %}
-  {% assign news = site.news | concat: homepage_posts | sort: 'date' | reverse %}
+  {% assign news = site.news | concat: site.posts | sort: 'date' | reverse %}
   {% if news != blank %}
     {% assign news_size = news | size %}
     <div
@@ -19,10 +18,10 @@
           <tr>
             <th scope="row" style="width: 20%">{{ item.date | date: '%b %d, %Y' }}</th>
             <td>
-              {% if item.inline %}
-                {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
-              {% else %}
+              {% if item.collection == 'posts' %}
                 <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+              {% else %}
+                {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
               {% endif %}
             </td>
           </tr>

@@ -29,32 +29,10 @@
           counter-increment: pub-item;
         }
 
-        // Title on the left, author right-aligned on the same line;
-        // venue/year keeps its own line below.
-        .pub-entry > div[id] {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: baseline;
-          column-gap: 0.75rem;
-        }
-
         .title::before {
           content: counter(pub-item) ". ";
           font-weight: 600;
           color: var(--md-primary-600, var(--global-theme-color));
-        }
-
-        .author {
-          margin-left: auto;
-          font-size: 0.85rem;
-          text-align: right;
-        }
-
-        .periodical,
-        .links,
-        .badges,
-        .hidden {
-          flex-basis: 100%;
         }
       }
 
@@ -71,10 +49,6 @@
       li .periodical {
         font-size: 0.92rem;
         line-height: 1.45;
-      }
-
-      li .author {
-        font-size: 0.85rem;
       }
 
       li .title {
@@ -369,7 +343,6 @@
   .pub-filter-year,
   .pub-text-filter {
     width: 100%;
-    flex: none;
   }
 }
 

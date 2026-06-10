@@ -1,10 +1,7 @@
 ---
 ---
 {% assign pub_compact = page.publications_compact | default: false %}
-{% assign show_pub_thumbnails = false %}
-{% if site.enable_publication_thumbnails and pub_compact == false %}
-  {% assign show_pub_thumbnails = true %}
-{% endif %}
+{% assign show_pub_thumbnails = site.enable_publication_thumbnails and pub_compact == false %}
 <div class="row pub-entry" data-pub-year="{{ entry.year }}" data-ice-type="{{ entry.ice_type | default: 'conference_papers' }}">
   {% if show_pub_thumbnails %}
     <div class="col col-sm-2 abbr">
@@ -193,10 +190,12 @@
     {% endif %}
     {% assign entrytype_text = entrytype | strip_html | strip %}
     {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %}, {% endif %}{{ entrymonth }}{{ entryyear }}{% endcapture %}
-    <div class="periodical">{{ periodical | strip }}</div>
-    {%- if entry.note and pub_compact == false -%}
-      <div class="periodical pub-note">{{ entry.note | strip }}</div>
-    {%- endif -%}
+    <div class="periodical">
+      {{ periodical | strip }}
+    </div>
+    <div class="periodical">
+      {{ entry.note | strip }}
+    </div>
 
     <!-- Links/Buttons -->
     <div class="links">
@@ -227,7 +226,7 @@
           <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">HTML</a>
         {% endif %}
       {% endif %}
-      {% if entry.pdf and pub_compact == false %}
+      {% if entry.pdf %}
         {% if entry.pdf contains '://' %}
           <a href="{{ entry.pdf }}" class="btn btn-sm z-depth-0" role="button">PDF</a>
         {% else %}
