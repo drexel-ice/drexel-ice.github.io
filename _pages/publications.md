@@ -4,7 +4,7 @@ title: publications
 permalink: /publications/
 description: Publications from the ICE Lab at Drexel University.
 nav: true
-nav_order: 5
+nav_order: 4
 publications_compact: true
 ---
 

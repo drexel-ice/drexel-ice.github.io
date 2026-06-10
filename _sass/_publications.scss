@@ -18,8 +18,13 @@
       counter-reset: pub-item;
 
       li {
-        margin-bottom: 0.65rem;
-        padding-left: 0.15rem;
+        margin-bottom: 0.2rem;
+        padding: 0.12rem 0.15rem;
+        border-bottom: 1px solid var(--md-outline-variant, var(--global-divider-color));
+
+        &:last-child {
+          border-bottom: none;
+        }
 
         &::marker {
           content: none;
@@ -29,32 +34,75 @@
           counter-increment: pub-item;
         }
 
+        // Dense single-line layout: title left, authors/venue/year/links
+        // flow inline to the right and wrap only when out of room.
+        .pub-entry > div[id] {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          column-gap: 0.6rem;
+          row-gap: 0;
+        }
+
         .title::before {
           content: counter(pub-item) ". ";
           font-weight: 600;
           color: var(--md-primary-600, var(--global-theme-color));
         }
-      }
 
-      li .links {
-        margin-top: 0.15rem;
-
-        a.btn {
-          font-size: 0.75rem;
-          padding: 0.1rem 0.55rem;
+        .title {
+          font-size: 0.92rem;
+          line-height: 1.3;
+          margin-bottom: 0;
+          font-weight: 600;
         }
-      }
 
-      li .author,
-      li .periodical {
-        font-size: 0.92rem;
-        line-height: 1.45;
-      }
+        .author,
+        .periodical {
+          font-size: 0.82rem;
+          line-height: 1.3;
+          color: var(--global-text-color-light);
+          margin: 0;
+        }
 
-      li .title {
-        font-size: 0.98rem;
-        line-height: 1.4;
-        margin-bottom: 0.15rem;
+        .author::before,
+        .periodical::before {
+          content: "·";
+          margin-right: 0.6rem;
+          color: var(--md-outline, var(--global-divider-color));
+        }
+
+        .periodical:empty {
+          display: none;
+
+          &::before {
+            content: none;
+          }
+        }
+
+        .links {
+          margin-top: 0;
+          margin-left: auto;
+          display: flex;
+          gap: 0.3rem;
+
+          &:empty {
+            display: none;
+          }
+
+          a.btn {
+            font-size: 0.68rem;
+            line-height: 1.1;
+            padding: 0.05rem 0.45rem;
+            margin: 0;
+          }
+        }
+
+        // Keep expandable blocks (abstract/bibtex/award) full-width below.
+        .hidden,
+        .badges {
+          flex-basis: 100%;
+        }
       }
     }
   }
@@ -343,6 +391,7 @@
   .pub-filter-year,
   .pub-text-filter {
     width: 100%;
+    flex: none;
   }
 }
 

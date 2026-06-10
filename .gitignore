@@ -37,3 +37,5 @@ docker-compose.override.yml
 # Build artifacts
 diff.txt
 diff.html
+_site_test/
+.playwright-cli/

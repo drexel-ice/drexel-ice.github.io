@@ -4,7 +4,7 @@ title: research
 permalink: /research/
 description: Research areas at the ICE Lab — 3-D ICs, hardware security, and near-threshold circuits.
 nav: true
-nav_order: 4
+nav_order: 5
 ---
 
 ## 3D Integrated Circuits

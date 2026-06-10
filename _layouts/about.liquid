@@ -49,11 +49,11 @@ layout: default
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">news</a>
       </h2>
       {% include news.liquid limit=true %}
       <p class="mt-2 mb-4">
-        <a href="{{ '/news/' | relative_url }}">view all announcements &rarr;</a>
+        <a href="{{ '/blog/' | relative_url }}">view all news &rarr;</a>
       </p>
     {% endif %}
 
