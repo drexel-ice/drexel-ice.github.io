@@ -345,3 +345,45 @@
     width: 100%;
   }
 }
+
+// On wide viewports, dock the filter toolbar in the right gutter so it does
+// not consume vertical space above the publication list. The content column
+// is centered at $max-width (930px), so the panel is pinned just outside it.
+// Breakpoint math: 50vw must cover half the content column (465px) + gap
+// (24px) + panel width (240px) ≈ 729px → 1460px viewport minimum.
+@media (min-width: 1460px) {
+  .publications-toolbar {
+    position: fixed;
+    top: 9.5rem; // clear the fixed navbar
+    left: calc(50% + 489px); // 465px half-column + 24px gap
+    width: 240px;
+    margin: 0;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    z-index: 5;
+  }
+
+  .pub-filter-types {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+
+  .pub-filter-btn {
+    text-align: left;
+    border-radius: 4px;
+  }
+
+  .pub-filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .pub-filter-year,
+  .pub-text-filter {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+  }
+}
