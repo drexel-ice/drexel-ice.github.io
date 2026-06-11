@@ -16,29 +16,45 @@
 
     ol.bibliography {
       counter-reset: pub-item;
-      list-style: none;
-      padding: 0;
-      margin: 0;
 
       li {
-        counter-increment: pub-item;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.65rem;
         padding-left: 0.15rem;
 
-        .row.pub-entry {
-          margin-bottom: 0;
+        &::marker {
+          content: none;
         }
 
-        .publication-text {
-          margin: 0;
-          font-size: 0.95rem;
-          line-height: 1.45;
+        .pub-entry {
+          counter-increment: pub-item;
+        }
 
-          &::before {
-            content: counter(pub-item) ". ";
-            font-weight: 600;
-            color: var(--md-primary-600, var(--global-theme-color));
-          }
+        // Title on the left, author right-aligned on the same line;
+        // venue/year keeps its own line below.
+        .pub-entry > div[id] {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          column-gap: 0.75rem;
+        }
+
+        .title::before {
+          content: counter(pub-item) ". ";
+          font-weight: 600;
+          color: var(--md-primary-600, var(--global-theme-color));
+        }
+
+        .author {
+          margin-left: auto;
+          font-size: 0.85rem;
+          text-align: right;
+        }
+
+        .periodical,
+        .links,
+        .badges,
+        .hidden {
+          flex-basis: 100%;
         }
       }
 
@@ -55,6 +71,16 @@
       li .periodical {
         font-size: 0.92rem;
         line-height: 1.45;
+      }
+
+      li .author {
+        font-size: 0.85rem;
+      }
+
+      li .title {
+        font-size: 0.98rem;
+        line-height: 1.4;
+        margin-bottom: 0.15rem;
       }
     }
   }
@@ -343,6 +369,7 @@
   .pub-filter-year,
   .pub-text-filter {
     width: 100%;
+    flex: none;
   }
 }
 
