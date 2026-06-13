@@ -19,5 +19,14 @@
     "deployed_at": "2026-06-11T01:26:05.207939+00:00",
     "workflow_run_id": 27317481103,
     "changed_files": []
+  },
+  {
+    "tag": "site-snapshot/2026-06-13T060542Z",
+    "commit": "c9d3d032167c82c5322e28e8a2f018cfcca7de5b",
+    "deployed_at": "2026-06-13T06:05:43.664754+00:00",
+    "workflow_run_id": 27458557990,
+    "changed_files": [
+      "_bibliography/papers.bib"
+    ]
   }
 ]
