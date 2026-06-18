@@ -28,5 +28,14 @@
     "changed_files": [
       "_bibliography/papers.bib"
     ]
+  },
+  {
+    "tag": "site-snapshot/2026-06-18T162357Z",
+    "commit": "642d9bab6df8dc550a872c57e2bbbc7884148005",
+    "deployed_at": "2026-06-18T16:23:58.406611+00:00",
+    "workflow_run_id": 27773602600,
+    "changed_files": [
+      "_projects/ml-for-eda.md"
+    ]
   }
 ]
