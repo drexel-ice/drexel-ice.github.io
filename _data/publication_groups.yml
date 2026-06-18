@@ -11,6 +11,8 @@
   title: Journal Papers
 - id: conference_papers
   title: Conference Papers
+- id: pre_print
+  title: Pre-Print
 - id: workshop_presentations
   title: Workshop Presentations
 - id: conference_presenter

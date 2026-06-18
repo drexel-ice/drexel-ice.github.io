@@ -32,6 +32,8 @@ publications_compact: true
         {% bibliography --group_by none --query @*[ice_type=journal_papers]* %}
       {% when 'conference_papers' %}
         {% bibliography --group_by none --query @*[ice_type=conference_papers]* %}
+      {% when 'pre_print' %}
+        {% bibliography --group_by none --query @*[ice_type=pre_print]* %}
       {% when 'workshop_presentations' %}
         {% bibliography --group_by none --query @*[ice_type=workshop_presentations]* %}
       {% when 'conference_presenter' %}
