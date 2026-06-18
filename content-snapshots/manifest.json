@@ -46,5 +46,15 @@
     "changed_files": [
       "_data/publication_groups.yml"
     ]
+  },
+  {
+    "tag": "site-snapshot/2026-06-18T180644Z",
+    "commit": "fa15b9afaede29cfead450a0d6fde7476b6a1e8f",
+    "deployed_at": "2026-06-18T18:06:45.946527+00:00",
+    "workflow_run_id": 27779399775,
+    "changed_files": [
+      "_bibliography/papers.bib",
+      "_data/publication_groups.yml"
+    ]
   }
 ]
