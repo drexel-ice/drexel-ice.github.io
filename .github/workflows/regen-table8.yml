@@ -1,0 +1,65 @@
+name: Regen Table 8 data
+
+# Regenerates _data/table8.yml from content/table8.md whenever the
+# markdown source changes on main, and commits the result back. The
+# deploy workflow then picks up the _data change and republishes.
+#
+# Org Actions policy only permits actions/* and local composite actions;
+# auth uses the default GITHUB_TOKEN over HTTPS (same pattern as
+# deploy.yml and snapshot.yml).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/table8.md"
+      - "bin/content/regen_table8.py"
+      - ".github/workflows/regen-table8.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regen-table8
+  cancel-in-progress: false
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Regenerate _data/table8.yml
+        run: python3 bin/content/regen_table8.py
+
+      - name: Commit if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- _data/table8.yml; then
+            echo "no change to _data/table8.yml"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/table8.yml
+          git commit -m "Regen _data/table8.yml from content/table8.md"
+          git pull --rebase origin main
+          git push \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            HEAD:main

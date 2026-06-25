@@ -165,7 +165,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install Python dependencies
-        run: pip install bibtexparser
+        run: pip install bibtexparser pyyaml
 
       - name: Validate intake examples
         run: |
@@ -176,6 +176,15 @@ jobs:
 
       - name: Check PDF paths
         run: python3 bin/check_pdf_paths.py
+
+      - name: Validate content/table8.md (parses and matches data)
+        run: |
+          python3 bin/content/regen_table8.py --check
+          python3 bin/content/regen_table8.py --output /tmp/table8.regen.yml
+          if ! diff -u _data/table8.yml /tmp/table8.regen.yml; then
+            echo "::warning::_data/table8.yml is stale vs content/table8.md."
+            echo "::warning::The regen-table8 workflow will reconcile this on merge to main."
+          fi
 
       - name: Content preflight
         run: python3 bin/content/validate.py --skip-build

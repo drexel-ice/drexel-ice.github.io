@@ -36,6 +36,7 @@ on:
       - "!CONTRIBUTING.md"
       - "!LICENSE"
       - "!CONTENT.md"
+      - "!content/**"
       - "bin/**"
       - "purgecss.config.js"
 
