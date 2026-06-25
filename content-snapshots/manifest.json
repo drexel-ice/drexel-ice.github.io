@@ -56,5 +56,12 @@
       "_bibliography/papers.bib",
       "_data/publication_groups.yml"
     ]
+  },
+  {
+    "tag": "site-snapshot/2026-06-25T203557Z",
+    "commit": "3325722724cd85b9e778bf3527cffd9165b281de",
+    "deployed_at": "2026-06-25T20:35:58.222016+00:00",
+    "workflow_run_id": 28198716330,
+    "changed_files": []
   }
 ]
