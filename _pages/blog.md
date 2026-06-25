@@ -3,7 +3,7 @@ layout: default
 permalink: /blog/
 title: news
 nav: true
-nav_order: 7
+nav_order: 8
 # Blog archive (paginated _posts). The main nav "news" tab points here.
 pagination:
   enabled: true

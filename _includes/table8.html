@@ -1,0 +1,112 @@
+{%- comment -%}
+  _includes/table8.html
+  Renders site.data.table8 as a self-contained, theme-native benchmark table.
+  Pure CSS sticky (no JS) so it works on stock GitHub Pages.
+  Colors inherit al-folio variables, so accent + light/dark are automatic.
+  Row types: full (20 vals) | fp (16, floorplan = merged note) |
+             gr0 (16, appends global-route note, rowspan 2) | gr1 (16, GR covered)
+{%- endcomment -%}
+{%- assign t = site.data.table8 -%}
+
+<style>
+  .t8-bleed{ width:100vw; position:relative; left:50%; margin-left:-50vw; padding:0 24px; box-sizing:border-box; }
+  .t8-wrap{ overflow:auto; max-height:70vh; -webkit-overflow-scrolling:touch;
+            border:1px solid var(--global-divider-color); border-radius:10px;
+            background:var(--global-bg-color); }
+  .t8{ border-collapse:separate; border-spacing:0; width:max-content; font-size:12px; line-height:1.3;
+       color:var(--global-text-color); margin:0;
+       font-variant-numeric:tabular-nums lining-nums; font-feature-settings:"tnum" 1,"lnum" 1; }
+  .t8 caption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .t8 th,.t8 td{ padding:5px 9px; text-align:right; white-space:nowrap;
+                 border-bottom:1px solid color-mix(in srgb, var(--global-divider-color) 55%, transparent);
+                 background:var(--global-bg-color); font-weight:400; }
+  .t8 thead th{ position:sticky; z-index:6; }
+  .t8 .grow th{ top:0; height:30px; text-align:center; font-weight:600; font-size:11.5px;
+                color:var(--global-theme-color);
+                background:color-mix(in srgb, var(--global-theme-color) 10%, var(--global-bg-color));
+                border-bottom:1px solid var(--global-divider-color); }
+  .t8 .prow th{ top:30px; height:26px; font-weight:600; font-size:11px;
+                color:var(--global-text-color-light, var(--global-text-color));
+                background:var(--global-bg-color); border-bottom:2px solid var(--global-theme-color); }
+  .t8 .corner{ left:0; top:0; z-index:8; text-align:left; vertical-align:bottom; font-weight:600;
+               color:var(--global-text-color); background:var(--global-bg-color);
+               border-bottom:2px solid var(--global-theme-color); border-right:2px solid var(--global-theme-color); }
+  .t8 .metric{ position:sticky; left:0; z-index:4; width:130px; min-width:130px; max-width:130px;
+               white-space:normal; text-align:left; vertical-align:top; font-weight:600; line-height:1.2;
+               padding-top:7px; background:var(--global-bg-color);
+               border-right:1px solid color-mix(in srgb, var(--global-divider-color) 55%, transparent); }
+  .t8 .metric .u{ display:block; font-weight:400; font-size:10px;
+                  color:var(--global-text-color-light, var(--global-text-color)); margin-top:2px; }
+  .t8 .sub{ position:sticky; left:130px; z-index:4; width:92px; min-width:92px; max-width:92px;
+            text-align:left; font-weight:400; color:var(--global-text-color-light, var(--global-text-color));
+            background:var(--global-bg-color); border-right:2px solid var(--global-theme-color); }
+  .t8 .val{ width:78px; min-width:78px; }
+  .t8 .note{ text-align:center; white-space:normal; line-height:1.3; font-size:11px; font-style:italic;
+             color:var(--global-text-color-light, var(--global-text-color));
+             background:color-mix(in srgb, var(--global-text-color) 5%, var(--global-bg-color)); }
+  .t8 .sent{ color:var(--global-text-color-light, var(--global-text-color)); font-style:italic; }
+  .t8 .gsep{ border-left:1px solid var(--global-divider-color); }
+  .t8 tr.tint .val,.t8 tr.tint .metric,.t8 tr.tint .sub{
+       background:color-mix(in srgb, var(--global-theme-color) 4%, var(--global-bg-color)); }
+  .t8 tr.blockend td{ border-bottom:1px solid var(--global-divider-color); }
+  .t8 tbody tr:hover .val,.t8 tbody tr:hover .metric,.t8 tbody tr:hover .sub{
+       background:color-mix(in srgb, var(--global-theme-color) 12%, var(--global-bg-color)); }
+  @media (max-width:600px){
+    .t8-bleed{ padding:0 10px; }
+    .t8{ font-size:11px; }
+    .t8 .metric{ width:104px; min-width:104px; max-width:104px; }
+    .t8 .sub{ left:104px; width:74px; min-width:74px; max-width:74px; }
+  }
+</style>
+
+<div class="t8-bleed">
+  <div class="t8-wrap" tabindex="0" role="region" aria-label="{{ t.caption | escape }}">
+    <table class="t8">
+      <caption>{{ t.caption | escape }}</caption>
+      <thead>
+        <tr class="grow">
+          <th class="corner" colspan="2" rowspan="2" scope="col">Metric</th>
+          {%- for g in t.groups -%}
+            <th colspan="4" scope="colgroup" class="{% if forloop.index0 > 0 %}gsep{% endif %}">{{ g | escape }}</th>
+          {%- endfor -%}
+        </tr>
+        <tr class="prow">
+          {%- for g in t.groups -%}{%- for p in t.pdks -%}
+            <th scope="col" class="{% if forloop.index0 == 0 and forloop.parentloop.index0 > 0 %}gsep{% endif %}">{{ p | escape }}</th>
+          {%- endfor -%}{%- endfor -%}
+        </tr>
+      </thead>
+      <tbody>
+        {%- for b in t.blocks -%}
+          {%- assign tint = forloop.index0 | modulo: 2 -%}
+          {%- assign nrows = b.rows | size -%}
+          {%- for r in b.rows -%}
+            {%- assign isfirst = forloop.first -%}
+            {%- assign islast = forloop.last -%}
+            <tr class="{% if tint == 1 %}tint {% endif %}{% if islast %}blockend{% endif %}">
+              {%- if isfirst -%}
+                <th class="metric" rowspan="{{ nrows }}" scope="rowgroup">{{ b.metric | escape }}<span class="u">({{ b.unit | escape }})</span></th>
+              {%- endif -%}
+              <th class="sub" scope="row">{{ r.sub | escape }}</th>
+              {%- if b.fp and isfirst -%}
+                <td class="note" colspan="4" rowspan="{{ nrows }}">{{ t.fp_note | escape }}</td>
+              {%- endif -%}
+              {%- for v in r.v -%}
+                {%- assign idx = forloop.index0 -%}
+                {%- assign m = idx | modulo: 4 -%}
+                {%- assign first = v | slice: 0 -%}
+                {%- assign gsep = false -%}
+                {%- if b.fp -%}{%- if m == 0 -%}{%- assign gsep = true -%}{%- endif -%}
+                {%- else -%}{%- if m == 0 and idx > 0 -%}{%- assign gsep = true -%}{%- endif -%}{%- endif -%}
+                <td class="val{% if gsep %} gsep{% endif %}{% if first == '>' or first == '<' %} sent{% endif %}">{{ v | escape }}</td>
+              {%- endfor -%}
+              {%- if r.type == 'gr0' -%}
+                <td class="note gsep" colspan="4" rowspan="2">{{ t.gr_note | escape }}</td>
+              {%- endif -%}
+            </tr>
+          {%- endfor -%}
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+</div>
