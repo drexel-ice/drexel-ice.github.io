@@ -14,8 +14,8 @@ content/table8.md changes; can also be run locally:
     python3 bin/content/regen_table8.py --check    # validate only, no write
     python3 bin/content/regen_table8.py --output /tmp/x.yml
 
-Output is byte-identical to the legacy scripts/gen_table8.py emitter so
-the migration commit shows zero data diff.
+Output style is hand-written (not yaml.safe_dump) so it stays stable
+across pyyaml versions and is easy to diff line-by-line.
 """
 from __future__ import annotations
 
