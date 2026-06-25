@@ -4,7 +4,7 @@ title: contact
 permalink: /contact/
 description: Get in touch with the ICE Lab.
 nav: true
-nav_order: 7
+nav_order: 6
 ---
 
 ## Location
