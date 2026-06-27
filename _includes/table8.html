@@ -9,36 +9,30 @@
 {%- assign t = site.data.table8 -%}
 
 <style>
-  /* Strip the al-folio content card (white background + border + shadow)
-     only on the benchmarks page so the table sits on the page background. */
-  body:has(.t8-bleed) .container[role="main"]{
-    background:transparent !important;
-    border:0 !important;
-    border-radius:0 !important;
-    box-shadow:none !important;
-    padding:0 !important;
-    margin-top:0 !important;
-  }
-  .t8-bleed{ width:100vw; position:relative; left:50%; margin-left:-50vw;
-             padding:64px 96px 0; box-sizing:border-box; background:transparent; }
-  .t8-wrap{ overflow-x:auto; overflow-y:clip; -webkit-overflow-scrolling:touch;
-            border:0; border-radius:0; background:transparent; }
-  .t8{ border-collapse:separate; border-spacing:0; width:max-content; font-size:9.5px; line-height:1.3;
+  /* Table renders inside al-folio's standard `.container[role="main"]`
+     content card. The wrap is a bordered, rounded panel with internal
+     scroll so the sticky header/label rail work against it without
+     interfering with the page chrome. */
+  .t8-bleed{ width:100%; margin:1.5rem 0; box-sizing:border-box; }
+  .t8-wrap{ overflow:auto; max-height:75vh; -webkit-overflow-scrolling:touch;
+            border:1px solid var(--global-divider-color); border-radius:8px;
+            background:var(--global-bg-color); }
+  .t8{ border-collapse:separate; border-spacing:0; width:max-content; font-size:8.5px; line-height:1.25;
        color:var(--global-text-color); margin:0;
        font-variant-numeric:tabular-nums lining-nums; font-feature-settings:"tnum" 1,"lnum" 1; }
   .t8 caption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
-  .t8 th,.t8 td{ padding:5px 9px; text-align:right; white-space:nowrap;
+  .t8 th,.t8 td{ padding:4px 7px; text-align:right; white-space:nowrap;
                  border-bottom:1px solid color-mix(in srgb, var(--global-divider-color) 55%, transparent);
                  background:var(--global-bg-color); font-weight:400; }
   .t8 thead th{ position:sticky; z-index:6; }
-  .t8 .grow th{ top:60px; height:34px; text-align:center; font-weight:700; font-size:14px;
+  .t8 .grow th{ top:0; height:34px; text-align:center; font-weight:700; font-size:14px;
                 color:var(--global-theme-color);
                 background:color-mix(in srgb, var(--global-theme-color) 10%, var(--global-bg-color));
                 border-bottom:1px solid var(--global-divider-color); }
-  .t8 .prow th{ top:94px; height:28px; font-weight:600; font-size:12.5px;
+  .t8 .prow th{ top:34px; height:28px; font-weight:600; font-size:12.5px;
                 color:var(--global-text-color-light, var(--global-text-color));
                 background:var(--global-bg-color); border-bottom:2px solid var(--global-theme-color); }
-  .t8 .corner{ left:0; top:60px; z-index:8; text-align:left; vertical-align:bottom; font-weight:700;
+  .t8 .corner{ left:0; top:0; z-index:8; text-align:left; vertical-align:bottom; font-weight:700;
                font-size:13px;
                color:var(--global-text-color); background:var(--global-bg-color);
                border-bottom:2px solid var(--global-theme-color); border-right:2px solid var(--global-theme-color); }
@@ -53,8 +47,8 @@
             text-align:left; font-weight:600; font-size:12px;
             color:var(--global-text-color-light, var(--global-text-color));
             background:var(--global-bg-color); border-right:2px solid var(--global-theme-color); }
-  .t8 .val{ width:78px; min-width:78px; }
-  .t8 .note{ text-align:center; white-space:normal; line-height:1.3; font-size:10.5px; font-style:italic;
+  .t8 .val{ width:64px; min-width:64px; }
+  .t8 .note{ text-align:center; white-space:normal; line-height:1.3; font-size:9.5px; font-style:italic;
              color:var(--global-text-color-light, var(--global-text-color));
              background:color-mix(in srgb, var(--global-text-color) 5%, var(--global-bg-color)); }
   .t8 .sent{ color:var(--global-text-color-light, var(--global-text-color)); font-style:italic; }
@@ -66,8 +60,9 @@
   .t8 tbody tr:hover .val,.t8 tbody tr:hover .metric,.t8 tbody tr:hover .sub{
        background:color-mix(in srgb, var(--global-theme-color) 12%, var(--global-bg-color)); }
   @media (max-width:600px){
-    .t8-bleed{ padding:16px 12px 0; }
-    .t8{ font-size:9px; }
+    .t8-bleed{ margin:1rem 0; }
+    .t8-wrap{ max-height:70vh; }
+    .t8{ font-size:8px; }
     .t8 .grow th{ font-size:12px; }
     .t8 .prow th{ font-size:11px; }
     .t8 .metric{ width:120px; min-width:120px; max-width:120px; font-size:13px; }
