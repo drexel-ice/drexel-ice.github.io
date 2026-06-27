@@ -7,21 +7,6 @@ nav_order: 8
 description: Baseline quality-of-results prediction-error benchmarks from EDA-Schema-V2 — the error any ML predictor should aim to beat.
 ---
 
-The table below is the baseline leaderboard from
-[EDA-Schema-V2](https://arxiv.org/abs/2605.06952): the error incurred when an
-intermediate design-stage tool estimate is used to predict the **final
-post-routing** quality-of-results (QoR) metric, reported across four
-open-source PDKs — NG45, SKY130, IHP130, and ASAP7 — generated with the
-OpenROAD flow on the IWLS'05 benchmark suite. Each stage group reads as
-*"predict the detailed-route value from this earlier stage,"* so error
-shrinks as the design progresses toward routing.
-
-The full dataset and the code to represent it as the EDA-Schema data model
-are available in the
-[`drexel-ice/EDA-schema`](https://github.com/drexel-ice/EDA-schema)
-repository; the paper is on [arXiv](https://arxiv.org/abs/2605.06952)
-([PDF](https://arxiv.org/pdf/2605.06952)).
-
 {% include table8.html %}
 
 <div class="caption" markdown="1">
