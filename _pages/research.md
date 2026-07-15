@@ -2,7 +2,7 @@
 layout: page
 title: research
 permalink: /research/
-description: Research areas at the ICE Lab — 3-D ICs, hardware security, and near-threshold circuits.
+description: Research areas at the ICE Lab.
 nav: true
 nav_order: 3
 ---

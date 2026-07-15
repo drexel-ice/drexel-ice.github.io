@@ -9,8 +9,6 @@ display_categories: [active, completed]
 horizontal: false
 ---
 
-Explore our current and completed research projects.
-
 <!-- _pages/projects.md -->
 <div class="projects">
 {% if site.enable_project_categories and page.display_categories %}
