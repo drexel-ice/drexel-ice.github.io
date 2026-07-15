@@ -17,12 +17,6 @@ profile:
   more_info: >
     <p><strong>Prof. Ioannis Savidis</strong></p>
     <p>Associate Professor</p>
-    <p><a href="mailto:isavidis@coe.drexel.edu">isavidis@coe.drexel.edu</a></p>
-    <p>(215) 571-4584</p>
-    <p>Bossone Research Enterprise Center</p>
-    <p>3140 Market Street</p>
-    <p>Philadelphia, PA 19104</p>
-    <p><a href="https://drexel.edu/engineering/about/faculty-staff/S/savidis-ioannis/" target="_blank">Faculty page</a> · <a href="https://scholar.google.com/citations?user=qe9QgMZUjAMC" target="_blank">Google Scholar</a></p>
 
 selected_papers: true
 social: true
