@@ -4,19 +4,8 @@ permalink: /assets/js/search-data.js
 // get the ninja-keys element
 const ninja = document.querySelector('ninja-keys');
 
-// add the home and posts menu items
+// add the nav pages and posts menu items
 ninja.data = [
-  {%- for page in site.pages -%}
-    {%- if page.permalink == '/' -%}{%- assign about_title = page.title | strip -%}{%- endif -%}
-  {%- endfor -%}
-  {
-    id: "nav-{{ about_title | slugify }}",
-    title: "{{ about_title | truncatewords: 13 }}",
-    section: "Navigation",
-    handler: () => {
-      window.location.href = "{{ '/' | relative_url }}";
-    },
-  },
   {%- assign sorted_pages = site.pages | sort: "nav_order" -%}
   {%- for p in sorted_pages -%}
     {%- if p.nav and p.autogen == null -%}
