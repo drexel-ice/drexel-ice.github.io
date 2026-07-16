@@ -2,8 +2,7 @@
 layout: page
 title: benchmarks
 permalink: /eda-schema/
-nav: true
-nav_order: 8
+nav: false
 description: Baseline quality-of-results prediction-error benchmarks from EDA-Schema-V2 — the error any ML predictor should aim to beat.
 ---
 
