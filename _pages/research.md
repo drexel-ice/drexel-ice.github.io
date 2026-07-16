@@ -5,8 +5,6 @@ permalink: /research/
 description: Research areas at the ICE Lab. Click an area to see its projects.
 nav: true
 nav_order: 3
-toc:
-  sidebar: left
 ---
 
 <!-- Each research area renders as a clickable card: the collapsed state gives
@@ -56,7 +54,7 @@ toc:
   </a>
 
   <div class="collapse research-area-projects projects" id="area-{{ slug }}">
-    <div class="row row-cols-1 row-cols-md-2">
+    <div class="row row-cols-1 row-cols-md-3">
       {% for project in area_projects %}
         {% include projects.liquid %}
       {% endfor %}

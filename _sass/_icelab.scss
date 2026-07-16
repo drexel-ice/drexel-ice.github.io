@@ -238,6 +238,30 @@ html[data-theme="dark"] {
     > .row {
       margin-top: 1rem;
     }
+
+    // Compact variant of the shared project cards for the expanded grids.
+    // The &.projects hook outranks the shared .projects:not(.team-members)
+    // card rules that would otherwise win on source order.
+    &.projects .card {
+      .card-img-top,
+      .card-img,
+      figure img {
+        height: 150px;
+      }
+
+      .card-title {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 2;
+      }
+
+      .card-text {
+        font-size: 0.8rem;
+      }
+    }
+
+    &.projects .col {
+      padding-bottom: 0.75rem;
+    }
   }
 }
 
