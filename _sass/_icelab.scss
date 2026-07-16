@@ -180,7 +180,7 @@ html[data-theme="dark"] {
   }
 }
 
-// Research page — expandable area cards
+// Research page — area cards linking to their /research/<slug>/ pages
 .research-areas {
   h2 {
     margin-top: 2rem;
@@ -188,7 +188,7 @@ html[data-theme="dark"] {
 
   .research-area-card {
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
     color: var(--global-text-color);
     text-decoration: none;
 
@@ -216,51 +216,19 @@ html[data-theme="dark"] {
       font-size: 0.85rem;
       font-weight: 600;
 
-      .fa-chevron-down {
+      i {
         margin-left: 0.25rem;
         transition: transform 0.2s ease;
       }
     }
 
-    &[aria-expanded="true"] .fa-chevron-down {
-      transform: rotate(180deg);
-    }
-
     &:hover {
       text-decoration: none;
       color: var(--global-text-color);
-    }
-  }
 
-  .research-area-projects {
-    margin-bottom: 1.5rem;
-
-    > .row {
-      margin-top: 1rem;
-    }
-
-    // Compact variant of the shared project cards for the expanded grids.
-    // The &.projects hook outranks the shared .projects:not(.team-members)
-    // card rules that would otherwise win on source order.
-    &.projects .card {
-      .card-img-top,
-      .card-img,
-      figure img {
-        height: 150px;
+      .research-area-toggle i {
+        transform: translateX(3px);
       }
-
-      .card-title {
-        font-size: 0.85rem;
-        -webkit-line-clamp: 2;
-      }
-
-      .card-text {
-        font-size: 0.8rem;
-      }
-    }
-
-    &.projects .col {
-      padding-bottom: 0.75rem;
     }
   }
 }

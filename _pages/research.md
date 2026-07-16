@@ -2,14 +2,14 @@
 layout: page
 title: research
 permalink: /research/
-description: Research areas at the ICE Lab. Click an area to see its projects.
+description: Research areas at the ICE Lab. Click an area to explore it and its projects.
 nav: true
 nav_order: 3
 ---
 
-<!-- Each research area renders as a clickable card: the collapsed state gives
-     a brief, and expanding it reveals the area's project cards, pulled from
-     site.projects by their research_area front matter. -->
+<!-- Each research area renders as a clickable card linking to its dedicated
+     page under /research/<slug>/, which carries the full description and the
+     area's project cards (selected by research_area front matter). -->
 
 {% assign research_areas = "" | split: "" %}
 {% capture area_3d %}3d-ics|3-D Integrated Circuits|assets/img/research/3d-ics.jpg|Power delivery, synchronization, and signaling for TSV-based and heterogeneous 3-D stacks. The lab's seminal TSV electrical models, fabricated multi-plane test circuits, thermal analysis, and free-space optical interconnects established early ground work for three-dimensional systems.{% endcapture %}
@@ -26,17 +26,11 @@ nav_order: 3
   {% assign area_img = parts[2] %}
   {% assign area_brief = parts[3] %}
   {% assign area_projects = site.projects | where: "research_area", slug | sort: "importance" %}
+  {% capture area_url %}/research/{{ slug }}/{% endcapture %}
 
 <h2 id="{{ slug }}">{{ area_title }}</h2>
 
-  <a
-    class="card hoverable research-area-card collapsed"
-    data-toggle="collapse"
-    href="#area-{{ slug }}"
-    role="button"
-    aria-expanded="false"
-    aria-controls="area-{{ slug }}"
-  >
+  <a class="card hoverable research-area-card" href="{{ area_url | relative_url }}">
     <div class="row no-gutters">
       <div class="col-sm-4">
         {% include figure.liquid loading="lazy" path=area_img alt=area_title class="card-img research-area-img" %}
@@ -46,19 +40,11 @@ nav_order: 3
           <p class="card-text">{{ area_brief }}</p>
           <span class="research-area-toggle">
             {{ area_projects.size }} project{% if area_projects.size != 1 %}s{% endif %}
-            <i class="fa-solid fa-chevron-down"></i>
+            <i class="fa-solid fa-arrow-right"></i>
           </span>
         </div>
       </div>
     </div>
   </a>
-
-  <div class="collapse research-area-projects projects" id="area-{{ slug }}">
-    <div class="row row-cols-1 row-cols-md-3">
-      {% for project in area_projects %}
-        {% include projects.liquid %}
-      {% endfor %}
-    </div>
-  </div>
 {% endfor %}
 </div>
