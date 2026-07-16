@@ -309,6 +309,40 @@ html[data-theme="dark"] {
   }
 }
 
+// Research area pages — heading above the project grid, set clearly apart
+// from the end of the area prose.
+.research-projects-heading {
+  color: var(--md-heading-color);
+  border-bottom: 1px solid var(--md-outline-variant);
+  padding-bottom: 0.35rem;
+  margin-top: 3.25rem;
+  margin-bottom: 1.25rem;
+}
+
+// Compact variant of the shared project cards for research area pages.
+// Placed after .projects:not(.team-members) so equal specificity resolves
+// in this block's favor.
+.projects.research-area-projects .card {
+  .card-img-top,
+  .card-img,
+  figure img {
+    height: 150px;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+}
+
+.projects.research-area-projects .col {
+  padding-bottom: 0.75rem;
+}
+
 // Homepage featured news slider
 .featured-slider {
   margin: 0.25rem 0 2rem;
