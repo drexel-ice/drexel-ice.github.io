@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Run-time Detection and Countermeasures
+dropdown_label: Run-time Trojan Detection
 description: "Current work exploring hardware Trojan detection is concentrated around post fabrication testing of an IC. Test vectors are implemented to \"activate\" hardware Trojans during the post fabrication test ..."
 img: assets/img/research/hardware-security.jpg
 importance: 3

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "EDA Learn: Machine Learning for Electronic Design Automation"
+dropdown_label: EDA Learn
 description: A graph-based machine learning program that predicts expensive late-stage chip metrics from early design stages, and the open data infrastructure built to make those models reproducible and reusable across the community.
 img: assets/img/projects/ml-eda/cover.png
 importance: 1

@@ -55,7 +55,34 @@
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}
           {% for p in sorted_pages %}
             {% if p.nav and p.autogen == null %}
-              {% if p.dropdown %}
+              {% if p.projects_dropdown %}
+                {% assign parent_link = p.permalink | remove: 'index.html' %}
+                <li class="nav-item dropdown dropdown-hover {% if page.url contains parent_link %}active{% endif %}">
+                  <a class="nav-link" href="{{ p.url | relative_url }}">
+                    {{- p.title }}
+                    {% if page.url contains p.url %}
+                      <span class="sr-only">(current)</span>
+                    {% endif %}
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    {% for category in p.display_categories %}
+                      <h6 class="dropdown-header">{{ category | capitalize }}</h6>
+                      {% assign category_projects = site.projects | where: "category", category | sort: "importance" %}
+                      {% for proj in category_projects %}
+                        <a
+                          class="dropdown-item {% if page.url == proj.url %}active{% endif %}"
+                          href="{{ proj.url | relative_url }}"
+                        >
+                          {{- proj.dropdown_label | default: proj.title -}}
+                        </a>
+                      {% endfor %}
+                      {% unless forloop.last %}
+                        <div class="dropdown-divider"></div>
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                </li>
+              {% elsif p.dropdown %}
                 {% assign has_active_child = false %}
                 {% for child in p.children %}
                   {% if page.title == child.title %}

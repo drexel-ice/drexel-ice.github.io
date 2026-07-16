@@ -7,6 +7,7 @@ nav: true
 nav_order: 4
 display_categories: [active, completed]
 horizontal: false
+projects_dropdown: true
 ---
 
 <!-- _pages/projects.md -->

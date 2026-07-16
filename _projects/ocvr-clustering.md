@@ -1,6 +1,7 @@
 ---
 layout: page
 title: On-Chip Power Delivery with Run-Time Voltage Regulator Clustering
+dropdown_label: OCVR Clustering
 description: With the paradigm shift in computing systems from performance oriented design to energy efficiency, there is considerable research effort to optimize the core configuration by reducing the over-provis...
 img: assets/img/research/3d-ics.jpg
 importance: 6
