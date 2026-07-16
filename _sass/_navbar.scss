@@ -46,7 +46,7 @@
 
   .dropdown-header {
     color: var(--md-text-secondary);
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -56,6 +56,12 @@
     font-size: 0.9rem;
     padding-top: 0.3rem;
     padding-bottom: 0.3rem;
+  }
+
+  .dropdown-item-sub {
+    padding-left: 2.25rem;
+    font-size: 0.85rem;
+    color: var(--md-text-secondary);
   }
 }
 
