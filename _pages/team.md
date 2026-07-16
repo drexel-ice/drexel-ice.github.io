@@ -21,7 +21,7 @@ horizontal: false
       {% elsif category == "phd" %}
         <h2 class="category">PhD Students</h2>
       {% elsif category == "masters" %}
-        <h2 class="category">MS Students</h2>
+        <h2 class="category">BS/MS Students</h2>
       {% elsif category == "undergraduate" %}
         <h2 class="category">Undergraduate Researchers</h2>
       {% elsif category == "alumni" %}
