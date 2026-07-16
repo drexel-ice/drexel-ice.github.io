@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Synchronization in 3-D Integrated Circuits
+dropdown_label: 3-D Synchronization
 description: Synchronization amongst various sequential elements of a two-dimensional IC is a challenge which is further exacerbated when considering a three-dimensional IC. Our work focused on multi-plane synchro...
 img: assets/img/research/3d-ics.jpg
 importance: 9

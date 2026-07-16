@@ -38,6 +38,34 @@
   }
 }
 
+// Hover-open dropdown (projects) — desktop only; the collapsed mobile
+// nav keeps the toggle as a plain link and never shows the menu.
+.navbar .dropdown-hover > .dropdown-menu {
+  margin-top: 0;
+  min-width: 14rem;
+
+  .dropdown-header {
+    color: var(--md-text-secondary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .dropdown-item {
+    font-size: 0.9rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .navbar .dropdown-hover:hover > .dropdown-menu,
+  .navbar .dropdown-hover:focus-within > .dropdown-menu {
+    display: block;
+  }
+}
+
 .dropdown-item.active,
 .dropdown-item:active {
   background-color: var(--md-primary);
