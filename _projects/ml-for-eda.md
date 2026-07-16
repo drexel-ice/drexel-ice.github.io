@@ -9,6 +9,7 @@ description: A graph-based machine learning program that predicts expensive late
 img: assets/img/projects/ml-eda/cover.png
 importance: 1
 category: active
+research_area: ml-eda
 toc:
   sidebar: left
 ---
