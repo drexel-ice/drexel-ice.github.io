@@ -1,0 +1,3 @@
+# Google Scholar article ids that the publication sync must not propose.
+# One id per line; anything after # is a comment. Add ids here for Scholar
+# near-duplicates, editorials, or items intentionally kept off the site.
