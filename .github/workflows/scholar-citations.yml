@@ -1,0 +1,52 @@
+name: Update Scholar citations
+
+# Weekly refresh of _data/citations.yml from the Google Scholar profile,
+# feeding the per-publication citation badges on /publications/. Scholar
+# often throttles datacenter IPs, so the fetch step is a soft failure -
+# the previous counts simply stay in place until the next successful run.
+# Committing to main triggers the normal Deploy site workflow.
+
+on:
+  schedule:
+    - cron: "23 6 * * 1" # Mondays 06:23 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scholar-citations
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch citation counts from Google Scholar
+        id: fetch
+        continue-on-error: true
+        run: python3 bin/fetch_scholar_citations.py
+
+      - name: Commit updated citations
+        if: steps.fetch.outcome == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- _data/citations.yml; then
+            echo "Citation counts unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/citations.yml
+          git commit -m "chore(data): refresh Google Scholar citation counts"
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+
+      - name: Report throttled fetch
+        if: steps.fetch.outcome == 'failure'
+        run: echo "::warning::Scholar fetch throttled or failed; keeping existing citation counts."
