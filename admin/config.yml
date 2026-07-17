@@ -1,14 +1,15 @@
 # Sveltia CMS configuration (Decap-compatible). Served at /admin/.
 #
-# Sign-in: use "Sign In with GitHub" if an OAuth authenticator is configured,
-# or "Sign In with Token" with a fine-grained personal access token that has
-# Contents read/write on this repository. Commits land on main and deploy
-# automatically (~2 minutes).
+# Sign-in: "Sign In with GitHub" goes through the lab's sveltia-cms-auth
+# authenticator (Cloudflare Worker below); "Sign In with Token" with a
+# fine-grained personal access token (Contents read/write) remains as a
+# fallback. Commits land on main and deploy automatically (~2 minutes).
 
 backend:
   name: github
   repo: drexel-ice/drexel-ice.github.io
   branch: main
+  base_url: https://ice-lab-admin-auth.zakirjiw.workers.dev
   automatic_deployments: true
 
 site_url: https://drexel-ice.github.io
