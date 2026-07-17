@@ -1,0 +1,170 @@
+name: PR preview
+
+# Builds every same-repo pull request and publishes it to
+# https://drexel-ice.github.io/pr-preview/pr-<N>/ so reviewers can see the
+# rendered site before merging. Implemented with plain git pushes to the
+# gh-pages branch (the org Actions policy only permits GitHub-owned actions
+# and local composite actions, so no third-party preview action is used).
+# The Deploy site workflow preserves the pr-preview/ directory when it
+# force-pushes production builds; the cleanup job removes a PR's preview
+# when the PR closes.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  JEKYLL_IMAGE: amirpourmand/al-folio:v0.16.3
+  PREVIEW_BASE: pr-preview
+
+jobs:
+  deploy-preview:
+    if: >-
+      github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build site with preview baseurl (Jekyll in Docker)
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -e JEKYLL_ENV=production \
+            -v "$PWD:/srv/jekyll" \
+            "$JEKYLL_IMAGE" \
+            bash -c "cd /srv/jekyll && bundle exec jekyll build --baseurl '/${PREVIEW_BASE}/pr-${PR_NUMBER}'"
+          test -f _site/index.html
+
+      - name: Purge unused CSS
+        run: |
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+
+      - name: Publish preview to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3; do
+            rm -rf ghp
+            git clone --depth 1 --branch gh-pages "$REMOTE" ghp
+            rm -rf "ghp/${PREVIEW_BASE}/pr-${PR_NUMBER}"
+            mkdir -p "ghp/${PREVIEW_BASE}"
+            cp -r _site "ghp/${PREVIEW_BASE}/pr-${PR_NUMBER}"
+            cd ghp
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            if git diff --cached --quiet; then
+              echo "Preview unchanged."
+              cd ..
+              break
+            fi
+            git commit -q -m "Preview PR #${PR_NUMBER} (${GITHUB_SHA})"
+            if git push origin gh-pages; then
+              cd ..
+              break
+            fi
+            echo "Push failed (gh-pages moved); retrying (${attempt}/3)"
+            cd ..
+            sleep 5
+          done
+
+      - name: Comment preview link on PR
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            const marker = '<!-- pr-preview-comment -->';
+            const pr = Number(process.env.PR_NUMBER);
+            const url = `https://drexel-ice.github.io/pr-preview/pr-${pr}/`;
+            const body = [
+              marker,
+              `**PR preview:** ${url}`,
+              '',
+              `Built from ${context.payload.pull_request.head.sha.slice(0, 7)}.`,
+              'GitHub Pages caches HTML for up to 10 minutes; give a fresh push a moment to propagate.',
+            ].join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: pr, per_page: 100,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: pr, body });
+            }
+
+  cleanup-preview:
+    if: >-
+      github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Remove preview directory from gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          for attempt in 1 2 3; do
+            rm -rf ghp
+            git clone --depth 1 --branch gh-pages "$REMOTE" ghp
+            if [ ! -d "ghp/${PREVIEW_BASE}/pr-${PR_NUMBER}" ]; then
+              echo "No preview to remove."
+              break
+            fi
+            rm -rf "ghp/${PREVIEW_BASE}/pr-${PR_NUMBER}"
+            cd ghp
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -q -m "Remove preview for PR #${PR_NUMBER}"
+            if git push origin gh-pages; then
+              cd ..
+              break
+            fi
+            echo "Push failed (gh-pages moved); retrying (${attempt}/3)"
+            cd ..
+            sleep 5
+          done
+
+      - name: Mark preview comment as removed
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            const marker = '<!-- pr-preview-comment -->';
+            const pr = Number(process.env.PR_NUMBER);
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: pr, per_page: 100,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo, comment_id: existing.id,
+                body: `${marker}\nPR preview removed (pull request closed).`,
+              });
+            }
