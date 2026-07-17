@@ -1,0 +1,158 @@
+name: Quality checks
+
+# Axe accessibility scan and Lighthouse category budgets for every PR,
+# restoring the check suite upstream al-folio runs. Both jobs build the
+# site and audit a local server on the runner; only GitHub-owned actions
+# are used per the org Actions policy (axe/lighthouse run via npx).
+#
+# Calibration (baselined 2026-07-16 against the live site):
+# - Axe fails only on CRITICAL violations. The site currently carries
+#   zero critical but known serious color-contrast debt, which the job
+#   lists in the log; tighten the gate to serious once that is fixed.
+# - Lighthouse asserts accessibility >= 0.85, best-practices >= 0.90,
+#   seo >= 0.90 (current: 0.90 / 1.0 / 1.0). Performance is report-only
+#   (local-server scores are noisy; ~0.43 at baseline).
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JEKYLL_IMAGE: amirpourmand/al-folio:v0.16.3
+  PAGES: "/ /publications/ /team/ /research/ /projects/ /blog/"
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build site (Jekyll in Docker)
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -e JEKYLL_ENV=production \
+            -v "$PWD:/srv/jekyll" \
+            "$JEKYLL_IMAGE" \
+            bash -c "cd /srv/jekyll && bundle exec jekyll build"
+          test -f _site/index.html
+
+      - name: Upload built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+          retention-days: 1
+
+  axe:
+    name: Axe accessibility
+    needs: build-site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+
+      - name: Serve site
+        run: |
+          (cd _site && python3 -m http.server 8080 &)
+          sleep 2
+          curl -sf http://localhost:8080/ >/dev/null
+
+      - name: Run axe on key pages
+        run: |
+          urls=""
+          for p in $PAGES; do urls="$urls http://localhost:8080$p"; done
+          npx --yes @axe-core/cli $urls \
+            --chrome-options="headless=new,no-sandbox" \
+            --save axe-results.json \
+            --exit || true
+          test -f axe-results.json
+
+      - name: Gate on critical violations
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          results = json.load(open("axe-results.json"))
+          if isinstance(results, dict):
+              results = [results]
+          critical, other = [], []
+          for page in results:
+              url = page.get("url", "?")
+              for v in page.get("violations", []):
+                  row = (url, v["impact"], v["id"], len(v["nodes"]))
+                  (critical if v["impact"] == "critical" else other).append(row)
+          if other:
+              print("Known non-critical violations (informational):")
+              for url, impact, rule, nodes in other:
+                  print(f"  {impact:>9}  {rule}  ({nodes} nodes)  {url}")
+          if critical:
+              print("\nCRITICAL accessibility violations:")
+              for url, impact, rule, nodes in critical:
+                  print(f"  {rule}  ({nodes} nodes)  {url}")
+              sys.exit(1)
+          print("\nNo critical accessibility violations.")
+          PY
+
+  lighthouse:
+    name: Lighthouse budgets
+    needs: build-site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+
+      - name: Serve site
+        run: |
+          (cd _site && python3 -m http.server 8080 &)
+          sleep 2
+          curl -sf http://localhost:8080/ >/dev/null
+
+      - name: Run Lighthouse on key pages
+        run: |
+          mkdir -p lh
+          for p in / /publications/ /blog/; do
+            name=$(echo "$p" | tr -s '/' '_')
+            npx --yes lighthouse "http://localhost:8080$p" \
+              --output=json --output-path="lh/${name}.json" \
+              --quiet --chrome-flags="--headless=new --no-sandbox"
+          done
+
+      - name: Assert category budgets
+        run: |
+          python3 - <<'PY'
+          import json, glob, sys
+          BUDGETS = {"accessibility": 0.85, "best-practices": 0.90, "seo": 0.90}
+          failed = False
+          for path in sorted(glob.glob("lh/*.json")):
+              r = json.load(open(path))
+              url = r.get("finalDisplayedUrl") or r.get("requestedUrl")
+              scores = {k: v.get("score") for k, v in r["categories"].items()}
+              perf = scores.get("performance")
+              print(f"{url}: " + ", ".join(f"{k}={v}" for k, v in scores.items()))
+              if perf is not None and perf < 0.5:
+                  print(f"  note: performance {perf} below 0.5 (report-only)")
+              for cat, minimum in BUDGETS.items():
+                  score = scores.get(cat)
+                  if score is not None and score < minimum:
+                      print(f"  FAIL: {cat} {score} < {minimum}")
+                      failed = True
+          sys.exit(1 if failed else 0)
+          PY
