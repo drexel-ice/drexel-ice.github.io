@@ -78,6 +78,18 @@ jobs:
           npm install -g purgecss
           purgecss -c purgecss.config.js
 
+      - name: Preserve PR previews from current gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch --depth 1 "$REMOTE" gh-pages 2>/dev/null; then
+            if git ls-tree -d FETCH_HEAD pr-preview >/dev/null 2>&1 && [ -n "$(git ls-tree -d FETCH_HEAD pr-preview)" ]; then
+              git archive FETCH_HEAD pr-preview | tar -x -C _site
+              echo "Preserved existing PR previews."
+            fi
+          fi
+
       - name: Deploy to GitHub Pages (git push)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
