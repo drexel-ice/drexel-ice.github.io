@@ -1,0 +1,264 @@
+# Sveltia CMS configuration (Decap-compatible). Served at /admin/.
+#
+# Sign-in: use "Sign In with GitHub" if an OAuth authenticator is configured,
+# or "Sign In with Token" with a fine-grained personal access token that has
+# Contents read/write on this repository. Commits land on main and deploy
+# automatically (~2 minutes).
+
+backend:
+  name: github
+  repo: drexel-ice/drexel-ice.github.io
+  branch: main
+  automatic_deployments: true
+
+site_url: https://drexel-ice.github.io
+display_url: https://drexel-ice.github.io
+logo_url: https://drexel-ice.github.io/assets/img/icelab_logo.png
+
+media_folder: assets/img/uploads
+public_folder: assets/img/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  # ---------------------------------------------------------------- news
+  - name: news
+    label: News posts
+    label_singular: News post
+    folder: _posts
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: blog/{{year}}/{{slug}}/
+    sortable_fields: [date, title]
+    fields:
+      - { name: layout, widget: hidden, default: post }
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { name: description, label: Description (shown in the news list), widget: text, required: false }
+      - { name: tags, label: Tags, widget: list, default: [news], hint: "Each tag gets its own /blog/tag/<tag>/ index page." }
+      - { name: inline, label: Show in homepage announcements, widget: boolean, required: false, default: false }
+      - { name: featured, label: Pin atop the news page, widget: boolean, required: false, default: false }
+      - { name: thumbnail, label: Thumbnail, widget: image, required: false }
+      - { name: related_posts, widget: hidden, default: false }
+      - { name: body, label: Article body, widget: markdown }
+
+  - name: news_briefs
+    label: News briefs (homepage only)
+    label_singular: News brief
+    folder: _news
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: layout, widget: hidden, default: post }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { name: inline, widget: hidden, default: true }
+      - { name: related_posts, widget: hidden, default: false }
+      - { name: body, label: Brief text, widget: markdown }
+
+  # ------------------------------------------------------------ projects
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: _projects
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{slug}}"
+    preview_path: projects/{{slug}}/
+    sortable_fields: [importance, title]
+    fields:
+      - { name: layout, widget: hidden, default: page }
+      - { name: title, label: Title, widget: string }
+      - { name: dropdown_label, label: Short name (navbar dropdown), widget: string, required: false }
+      - { name: description, label: Card description, widget: text }
+      - { name: img, label: Card image, widget: image, required: false }
+      - { name: importance, label: Importance (lower = listed first), widget: number, default: 1, value_type: int }
+      - name: category
+        label: Category
+        widget: select
+        options: [active, completed]
+      - name: research_area
+        label: Research area
+        widget: select
+        required: false
+        options:
+          - { label: 3-D Integrated Circuits, value: 3d-ics }
+          - { label: Hardware Security & Trust, value: hardware-security }
+          - { label: Machine Learning for EDA, value: ml-eda }
+          - { label: Sub/Near-Threshold Circuits with CML, value: ntc-cml }
+      - { name: github, label: GitHub repository URL, widget: string, required: false }
+      - { name: body, label: Project page content, widget: markdown }
+
+  # ---------------------------------------------------------------- team
+  - name: team
+    label: Team members
+    label_singular: Team member
+    folder: _team
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [importance, title]
+    fields:
+      - { name: layout, widget: hidden, default: team }
+      - { name: title, label: Name, widget: string }
+      - { name: description, label: "Card line (Role | email)", widget: string }
+      - { name: img, label: Photo, widget: image, required: false, hint: "Square headshots live in assets/img/team/; run bin/normalize_team_photos.py for new originals." }
+      - { name: importance, label: Importance (lower = listed first), widget: number, default: 1, value_type: int }
+      - name: category
+        label: Section
+        widget: select
+        options:
+          - { label: Faculty & Staff, value: faculty }
+          - { label: PhD Students, value: phd }
+          - { label: BS/MS Students, value: masters }
+          - { label: Alumni, value: alumni }
+      - { name: body, label: Bio, widget: markdown }
+
+  # ------------------------------------------------- research area pages
+  - name: research_areas
+    label: Research area pages
+    files:
+      - name: area_3d_ics
+        label: 3-D Integrated Circuits
+        file: _pages/research-3d-ics.md
+        fields: &research_area_fields
+          - { name: layout, widget: hidden, default: research-area }
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Subtitle, widget: text }
+          - { name: permalink, label: Permalink, widget: string }
+          - { name: research_area, label: "Research area key (matches projects' research_area)", widget: string }
+          - { name: body, label: Area description, widget: markdown }
+      - name: area_hardware_security
+        label: Hardware Security & Trust
+        file: _pages/research-hardware-security.md
+        fields: *research_area_fields
+      - name: area_ml_eda
+        label: Machine Learning for EDA
+        file: _pages/research-ml-eda.md
+        fields: *research_area_fields
+      - name: area_ntc_cml
+        label: Sub/Near-Threshold Circuits with CML
+        file: _pages/research-ntc-cml.md
+        fields: *research_area_fields
+
+  # ------------------------------------------------------------- pages
+  - name: pages
+    label: Site pages
+    files:
+      - name: about
+        label: Homepage (about)
+        file: _pages/about.md
+        fields:
+          - { name: layout, widget: hidden, default: about }
+          - { name: title, widget: hidden, default: about }
+          - { name: permalink, widget: hidden, default: / }
+          - { name: hide_title, widget: hidden, default: true }
+          - { name: featured_slider, label: Show featured news slider, widget: boolean, default: true }
+          - { name: subtitle, label: Subtitle (HTML allowed), widget: text }
+          - name: profile
+            label: Profile card
+            widget: object
+            fields:
+              - { name: align, widget: select, options: [left, right], default: right }
+              - { name: image, label: Photo, widget: string }
+              - { name: image_circular, widget: boolean, default: false }
+              - { name: more_info, label: Card lines (HTML), widget: text }
+          - { name: selected_papers, label: Show selected publications, widget: boolean, default: true }
+          - { name: social, label: Show social icons + contact note, widget: boolean, default: true }
+          - name: announcements
+            label: Announcements box
+            widget: object
+            fields:
+              - { name: enabled, widget: boolean, default: true }
+              - { name: scrollable, widget: boolean, default: true }
+              - { name: limit, widget: number, default: 8, value_type: int }
+          - name: latest_posts
+            label: Latest posts box
+            widget: object
+            fields:
+              - { name: enabled, widget: boolean, default: false }
+          - { name: body, label: Page content, widget: markdown }
+      - name: contact
+        label: Contact page
+        file: _pages/contact.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: title, label: Title, widget: string }
+          - { name: permalink, widget: hidden, default: /contact/ }
+          - { name: description, label: Subtitle, widget: text, required: false }
+          - { name: nav, widget: hidden, default: true }
+          - { name: nav_order, widget: hidden, default: 6 }
+          - { name: body, label: Page content, widget: markdown }
+      - name: benchmarks
+        label: Benchmarks page (eda-schema)
+        file: _pages/eda-schema.md
+        fields:
+          - { name: layout, widget: hidden, default: page }
+          - { name: title, label: Title, widget: string }
+          - { name: permalink, widget: hidden, default: /eda-schema/ }
+          - { name: nav, widget: hidden, default: false }
+          - { name: description, label: Subtitle, widget: text, required: false }
+          - { name: body, label: Page content (the table renders from _data/table8.yml), widget: markdown }
+
+  # ---------------------------------------------------------- data files
+  - name: data
+    label: Site data
+    files:
+      - name: featured_slides
+        label: Homepage featured slider
+        file: _data/featured_slides.yml
+        fields:
+          - name: slides
+            label: Slides
+            widget: list
+            root: true
+            fields:
+              - { name: image, label: Image (under assets/img/), widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: caption, label: Caption, widget: text, required: false }
+              - { name: link, label: Link (site-relative or external), widget: string }
+      - name: publication_groups
+        label: Publication section order
+        file: _data/publication_groups.yml
+        fields:
+          - name: groups
+            label: Sections (order = display order on /publications/)
+            widget: list
+            root: true
+            fields:
+              - { name: id, label: "ice_type key", widget: string }
+              - { name: title, label: Heading, widget: string }
+      - name: socials
+        label: Social links
+        file: _data/socials.yml
+        fields:
+          - { name: email, label: Email, widget: string }
+          - { name: scholar_userid, label: Google Scholar user id, widget: string }
+          - { name: rss_icon, label: Show RSS icon, widget: boolean, default: true }
+
+  # -------------------------------------------------------- publications
+  - name: publications
+    label: Publications (papers.bib)
+    files:
+      - name: papers_bib
+        label: papers.bib (raw BibTeX)
+        file: _bibliography/papers.bib
+        format: bibtex
+        fields:
+          - name: raw
+            label: BibTeX entries
+            widget: code
+            default_language: latex
+            output_code_only: true
+            hint: >-
+              Full BibTeX database for /publications/. Separate authors with
+              " and ", set ice_type to place the entry in its section, and put
+              PDFs under assets/pdf/. Prefer the Add Publication issue form
+              for one-off additions.

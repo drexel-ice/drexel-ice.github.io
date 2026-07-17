@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>ICE Lab content admin</title>
+    <link rel="icon" href="/assets/img/icelab_logo.png" />
+  </head>
+  <body>
+    <!-- Sveltia CMS: a Decap-compatible git-based CMS. Reads ./config.yml,
+         signs in with GitHub (personal access token, or an OAuth authenticator
+         if one is configured later) and commits edits to the repo, which the
+         Deploy site workflow then publishes. Self-hosted bundle (v0.171.0,
+         from @sveltia/cms on npm) so no third-party CDN is trusted at runtime;
+         update it by re-downloading the dist file in a PR. -->
+    <script src="./sveltia-cms.js" type="module"></script>
+    <script type="module">
+      // Teach the CMS to round-trip BibTeX so _bibliography/papers.bib is
+      // editable as a single raw-text document.
+      window.CMS?.registerCustomFormat?.("bibtex", "bib", {
+        fromFile: (text) => ({ raw: text }),
+        toFile: ({ raw }) => raw ?? "",
+      });
+    </script>
+  </body>
+</html>
