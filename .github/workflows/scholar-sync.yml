@@ -1,0 +1,88 @@
+name: Publication sync check
+
+# Monthly diff of the Google Scholar profile against papers.bib. When
+# Scholar lists articles the site does not have, a single proposal issue
+# is opened (or updated in place) with a triage table: real papers get
+# added through the Add Publication issue form, noise gets appended to
+# .github/scholar-sync-ignore.txt. Scholar throttling is a soft failure.
+
+on:
+  schedule:
+    - cron: "41 7 1 * *" # 1st of the month, 07:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: scholar-sync
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Diff Scholar profile against papers.bib
+        id: diff
+        run: |
+          set +e
+          python3 bin/scholar_sync_check.py scholar-sync-report.md
+          code=$?
+          set -e
+          echo "code=${code}" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 2 ]; then
+            echo "::warning::Scholar fetch throttled or failed; skipping this run."
+          fi
+          [ "$code" -ne 1 ]
+
+      - name: Open or update the proposal issue
+        if: steps.diff.outputs.code == '3'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const marker = '<!-- scholar-sync-issue -->';
+            const report = fs.readFileSync('scholar-sync-report.md', 'utf8');
+            const title = 'Publication sync: Scholar articles missing from papers.bib';
+            const body = `${marker}\n${report}\n_Refreshed automatically by the Publication sync check workflow._`;
+            const { data: issues } = await github.rest.issues.listForRepo({
+              ...context.repo, state: 'open', per_page: 100,
+            });
+            const existing = issues.find(i => i.body && i.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.update({
+                ...context.repo, issue_number: existing.number, title, body,
+              });
+              core.info(`Updated issue #${existing.number}`);
+            } else {
+              const { data: created } = await github.rest.issues.create({
+                ...context.repo, title, body,
+              });
+              core.info(`Opened issue #${created.number}`);
+            }
+
+      - name: Close stale proposal issue when nothing is missing
+        if: steps.diff.outputs.code == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- scholar-sync-issue -->';
+            const { data: issues } = await github.rest.issues.listForRepo({
+              ...context.repo, state: 'open', per_page: 100,
+            });
+            const existing = issues.find(i => i.body && i.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.createComment({
+                ...context.repo, issue_number: existing.number,
+                body: 'All Scholar articles are now present in papers.bib (or ignored); closing.',
+              });
+              await github.rest.issues.update({
+                ...context.repo, issue_number: existing.number, state: 'closed',
+              });
+            }
