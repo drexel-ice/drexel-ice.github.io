@@ -76,7 +76,10 @@ jobs:
         run: |
           urls=""
           for p in $PAGES; do urls="$urls http://localhost:8080$p"; done
+          # Use the runner's bundled chromedriver, which matches its Chrome;
+          # the npm chromedriver package runs one major version ahead.
           npx --yes @axe-core/cli $urls \
+            --chromedriver-path "${CHROMEWEBDRIVER}/chromedriver" \
             --chrome-options="headless=new,no-sandbox" \
             --save axe-results.json \
             --exit || true
