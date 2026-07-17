@@ -6,7 +6,7 @@ This guide is for lab members who want to add news, team profiles, projects, or 
 
 Open **<https://drexel-ice.github.io/admin/>** for a full content editor (Sveltia CMS) covering news posts and briefs, projects, team members, research area pages, the homepage/contact/benchmarks pages, homepage slider, publication section order, socials, and the raw `papers.bib`.
 
-1. Click **Sign In Using Access Token** and paste a GitHub fine-grained personal access token with *Contents: read & write* on this repository (the dialog links to the token page with the right scopes pre-selected). Team-wide OAuth sign-in can be added later by deploying [sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth).
+1. Click **Sign In with GitHub** (one click; uses the lab's `ice-lab-admin-auth` Cloudflare Worker) - or **Sign In Using Access Token** with a fine-grained PAT (*Contents: read & write* on this repo) as a fallback.
 2. Edit or create entries; **Save** commits straight to `main` and the site deploys in ~2 minutes.
 3. Nuances the UI can't enforce: BibTeX authors are `and`-separated; team photos should be normalized square (see `bin/normalize_team_photos.py`); a wrong `category`/`research_area` value hides the item silently.
 
