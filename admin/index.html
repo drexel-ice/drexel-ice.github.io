@@ -22,6 +22,33 @@
         fromFile: (text) => ({ raw: text }),
         toFile: ({ raw }) => raw ?? "",
       });
+
+      // No OAuth authenticator is deployed for this site, so Sveltia's
+      // "Sign In with GitHub" button would silently fall back to Netlify's
+      // OAuth service and hang. Hide it and point people at token sign-in
+      // until an authenticator (e.g. sveltia-cms-auth) is set up.
+      const steerToTokenSignIn = () => {
+        for (const btn of document.querySelectorAll("button")) {
+          const label = btn.textContent.trim();
+          if (/^Sign In with\b/i.test(label) && btn.style.display !== "none") {
+            btn.style.display = "none";
+            if (!document.getElementById("token-signin-note")) {
+              const note = document.createElement("p");
+              note.id = "token-signin-note";
+              note.textContent =
+                "Use “Sign In Using Access Token” with a GitHub token " +
+                "that has Contents read/write on this repository.";
+              note.style.cssText =
+                "max-width: 22rem; margin: 0 auto 1rem; font-size: 0.85rem; opacity: 0.8;";
+              btn.parentNode?.insertBefore(note, btn);
+            }
+          }
+        }
+      };
+      new MutationObserver(steerToTokenSignIn).observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
     </script>
   </body>
 </html>
