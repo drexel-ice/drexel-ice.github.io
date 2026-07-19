@@ -48,12 +48,23 @@ function getCurrentScrollPosition() {
 function initializeProgressElement() {
   let navbarHeight = $("#navbar").outerHeight(true);
   $("body").css({ "padding-top": navbarHeight });
-  $("progress-container").css({ "padding-top": navbarHeight });
-  progressBar.css({ top: navbarHeight });
+  progressBar.css({ bottom: getProgressBarBottomOffset() });
   progressBar.attr({
     max: getDistanceToScroll(),
     value: getCurrentScrollPosition(),
   });
+}
+/*
+ * The bar overlays the fixed footer's top border, which acts as the
+ * unfilled track: align the bar with the border strip so the gold fill
+ * slides across it. Without a fixed footer, stick to the viewport bottom.
+ */
+function getProgressBarBottomOffset() {
+  const footer = $("footer.fixed-bottom");
+  if (footer.length === 0) {
+    return 0;
+  }
+  return footer.outerHeight() - parseFloat(footer.css("border-top-width"));
 }
 /*
  * The offset between the html document height and the browser viewport
