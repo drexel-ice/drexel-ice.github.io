@@ -928,9 +928,18 @@ html[data-theme="dark"] {
   }
 }
 
-// Scroll progress bar — gold accent on navy track
-progress::-webkit-progress-value,
-progress::-moz-progress-bar,
+// Scroll progress bar - bright gold fill sliding over the muted-gold
+// track painted by the fixed footer's top border (see progress-bar.js).
+// Kept as separate rules: grouping a -moz- and a -webkit- pseudo-element
+// in one selector list makes browsers drop the whole rule as invalid.
+progress::-webkit-progress-value {
+  background-color: var(--md-secondary);
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--md-secondary);
+}
+
 .progress-bar {
   background-color: var(--md-secondary);
 }
@@ -943,7 +952,9 @@ ninja-keys {
 // Footer
 footer.fixed-bottom {
   background-color: var(--md-primary);
-  border-top: 3px solid var(--md-secondary);
+  // Muted gold: doubles as the unfilled track of the scroll progress
+  // bar, whose bright gold fill overlays this border (see progress-bar.js)
+  border-top: 3px solid var(--md-secondary-800);
 
   a:hover {
     color: var(--md-secondary) !important;
