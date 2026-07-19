@@ -2,7 +2,7 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
+title: Drexel ICE Lab # the website title (if blank, full name will be used instead)
 logo: assets/img/icelab_logo.png # navbar brand (legacy Drexel ICE lab banner)
 first_name: ICE
 middle_name:
@@ -16,7 +16,7 @@ footer_text: >
   &copy; ICE Lab, Drexel University. All rights reserved.
 keywords: integrated-circuits, 3d-ics, hardware-security, design-for-trust, near-threshold, VLSI, drexel-university, research-lab
 lang: en
-icon: ⚡ # the emoji used as the favicon
+icon: favicon.png # favicon file in assets/img/ (Drexel dragon, as on drexel.edu); an emoji also works here
 
 url: https://drexel-ice.github.io # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog/. Leave blank for root
