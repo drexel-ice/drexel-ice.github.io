@@ -24,6 +24,7 @@ on:
       - "_scripts/**"
       - "_team/**"
       - "_config.yml"
+      - "favicon.ico"
       - "Gemfile"
       - "Gemfile.lock"
       - "**.bib"
