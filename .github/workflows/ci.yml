@@ -130,7 +130,7 @@ jobs:
 
       - name: Validate BibTeX
         run: |
-          pip install bibtexparser
+          pip install "bibtexparser<2"  # 2.x removed bibtexparser.load()
           python3 -c "
           import bibtexparser
           import sys
@@ -165,7 +165,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install Python dependencies
-        run: pip install bibtexparser pyyaml
+        run: pip install "bibtexparser<2" pyyaml
 
       - name: Validate intake examples
         run: |
