@@ -64,7 +64,7 @@ def check_bibtex() -> list[str]:
     try:
         import bibtexparser
     except ImportError:
-        subprocess.run([sys.executable, "-m", "pip", "install", "bibtexparser"], check=True)
+        subprocess.run([sys.executable, "-m", "pip", "install", "bibtexparser<2"], check=True)  # 2.x removed load()
         import bibtexparser
 
     try:
