@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://drexel-ice.github.io/pr-preview/pr-36/sitemap.xml
