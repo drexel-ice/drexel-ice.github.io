@@ -5,7 +5,7 @@ dropdown_label: EDA Learn
 dropdown_children:
   - title: Benchmarks
     permalink: /eda-schema/
-description: A multi-year program that predicts expensive late-stage chip metrics from early design stages using graph neural networks, and builds the open schema, dataset, and benchmarks that make such models reproducible and comparable across the community.
+description: Learned models that predict expensive late-stage chip metrics from early design stages, and the open schema, dataset, and benchmarks that make machine learning for design automation reproducible.
 img: assets/img/projects/ml-eda/cover.png
 importance: 1
 category: active
@@ -14,143 +14,115 @@ toc:
   sidebar: left
 ---
 
-Modern chip design runs a long, iterative pipeline — logic synthesis, floorplanning,
-placement, clock tree synthesis, and routing — and the metrics that decide whether a
-design is good (timing, wirelength, parasitics, power) are only known accurately at the
-very end, after routing. When a design misses its targets, engineers loop back and repeat
-expensive stages, often for hours or days per pass. This program asks a simple question
-with large consequences: **can a machine learning model look at a cheap early stage and
-accurately predict the expensive final outcome?**
+Digital physical design runs as a sequence of interdependent stages — logic synthesis,
+floorplanning, placement, clock tree synthesis, routing, and signoff. Decisions taken early
+determine the interconnect geometry, timing, power and routability that are only measured
+accurately at the end, after routing and extraction. When the final numbers miss their
+targets, the design returns to an earlier stage and the pipeline runs again, at a cost
+measured in hours to days per pass.
 
-Over four years the work answered yes, generalized the approach into a reusable framework,
-showed it survives jumps between manufacturing nodes — and then confronted the problem that
-made those results hard for anyone else to build on. Most published machine learning results
-for electronic design automation (EDA) depend on proprietary tools, confidential industrial
-designs, and incompatible data formats. Accuracy on one private dataset says little about
-whether a model can be reproduced, compared fairly against another, or applied to a circuit
-it has never seen. The second half of the program therefore built the open data
-infrastructure the field needs: a standardized schema, a large open dataset, and a public
-benchmark.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/design-flow.png" title="Physical design flow with an ML prediction shortcut" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    The physical design flow runs left to right; the true value of a metric exists only after
-    routing. A graph neural network predicts that post-routing outcome from an early stage,
-    avoiding repeated passes through the pipeline.
-</div>
+This program works on the feedback problem that creates: **estimating a downstream outcome
+from the information available at an earlier stage**, so that corrections can be made while
+they are still cheap. The work began with graph neural networks for timing and parasitic
+prediction, generalized them into a reusable framework, and then turned to a second problem
+that limits the whole field — that most published results in machine learning for electronic
+design automation (EDA) cannot be reproduced or fairly compared, because they depend on
+proprietary tools, confidential designs, and incompatible data formats. Addressing that
+required building open infrastructure: a standardized schema, a large open dataset, and a
+public benchmark.
 
 ---
 
-## Goals
+## The prediction problem
 
-The program pursues two intertwined goals.
+At any point in the flow, a designer has *source-stage* information and wants a *target-stage*
+measurement that does not exist yet. Conventional estimators fill that gap with analytical
+proxies — wireload models, half-perimeter wirelength, Steiner trees, congestion heuristics.
+A learned predictor is trained to do the same job from the same early information, and both
+are scored against the real post-routing measurement once the flow completes.
 
-**Predict downstream quality early.** Replace slow, iterative tool feedback with fast,
-accurate machine learning estimates of post-routing metrics — gate arrival time, interconnect
-parasitics, and wirelength — computed at floorplan or placement time, so designers can make
-pre-emptive corrections before committing to expensive stages.
+<div class="row justify-content-sm-center">
+    <div class="col-sm-12 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/projects/ml-eda/prediction-vs-estimation.png" title="Conventional early estimation compared with machine learning prediction" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Conventional early estimation and machine learning prediction of a downstream metric.
+    Information available at an earlier source stage feeds both a conventional estimator and a
+    learned predictor; each estimate is evaluated against the target-stage measurement, which is
+    ground truth for scoring rather than an input at inference time.
+</div>
 
-**Make machine learning for chip design reproducible.** Remove the barrier of proprietary
-tools and secret datasets with an open, standardized, multimodal schema and dataset, plus a
-public benchmark that future models must beat.
+Framing the problem this way matters for honesty as much as accuracy. Keeping the target-stage
+measurement strictly out of the inputs is what prevents downstream information from leaking
+into an early predictor and producing accuracy that would not survive real use.
 
 ---
 
-## Why it matters
+## Representing circuits for learning
 
-A single missed timing constraint can send a design back through placement and routing,
-and each pass is measured in hours to days of compute. Predicting the final result from an
-early stage lets engineers fix problems while corrections are still cheap. Three findings
-give the work practical leverage:
+A circuit is natively relational, which makes graph representations a direct fit. The work
+uses three, each matched to the granularity of the quantity being predicted: a **netlist
+graph** of the whole circuit, **timing-path graphs** extracted from it as subgraphs for
+per-path delay quantities, and an **interconnect graph** in which wire segments themselves
+become nodes for spatial parasitic and wirelength prediction.
 
-- **Biggest wins where tools are weakest.** The earlier the design stage, the worse the
-  commercial tool's own estimate — and the larger the machine learning improvement. After
-  clock tree synthesis, the tool is already accurate and machine learning adds little. The
-  models earn their keep precisely on the early, uncertain stages and on the worst-case nets
-  that actually break designs.
-- **Cheap technology migration.** When a foundry moves to a newer process node, a model can
-  be recycled through transfer learning instead of retrained from scratch, recovering most of
-  the accuracy for a fraction of the compute.
-- **A foundation for the whole community.** The open schema, dataset, and benchmark turn a
-  collection of one-off results into shared infrastructure, so improvements compound across
-  research groups instead of being rebuilt each time.
+<div class="row justify-content-sm-center">
+    <div class="col-sm-12 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/projects/ml-eda/circuit-graphs.png" title="Netlist graph and extracted timing-path graphs" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    A sample ISCAS'89 benchmark as (a) a netlist graph, with inputs, outputs and gates as typed
+    nodes, and (b) the timing-path graphs extracted from it. Timing reports drive the extraction,
+    so each subgraph isolates one signal's journey through the circuit.
+</div>
+
+Node features are drawn from the standard artifacts a flow already produces — design
+constraints, LEF/DEF geometry, structural attributes such as logic level and fan-out, STA
+timing reports, and SPEF parasitics — so nothing in the representation requires instrumenting
+the tools.
 
 ---
 
-## Methodology
+## A generalized graph learning framework
 
-### Circuits as graphs
-
-A circuit is naturally a graph, which makes graph neural networks (GNNs) a direct fit. The
-program standardizes three representations: a **netlist graph** of the whole circuit (gates
-and I/O as nodes, wires as edges), **timing path graphs** that isolate one signal's journey
-for delay prediction, and **interconnect graphs** where wire segments themselves become nodes
-for parasitic and wirelength prediction.
+The first prediction tasks were solved as separate pipelines. They were then unified into
+**EDA-ML**, a task-agnostic framework in which any prediction is posed the same way: observe
+stage *X*, predict metric *M* at stage *Y*, at a stated granularity. Dataset generation, graph
+construction, and the training and evaluation flow are shared; what changes between tasks is
+the graph representation, the prediction level, and the baseline the model must beat.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/graph-representations.png" title="Three graph representations of a circuit" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/graph-learning-framework.png" title="The generalized graph learning framework" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    The netlist graph captures the full circuit; timing path graphs trace individual signal
-    paths; interconnect graphs model wire segments as nodes for spatial prediction.
+    The generalized framework for downstream metric prediction: an automated design flow
+    produces the stored artifacts (netlist, timing reports, extracted parasitics), which are
+    converted into netlist, timing-path and interconnect graphs, which in turn feed a common
+    training and evaluation flow. Arrival time prediction and interconnect parasitic prediction
+    are two instantiations of the same recipe.
 </div>
 
-Each node carries carefully engineered features drawn from standard EDA files — structural
-attributes (logic level, fan-in/fan-out), spatial coordinates, current-stage timing and
-parasitic estimates, and congestion measures. A graph convolution then passes messages between
-neighboring nodes so that each node's prediction is informed by its local circuit
-neighborhood, and a small set of linear layers regresses the target metric.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/message-passing.png" title="Graph neural network message passing" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Neighboring nodes send weighted messages to update a node's embedding, which then feeds a
-    prediction head. The model learns how much each neighbor should influence the result.
-</div>
-
-### A reusable framework
-
-The first prediction tasks were solved as separate pipelines, then unified into **EDA-ML**, a
-task-agnostic framework. Any prediction is posed as "observe stage X, predict metric M at
-stage Y," with a templated architecture — a graph convolution encoder, optional pooling for
-whole-circuit predictions, and linear layers — plus standardized features, loss, and
-evaluation metrics (MAE, MAPE, and worst-1% error to capture the hard tail). The same recipe
-then re-solves arrival time and parasitic prediction without bespoke engineering.
-
-### Transfer across technology nodes
-
-Migrating a model to a newer manufacturing node normally means regenerating an expensive
-dataset and retraining. Instead, the source-node model is copied, **every layer frozen** to
-preserve what it learned, a single new layer is appended, and only that layer is fine-tuned on
-a small amount of target-node data.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/transfer-learning.png" title="Transfer learning from 65 nm to 28 nm" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    The 65 nm model's layers are frozen and reused; a single appended layer is fine-tuned on
-    28 nm data, recovering most of the accuracy of a from-scratch model at a fraction of the cost.
-</div>
+Two results followed from the framework. Posing both arrival time and parasitic prediction
+through one recipe showed the approach generalizes across tasks rather than being tuned per
+problem — reported in the **EDA-ML** paper. And a model trained for one technology node can be
+carried to a newer one by freezing its layers and fine-tuning a single appended layer on a
+small amount of target-node data, instead of regenerating a dataset and retraining from
+scratch — reported in the **transfer learning** paper. Both are linked under
+[Publications](#publications), where the full results are reported.
 
 ---
 
 ## EDA-Schema: an open foundation
 
-Better predictors are only half the problem. A model trained on a confidential 28 nm dataset
-produced by a commercial tool cannot be reproduced by anyone outside the group that built it,
-and its reported accuracy cannot be meaningfully compared against a model trained on someone
-else's private data. **EDA-Schema** attacks that directly.
+Better predictors are only half the problem. A model trained on a confidential dataset
+produced by a commercial tool cannot be reproduced outside the group that built it, and its
+reported accuracy cannot be meaningfully compared against a model trained on someone else's
+private data. Published accuracy figures across the field are, for this reason, largely not
+comparable to one another. **EDA-Schema** attacks that directly.
 
 ### A schema for the whole design flow
 
@@ -182,11 +154,11 @@ generated entirely with open tools.
 A circuit is not only a graph. EDA-Schema-V2 extends the model so that each design instance
 carries **graphs, spatial layout images, and scalar heatmaps** side by side, which lets graph
 networks, convolutional networks, and hybrid architectures all train from the same source of
-truth.
+truth rather than from separately prepared datasets.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/netlist-graph.png" title="A sample circuit represented as a netlist graph" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/netlist-graph.png" title="A circuit as a heterogeneous netlist graph" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -220,11 +192,21 @@ truth.
 
 ### Generated with open tools, end to end
 
-**EDA-datagen** automates the OpenROAD physical design flow to mass-produce parameterized
-layouts, sweeping clock period, utilization, aspect ratio and other knobs — including
-deliberately *barely-passing* and *barely-failing* operating points, so the dataset contains
-the marginal cases that matter rather than only comfortable ones. Nothing in the pipeline
-requires a commercial license or an NDA.
+The dataset is produced by automating the OpenROAD flow over public benchmark circuits and
+open process design kits, sweeping clock period, utilization, aspect ratio and other
+parameters. The sweeps deliberately include **barely-passing and barely-failing operating
+points**, so the data contains the marginal cases where prediction actually matters rather
+than only comfortable ones. Nothing in the pipeline requires a commercial license or an NDA,
+which is what makes the resulting data redistributable.
+
+| | |
+| --- | --- |
+| Design instances | 7,776 (1,944 per PDK) |
+| Benchmark circuits | 18 — 16 from IWLS'05, plus OpenCores and IBEX |
+| Process design kits | Nangate 45 nm, SkyWater 130 nm, IHP SG13G2 130 nm, ASAP 7 nm |
+| Design stages captured | Floorplan, global placement, detailed placement, CTS, global and detailed routing |
+| Scale | 275 M+ gates, 75 M+ nets, 36 M+ extracted timing paths |
+| Modalities | Circuit graphs, spatial layout images, scalar heatmaps, QoR metric entities |
 
 A parallel standards effort is pushing the same representation toward industry adoption,
 through both the **Si2 Schema Working Group** and the **Si2 Logic Block Composition (LBC)
@@ -233,98 +215,10 @@ labs.
 
 ---
 
-## Results
+## A public benchmark
 
-Across tasks, the models consistently beat the commercial tool's own early-stage estimates,
-with the largest gains at the earliest stages and on the worst-case nets.
-
-### Predicting post-routing gate arrival time
-
-The earlier the prediction stage, the larger the improvement over the tool baseline. After
-clock tree synthesis the tool is already near-exact, so machine learning is reserved for the
-stages where it helps.
-
-| Prediction stage          | Tool baseline (MAPE) | GNN model (MAPE) | Improvement |
-| ------------------------- | -------------------- | ---------------- | ----------- |
-| Floorplan → routing       | 82.3%                | ~29.9%           | ~62%        |
-| Placement → routing       | 45.3%                | strong on sized sets | ~13.5%  |
-| CTS → routing             | 2.96%                | 3.56%            | tool already excellent |
-
-### Predicting interconnect parasitics
-
-Averaged over benchmark circuits, the spatial graph model improved on the tool's
-post-placement capacitance estimate, with the gain concentrated on the worst 1% of nets — the
-ones most likely to break a design.
-
-| Metric             | All nets       | Worst 1% of nets |
-| ------------------ | -------------- | ---------------- |
-| MAPE improvement   | 23.4%          | 47.4%            |
-| MAE improvement    | 5.3%           | 14.3%            |
-
-### One framework, two problems
-
-Re-solving both tasks through the unified EDA-ML framework on a fresh 28 nm dataset confirmed
-the recipe generalizes.
-
-| Task                         | MAE improvement | MAPE improvement |
-| ---------------------------- | --------------- | ---------------- |
-| Arrival time prediction      | 28.7%           | 39.2%            |
-| Parasitic impedance prediction | 22.9%         | 19.6%            |
-
-### Transfer learning saves compute
-
-Predicting post-routing arrival time from floorplan on a 28 nm node, the transferred model
-recovers nearly all the accuracy of a from-scratch model while needing far less data
-generation.
-
-| Approach                                   | Avg. MAE | Setup cost              |
-| ------------------------------------------ | -------- | ----------------------- |
-| 28 nm tool estimate (no ML)                | 43.6     | —                       |
-| 65 nm model used directly, no tuning       | 33.3     | free                    |
-| **Transferred model (frozen + fine-tuned)**| **20.5** | 1 h 40 m data generation |
-| 28 nm model trained from scratch           | 18.7     | 2 h 47 m data + training |
-
-The transferred model beats the untuned source model by 38.5% in MAE while costing roughly
-40% less compute than training from scratch.
-
-### A differentiable wirelength estimator
-
-Replacing the standard half-perimeter wirelength (HPWL) estimate with a differentiable GNN
-improved accuracy where HPWL fails most — long, congested nets — while running faster and
-remaining compatible with gradient-based placement optimizers.
-
-| Metric                       | HPWL  | GNN model |
-| ---------------------------- | ----- | --------- |
-| Average R² (all nets)        | 0.764 | 0.825     |
-| R² on longest 1% of nets     | 0.235 | 0.712     |
-| Inference speed              | 1×    | 8.1× faster |
-
-### The open dataset
-
-EDA-Schema-V2 releases a large, fully open, multimodal dataset generated with OpenROAD across
-four open process design kits.
-
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/dataset-scale.png" title="Scale of the EDA-Schema-V2 open dataset" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-| | |
-| --- | --- |
-| Design instances | **7,776** (1,944 per PDK) |
-| Benchmark circuits | 18 — 16 from IWLS'05, plus OpenCores and IBEX |
-| Process design kits | Nangate 45 nm, SkyWater 130 nm, IHP SG13G2 130 nm, ASAP 7 nm |
-| Design stages captured | Floorplan, global placement, detailed placement, CTS, global and detailed routing |
-| Scale | 275 M+ gates, 75 M+ nets, 36 M+ extracted timing paths |
-| Modalities | Circuit graphs, spatial layout images, scalar heatmaps, QoR metric entities |
-
-### A public benchmark
-
-On top of the dataset, EDA-Schema-V2 defines **twelve standardized prediction tasks** with
-fixed evaluation metrics and the EDA tool's own estimate as the reference baseline. Models are
-scored with leave-one-circuit-out evaluation, so a result reflects generalization to a circuit
-the model has never seen rather than memorization of a familiar one.
+On top of the dataset, EDA-Schema-V2 defines **twelve standardized prediction tasks**, each
+with fixed evaluation metrics and the EDA tool's own estimate as the reference baseline.
 
 | Prediction target | Granularity |
 | --- | --- |
@@ -335,53 +229,58 @@ the model has never seen rather than memorization of a familiar one.
 | Net-arc delay | Per net arc |
 | Cell-arc delay, cell-arc slew | Per cell arc |
 
+Models are scored with **leave-one-circuit-out** evaluation, so a reported result reflects
+generalization to a circuit the model has never seen rather than memorization of a familiar
+one — a distinction that ordinary random splits obscure, because fragments of the same circuit
+then appear in both training and test data.
+
 Results are published to a [public leaderboard](https://drexel-ice.github.io/EDA-learn-leaderboard/),
 which reports every released model against the tool baseline for each task, PDK and design
-stage combination.
+stage.
 
 ---
 
 ## Research arc
 
-The program builds in a clear progression, each result enabling the next.
-
-1. **2022–2023 — Prove the core idea.** Graph neural networks predict post-routing gate arrival
-   time and interconnect parasitics from early stages, beating commercial tools especially on
-   worst-case nets.
-2. **2024 — Generalize and migrate.** A single reusable framework (EDA-ML) handles multiple
-   prediction tasks, and transfer learning carries models cheaply across manufacturing nodes.
-3. **2025 — Extend and survey.** A differentiable wirelength estimator drops directly into
-   placement optimizers, and a survey of representation learning for EDA maps the field and
-   identifies data standardization as the central bottleneck.
+1. **2022–2023 — Establish the approach.** Graph neural networks predict post-routing gate
+   arrival time and interconnect parasitics from earlier stages, with attention to the long
+   tail where worst-case behavior lives.
+2. **2024 — Generalize and migrate.** EDA-ML poses multiple prediction tasks through one
+   framework, and transfer learning carries a trained model between technology nodes.
+3. **2025 — Extend and survey.** A differentiable wirelength estimator is built to drop into
+   gradient-based placement optimizers, and a survey of representation learning for EDA maps
+   the field and names data standardization as its central bottleneck.
 4. **2024–2026 — Build the infrastructure.** EDA-Schema and its multimodal successor
-   EDA-Schema-V2 deliver an open schema, dataset and benchmark, pushed toward an industry
-   standard through the Si2 Schema Working Group.
+   EDA-Schema-V2 deliver an open schema, dataset and benchmark, carried toward an industry
+   standard through the Si2 working groups.
 
-What began as a set of better predictors became the public infrastructure the field needs to
-build and fairly compare such predictors.
+What began as a set of better predictors became the public infrastructure needed to build and
+fairly compare such predictors.
 
 **Current directions.** Work is ongoing on *EDA-OpenML*, an open-weight framework for
 reproducible and data-efficient neural prediction, and *EDA-AutoML*, which automates neural
 architecture and hyperparameter selection — including an LLM-assisted approach to generating
-model configurations directly from a task description. Results will be reported here as they
-are published.
+model configurations from a task description. Results will be reported here as they are
+published.
 
 ---
 
 ## Publications
+
+Full methodology and quantitative results are in the papers below.
 
 ### Open data, schema, and benchmarks
 
 - **EDA-Schema-V2: A Multimodal Schema, Open Datasets, and Benchmarks for Machine Learning in Digital Physical Design.**
   P. Shrestha, A. Aversa, I. Savidis. *arXiv:2605.06952*, 2026.
   [[PDF]]({{ '/assets/pdf/preprints/2605.06952v1.pdf' | relative_url }})
-  — Extends the schema to graphs, images and heatmaps; releases the 7,776-instance open dataset
-  and the twelve-task benchmark.
+  — Extends the schema to graphs, images and heatmaps; releases the open dataset and the
+  twelve-task benchmark.
 - **EDA-Schema: A Graph Datamodel Schema and Open Dataset for Digital Design Automation.**
   P. Shrestha, A. Aversa, S. Phatharodom, I. Savidis. *GLSVLSI*, 2024. **Best Paper Award.**
   [[PDF]]({{ '/assets/pdf/conferences/GLSVLSI_2024-EDA-schema.pdf' | relative_url }})
-  — The original property-graph data model and open dataset that the rest of the infrastructure
-  is built on.
+  — The original property-graph data model and open dataset the rest of the infrastructure is
+  built on.
 
 ### Surveys and position papers
 
@@ -398,7 +297,7 @@ are published.
 - **Differentiable Graph Neural Networks for Wirelength Estimation.**
   Z. Wu, P. Shrestha, S. Phatharodom, I. Savidis. *ISCAS*, 2025.
   [[PDF]]({{ '/assets/pdf/conferences/ISCAS_2025-differentiable.pdf' | relative_url }})
-  — A drop-in, gradient-friendly replacement for HPWL inside placement optimizers.
+  — A gradient-friendly replacement for HPWL that can sit inside a placement optimizer.
 - **EDA-ML: Graph Representation Learning Framework for Digital IC Design Automation.**
   P. Shrestha, I. Savidis. *ISQED*, 2024.
   [[PDF]]({{ '/assets/pdf/conferences/ISQED_2024.pdf' | relative_url }})
@@ -410,7 +309,8 @@ are published.
 - **Graph Representation Learning for Parasitic Impedance Prediction of the Interconnect.**
   P. Shrestha, I. Savidis. *ISCAS*, 2023.
   [[PDF]]({{ '/assets/pdf/conferences/ISCAS_2023-parasitic.pdf' | relative_url }})
-  — Largest gains on the worst 1% of nets, the ones that break designs.
+  — Spatial interconnect graphs for post-routing capacitance, with the gains concentrated on
+  the worst nets.
 - **Modeling Graph Neural Networks for Gate Level Arrival Time Prediction of Long Tailed Datasets.**
   P. Shrestha, S. Phatharodom, I. Savidis. *GOMACTech*, 2023.
   [[PDF]]({{ '/assets/pdf/conferences/GOMACTech_2023.pdf' | relative_url }})
