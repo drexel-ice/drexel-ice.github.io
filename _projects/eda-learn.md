@@ -43,7 +43,7 @@ are scored against the real post-routing measurement once the flow completes.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/prediction-vs-estimation.png" title="Conventional early estimation compared with machine learning prediction" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/prediction-vs-estimation.png" title="Conventional early estimation compared with machine learning prediction" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -69,7 +69,7 @@ become nodes for spatial parasitic and wirelength prediction.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/circuit-graphs.png" title="Netlist graph and extracted timing-path graphs" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/circuit-graphs.png" title="Netlist graph and extracted timing-path graphs" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -95,7 +95,7 @@ the graph representation, the prediction level, and the baseline the model must 
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/graph-learning-framework.png" title="The generalized graph learning framework" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/graph-learning-framework.png" title="The generalized graph learning framework" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -134,7 +134,7 @@ representation.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/schema-er-diagram.png" title="EDA-Schema-V2 entity relationship diagram" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/schema-er-diagram.png" title="EDA-Schema-V2 entity relationship diagram" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -158,7 +158,7 @@ truth rather than from separately prepared datasets.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/netlist-graph.png" title="A circuit as a heterogeneous netlist graph" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/netlist-graph.png" title="A circuit as a heterogeneous netlist graph" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -168,7 +168,7 @@ truth rather than from separately prepared datasets.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/spatial-modalities.png" title="Binary spatial maps of the circuit layout" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/spatial-modalities.png" title="Binary spatial maps of the circuit layout" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -180,7 +180,7 @@ truth rather than from separately prepared datasets.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/routability-maps.png" title="RUDY routability heatmaps" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/routability-maps.png" title="RUDY routability heatmaps" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
