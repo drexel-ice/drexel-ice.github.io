@@ -311,7 +311,7 @@ ninja.data = [{id: "nav-team",
               window.location.href = "/pr-preview/pr-36/projects/design-for-trust/";
             },},{id: "projects-eda-learn-open-and-reproducible-machine-learning-for-electronic-design-automation",
           title: 'EDA-Learn: Open and Reproducible Machine Learning for Electronic Design Automation',
-          description: "A multi-year program that predicts expensive late-stage chip metrics from early design stages using graph neural networks, and builds the open schema, dataset, and benchmarks that make such models reproducible and comparable across the community.",
+          description: "Learned models that predict expensive late-stage chip metrics from early design stages, and the open schema, dataset, and benchmarks that make machine learning for design automation reproducible.",
           section: "Projects",handler: () => {
               window.location.href = "/pr-preview/pr-36/projects/eda-learn/";
             },},{id: "projects-run-time-detection-and-countermeasures",
