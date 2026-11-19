@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 486" width="1200" height="486" role="img" aria-label="The four layers of EDA-Learn">
+<title>EDA-Learn: four layers, each defined on top of the one before it</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker></defs>
+<rect width="1200" height="486" fill="#ffffff"/>
+<g font-family="Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect x="16" y="14" width="1168" height="48" rx="9" fill="#f3f5f8" stroke="#d7dee6"/>
+<text x="36" y="44" font-size="15" font-weight="700" fill="#07294d">Digital physical design</text>
+<text x="216" y="44" font-size="13" fill="#55687c">18 benchmark circuits  ·  4 open PDKs  ·  OpenROAD flow, synthesis through detailed routing  ·  stage artifacts</text>
+<path d="M153,62 L153,88" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="16" y="92" width="274" height="292" rx="11" fill="#eef6fd" stroke="#b7d8f4"/>
+<circle cx="48" cy="122" r="15" fill="#1d7dce"/>
+<text x="48" y="127" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="72" y="128" font-size="15.5" font-weight="700" fill="#07294d">EDA-Schema</text>
+<rect x="32" y="148" width="79" height="20" rx="10" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="71" y="162" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="#1d7dce" text-anchor="middle">PUBLISHED</text>
+<text x="32" y="192" font-size="12.5" font-style="italic" fill="#55687c">What is the data, and what</text>
+<text x="32" y="209" font-size="12.5" font-style="italic" fill="#55687c">exactly is being predicted?</text>
+<line x1="32" y1="224" x2="274" y2="224" stroke="#b7d8f4"/>
+<circle cx="36" cy="246" r="2.6" fill="#1d7dce"/>
+<text x="48" y="250" font-size="12.5" fill="#1f2d3a">Stage-aware multimodal data model</text>
+<circle cx="36" cy="272" r="2.6" fill="#1d7dce"/>
+<text x="48" y="276" font-size="12.5" fill="#1f2d3a">7,776 open design instances</text>
+<text x="48" y="292" font-size="12.5" fill="#1f2d3a">across four open PDKs</text>
+<circle cx="36" cy="314" r="2.6" fill="#1d7dce"/>
+<text x="48" y="318" font-size="12.5" fill="#1f2d3a">Twelve benchmark prediction tasks</text>
+<circle cx="36" cy="340" r="2.6" fill="#1d7dce"/>
+<text x="48" y="344" font-size="12.5" fill="#1f2d3a">The EDA tool's own estimate as</text>
+<text x="48" y="360" font-size="12.5" fill="#1f2d3a">the reference baseline</text>
+<path d="M295,238.0 L310,238.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+<path d="M153,384 L153,408" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="314" y="92" width="274" height="292" rx="11" fill="#ecf7f0" stroke="#bbe1cb"/>
+<circle cx="346" cy="122" r="15" fill="#1b8a51"/>
+<text x="346" y="127" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="370" y="128" font-size="15.5" font-weight="700" fill="#07294d">EDA-OpenML</text>
+<rect x="330" y="148" width="114" height="20" rx="10" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="387" y="162" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="#1b8a51" text-anchor="middle">IN PREPARATION</text>
+<text x="330" y="192" font-size="12.5" font-style="italic" fill="#55687c">Is the result reproducible,</text>
+<text x="330" y="209" font-size="12.5" font-style="italic" fill="#55687c">and does it hold on new circuits?</text>
+<line x1="330" y1="224" x2="572" y2="224" stroke="#bbe1cb"/>
+<circle cx="334" cy="246" r="2.6" fill="#1b8a51"/>
+<text x="346" y="250" font-size="12.5" fill="#1f2d3a">Executable model configurations</text>
+<circle cx="334" cy="272" r="2.6" fill="#1b8a51"/>
+<text x="346" y="276" font-size="12.5" fill="#1f2d3a">Leave-one-circuit-out evaluation</text>
+<text x="346" y="292" font-size="12.5" fill="#1f2d3a">on eighteen held-out circuits</text>
+<circle cx="334" cy="314" r="2.6" fill="#1b8a51"/>
+<text x="346" y="318" font-size="12.5" fill="#1f2d3a">Open-weight release: configs,</text>
+<text x="346" y="334" font-size="12.5" fill="#1f2d3a">weights, predictions, metrics</text>
+<circle cx="334" cy="356" r="2.6" fill="#1b8a51"/>
+<text x="346" y="360" font-size="12.5" fill="#1f2d3a">Public leaderboard</text>
+<path d="M593,238.0 L608,238.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+<path d="M451,384 L451,408" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="612" y="92" width="274" height="292" rx="11" fill="#fff7e4" stroke="#f0dca8"/>
+<circle cx="644" cy="122" r="15" fill="#a97b09"/>
+<text x="644" y="127" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="668" y="128" font-size="15.5" font-weight="700" fill="#07294d">EDA-AutoML</text>
+<rect x="628" y="148" width="93" height="20" rx="10" fill="#ffffff" stroke="#f0dca8"/>
+<text x="675" y="162" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="#a97b09" text-anchor="middle">IN PROGRESS</text>
+<text x="628" y="192" font-size="12.5" font-style="italic" fill="#55687c">Can the configuration be</text>
+<text x="628" y="209" font-size="12.5" font-style="italic" fill="#55687c">chosen automatically?</text>
+<line x1="628" y1="224" x2="870" y2="224" stroke="#f0dca8"/>
+<circle cx="632" cy="246" r="2.6" fill="#a97b09"/>
+<text x="644" y="250" font-size="12.5" fill="#1f2d3a">TPE architecture and hyper-</text>
+<text x="644" y="266" font-size="12.5" fill="#1f2d3a">parameter search</text>
+<circle cx="632" cy="288" r="2.6" fill="#a97b09"/>
+<text x="644" y="292" font-size="12.5" fill="#1f2d3a">Candidates scored by</text>
+<text x="644" y="308" font-size="12.5" fill="#1f2d3a">circuit-disjoint error</text>
+<circle cx="632" cy="330" r="2.6" fill="#a97b09"/>
+<text x="644" y="334" font-size="12.5" fill="#1f2d3a">Same tasks and protocol as</text>
+<text x="644" y="350" font-size="12.5" fill="#1f2d3a">the fixed reference model</text>
+<path d="M891,238.0 L906,238.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+<path d="M749,384 L749,408" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="910" y="92" width="274" height="292" rx="11" fill="#f5f0fb" stroke="#d8cbee"/>
+<circle cx="942" cy="122" r="15" fill="#6b4fa8"/>
+<text x="942" y="127" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="966" y="128" font-size="15.5" font-weight="700" fill="#07294d">Neural Architect Agent</text>
+<rect x="926" y="148" width="93" height="20" rx="10" fill="#ffffff" stroke="#d8cbee"/>
+<text x="973" y="162" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="#6b4fa8" text-anchor="middle">IN PROGRESS</text>
+<text x="926" y="192" font-size="12.5" font-style="italic" fill="#55687c">Is the search loop</text>
+<text x="926" y="209" font-size="12.5" font-style="italic" fill="#55687c">needed at all?</text>
+<line x1="926" y1="224" x2="1168" y2="224" stroke="#d8cbee"/>
+<circle cx="930" cy="246" r="2.6" fill="#6b4fa8"/>
+<text x="942" y="250" font-size="12.5" fill="#1f2d3a">An LLM reads the task and a</text>
+<text x="942" y="266" font-size="12.5" fill="#1f2d3a">summary of the data</text>
+<circle cx="930" cy="288" r="2.6" fill="#6b4fa8"/>
+<text x="942" y="292" font-size="12.5" fill="#1f2d3a">Returns one executable</text>
+<text x="942" y="308" font-size="12.5" fill="#1f2d3a">configuration — no search</text>
+<circle cx="930" cy="330" r="2.6" fill="#6b4fa8"/>
+<text x="942" y="334" font-size="12.5" fill="#1f2d3a">Evaluated under the same</text>
+<text x="942" y="350" font-size="12.5" fill="#1f2d3a">circuit-disjoint protocol</text>
+<path d="M1047,384 L1047,408" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="16" y="416" width="1168" height="54" rx="9" fill="#f3f5f8" stroke="#d7dee6"/>
+<text x="36" y="448" font-size="15" font-weight="700" fill="#07294d">Released artifacts</text>
+<text x="196" y="448" font-size="13" fill="#55687c">open dataset  ·  executable configurations  ·  trained weights  ·  out-of-fold predictions  ·  evaluation metrics  ·  public leaderboard</text>
+</g></svg>
