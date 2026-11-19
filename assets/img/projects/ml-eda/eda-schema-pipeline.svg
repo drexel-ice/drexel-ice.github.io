@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 502" width="1200" height="502" role="img" aria-label="How EDA-Schema is generated, represented and benchmarked">
+<title>EDA-Schema: dataset generation, multimodal representation, and benchmark tasks</title>
+<defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker><linearGradient id="hm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2b6cb0"/><stop offset="55%" stop-color="#e3b505"/><stop offset="100%" stop-color="#c0392b"/></linearGradient></defs>
+<rect width="1200" height="502" fill="#ffffff"/>
+<g font-family="Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect x="16" y="16" width="372" height="470" rx="12" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="202" y="50" font-size="17" font-weight="700" fill="#07294d" text-anchor="middle">Dataset Generation</text>
+<rect x="406" y="16" width="410" height="470" rx="12" fill="#fff7e4" stroke="#f0dca8"/>
+<text x="611" y="50" font-size="17" font-weight="700" fill="#07294d" text-anchor="middle">Multimodal Representation</text>
+<rect x="834" y="16" width="350" height="470" rx="12" fill="#ecf7f0" stroke="#bbe1cb"/>
+<text x="1009" y="50" font-size="17" font-weight="700" fill="#07294d" text-anchor="middle">Benchmarks</text>
+<path d="M391,251.0 L402,251.0" stroke="#55687c" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+<path d="M819,251.0 L830,251.0" stroke="#55687c" stroke-width="2" fill="none" marker-end="url(#a1)"/>
+<rect x="30" y="66" width="344" height="80" rx="8" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="43" y="85" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1d7dce">DESIGN SPACE</text>
+<text x="43" y="102" font-size="11.5" font-weight="400" fill="#1f2d3a">18 benchmark circuits — IWLS'05, OpenCores, IBEX</text>
+<text x="43" y="118" font-size="11.5" font-weight="400" fill="#1f2d3a">4 open PDKs — NG45, SKY130, IHP130, ASAP7</text>
+<text x="43" y="134" font-size="11.5" font-weight="400" fill="#1f2d3a">Sweeps — clock period, utilization, aspect ratio</text>
+<path d="M202,146 L202,162" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#a1)"/>
+<rect x="40" y="162" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="178" font-size="11" fill="#1f2d3a" text-anchor="middle">Logic synthesis</text>
+<path d="M116,186 L116,191" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="191" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="207" font-size="11" fill="#1f2d3a" text-anchor="middle">Floorplan</text>
+<path d="M116,215 L116,220" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="220" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="236" font-size="11" fill="#1f2d3a" text-anchor="middle">Global placement</text>
+<path d="M116,244 L116,249" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="249" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="265" font-size="11" fill="#1f2d3a" text-anchor="middle">Detailed placement</text>
+<path d="M116,273 L116,278" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="278" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="294" font-size="11" fill="#1f2d3a" text-anchor="middle">Clock tree synthesis</text>
+<path d="M116,302 L116,307" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="307" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="323" font-size="11" fill="#1f2d3a" text-anchor="middle">Global routing</text>
+<path d="M116,331 L116,336" stroke="#1d7dce" stroke-width="1.4"/>
+<rect x="40" y="336" width="152" height="24" rx="5" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="116" y="352" font-size="11" fill="#1f2d3a" text-anchor="middle">Detailed routing</text>
+<text x="116" y="156" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1d7dce" text-anchor="middle">OPENROAD FLOW</text>
+<rect x="208" y="162" width="156" height="196" rx="8" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="221" y="181" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1d7dce">STORED PER STAGE</text>
+<text x="221" y="204" font-size="11.5" font-weight="400" fill="#1f2d3a">Verilog netlist</text>
+<text x="221" y="225" font-size="11.5" font-weight="400" fill="#1f2d3a">DEF / LEF geometry</text>
+<text x="221" y="246" font-size="11.5" font-weight="400" fill="#1f2d3a">Timing reports (STA)</text>
+<text x="221" y="267" font-size="11.5" font-weight="400" fill="#1f2d3a">SPEF parasitics</text>
+<text x="221" y="288" font-size="11.5" font-weight="400" fill="#1f2d3a">Power + IR-drop analysis</text>
+<text x="221" y="309" font-size="11.5" font-weight="400" fill="#1f2d3a">QoR metrics and logs</text>
+<path d="M195,174 L204,174" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,203 L204,203" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,232 L204,232" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,261 L204,261" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,290 L204,290" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,319 L204,319" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<path d="M195,348 L204,348" stroke="#1d7dce" stroke-opacity="0.22" stroke-width="1"/>
+<rect x="30" y="374" width="344" height="52" rx="7" fill="#ffffff" stroke="#1d7dce" stroke-dasharray="4 3"/>
+<text x="43" y="393" font-size="11.5" font-weight="500" fill="#1d7dce">Sweeps deliberately include barely-passing</text>
+<text x="43" y="408" font-size="11.5" font-weight="500" fill="#1d7dce">and barely-failing operating points</text>
+<rect x="30" y="436" width="344" height="30" rx="7" fill="#1d7dce" fill-opacity="0.1"/>
+<text x="202" y="455" font-size="12" font-weight="700" fill="#1d7dce" text-anchor="middle">7,776 design instances  ·  1,944 per PDK</text>
+<rect x="420" y="66" width="382" height="64" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<text x="433" y="85" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09">STAGE-AWARE PROPERTY GRAPH</text>
+<text x="433" y="102" font-size="11" font-weight="400" fill="#1f2d3a">Flow · stage · constraints   |   netlist, clock tree, timing path, PDN</text>
+<text x="433" y="118" font-size="11" font-weight="400" fill="#1f2d3a">gates, nets, pins, arcs   |   cell, area, power, timing, routability QoR</text>
+<rect x="420" y="142" width="382" height="70" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<rect x="434" y="154" width="46" height="46" rx="6" fill="#fff7e4" stroke="#f0dca8"/>
+<line x1="447" y1="167" x2="458" y2="180" stroke="#a97b09" stroke-width="1.2"/>
+<line x1="467" y1="166" x2="458" y2="180" stroke="#a97b09" stroke-width="1.2"/>
+<line x1="444" y1="187" x2="458" y2="180" stroke="#a97b09" stroke-width="1.2"/>
+<line x1="458" y1="180" x2="470" y2="188" stroke="#a97b09" stroke-width="1.2"/>
+<circle cx="447" cy="167" r="3.6" fill="#a97b09"/>
+<circle cx="467" cy="166" r="3.6" fill="#a97b09"/>
+<circle cx="444" cy="187" r="3.6" fill="#a97b09"/>
+<circle cx="458" cy="180" r="3.6" fill="#a97b09"/>
+<circle cx="470" cy="188" r="3.6" fill="#a97b09"/>
+<text x="492" y="169" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09">GRAPH</text>
+<text x="492" y="186" font-size="11" font-weight="400" fill="#1f2d3a">Netlist graph, timing-path subgraphs, and an</text>
+<text x="492" y="201" font-size="11" font-weight="400" fill="#1f2d3a">interconnect graph with wire segments as nodes</text>
+<rect x="420" y="220" width="382" height="70" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<rect x="434" y="232" width="46" height="46" rx="6" fill="#fff7e4" stroke="#f0dca8"/>
+<rect x="443" y="241" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<rect x="453" y="241" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.18"/>
+<rect x="463" y="241" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<rect x="443" y="251" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<rect x="453" y="251" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<rect x="463" y="251" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.18"/>
+<rect x="443" y="261" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.18"/>
+<rect x="453" y="261" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<rect x="463" y="261" width="8" height="8" rx="1.5" fill="#a97b09" fill-opacity="0.85"/>
+<text x="492" y="247" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09">IMAGE</text>
+<text x="492" y="264" font-size="11" font-weight="400" fill="#1f2d3a">Binary spatial maps — combinational and sequential</text>
+<text x="492" y="279" font-size="11" font-weight="400" fill="#1f2d3a">cell placement, pin locations, per-layer routing</text>
+<rect x="420" y="298" width="382" height="70" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<rect x="434" y="310" width="46" height="46" rx="6" fill="#fff7e4" stroke="#f0dca8"/>
+<rect x="442" y="319" width="7" height="28" rx="1.5" fill="url(#hm)" fill-opacity="0.40"/>
+<rect x="450" y="319" width="7" height="28" rx="1.5" fill="url(#hm)" fill-opacity="0.60"/>
+<rect x="458" y="319" width="7" height="28" rx="1.5" fill="url(#hm)" fill-opacity="0.80"/>
+<rect x="466" y="319" width="7" height="28" rx="1.5" fill="url(#hm)" fill-opacity="1.00"/>
+<text x="492" y="325" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09">HEATMAP</text>
+<text x="492" y="342" font-size="11" font-weight="400" fill="#1f2d3a">RUDY routability (net, pin, long- and short-range),</text>
+<text x="492" y="357" font-size="11" font-weight="400" fill="#1f2d3a">IR-drop and electromigration maps</text>
+<rect x="420" y="374" width="382" height="52" rx="7" fill="#ffffff" stroke="#a97b09" stroke-dasharray="4 3"/>
+<text x="433" y="393" font-size="11.5" font-weight="500" fill="#a97b09">Every attribute records the stage at which it becomes available,</text>
+<text x="433" y="408" font-size="11.5" font-weight="500" fill="#a97b09">so the information boundary is part of the task definition</text>
+<rect x="420" y="436" width="382" height="30" rx="7" fill="#a97b09" fill-opacity="0.1"/>
+<text x="611" y="455" font-size="12" font-weight="700" fill="#a97b09" text-anchor="middle">275 M+ gates  ·  75 M+ nets  ·  36 M+ timing paths</text>
+<rect x="848" y="66" width="322" height="148" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="861" y="85" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51">TWELVE PREDICTION TASKS</text>
+<text x="861" y="110" font-size="11" font-weight="700" fill="#1b8a51">Whole circuit</text>
+<text x="961" y="110" font-size="11" fill="#1f2d3a">area, power, total wirelength</text>
+<text x="861" y="128" font-size="11" font-weight="700" fill="#1b8a51">Whole circuit</text>
+<text x="961" y="128" font-size="11" fill="#1f2d3a">worst arrival, worst slack, TNS</text>
+<text x="861" y="146" font-size="11" font-weight="700" fill="#1b8a51">Per interconnect</text>
+<text x="961" y="146" font-size="11" fill="#1f2d3a">length</text>
+<text x="861" y="164" font-size="11" font-weight="700" fill="#1b8a51">Per timing path</text>
+<text x="961" y="164" font-size="11" fill="#1f2d3a">arrival time, slack</text>
+<text x="861" y="182" font-size="11" font-weight="700" fill="#1b8a51">Per net arc</text>
+<text x="961" y="182" font-size="11" fill="#1f2d3a">delay</text>
+<text x="861" y="200" font-size="11" font-weight="700" fill="#1b8a51">Per cell arc</text>
+<text x="961" y="200" font-size="11" fill="#1f2d3a">delay, slew</text>
+<rect x="848" y="226" width="322" height="83" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="861" y="245" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51">EACH TASK FIXES</text>
+<text x="861" y="262" font-size="11.5" font-weight="400" fill="#1f2d3a">Source stage → target stage</text>
+<text x="861" y="279" font-size="11.5" font-weight="400" fill="#1f2d3a">The EDA tool's own estimate as reference</text>
+<text x="861" y="296" font-size="11.5" font-weight="400" fill="#1f2d3a">MAE, MAPE, R² and upper-tail metrics</text>
+<rect x="848" y="321" width="322" height="83" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="861" y="340" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51">EVALUATION</text>
+<text x="861" y="357" font-size="11.5" font-weight="400" fill="#1f2d3a">Leave-one-circuit-out — 18 folds</text>
+<text x="861" y="374" font-size="11.5" font-weight="400" fill="#1f2d3a">One circuit withheld entirely per fold</text>
+<text x="861" y="391" font-size="11.5" font-weight="400" fill="#1f2d3a">Generalization, not interpolation</text>
+<rect x="848" y="436" width="322" height="30" rx="7" fill="#1b8a51" fill-opacity="0.1"/>
+<text x="1009" y="455" font-size="12" font-weight="700" fill="#1b8a51" text-anchor="middle">Open leaderboard  ·  CC BY-NC-SA 4.0</text>
+</g></svg>

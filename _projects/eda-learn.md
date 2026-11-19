@@ -5,6 +5,8 @@ dropdown_label: EDA Learn
 dropdown_children:
   - title: EDA-Schema
     permalink: /eda-schema/data-model/
+  - title: EDA-OpenML
+    permalink: /eda-openml/
   - title: Benchmarks
     permalink: /eda-schema/
 description: Learned models that predict expensive late-stage chip metrics from early design stages, and the open schema, dataset, and benchmarks that make machine learning for design automation reproducible.
@@ -80,32 +82,28 @@ problem, not a modeling problem.**
 
 ## EDA-Learn
 
-Four layers, each defined on top of the one above it, so that a reported result is attributable
-to a representation or an architecture rather than to the data it happened to be trained on.
-
-| Layer | What it pins down | Status |
-| --- | --- | --- |
-| **[EDA-Schema]({{ '/eda-schema/data-model/' | relative_url }})** | Stage-aware multimodal data model, open dataset, twelve benchmark tasks | Published — GLSVLSI 2024 (Best Paper), arXiv 2026 |
-| **EDA-OpenML** | Executable model configurations, circuit-disjoint evaluation, open-weight release | Results below; manuscript in preparation |
-| **EDA-AutoML** | Automated architecture and hyperparameter selection inside that protocol | In progress |
-| **Neural Architect Agent** | One-shot LLM-generated configuration, replacing the search loop | In progress |
-
-The program began with graph neural networks for gate arrival time and interconnect parasitic
-prediction, which were unified into the task-agnostic **EDA-ML** framework — observe stage *X*,
-predict metric *M* at stage *Y*, at a stated granularity. EDA-Schema and EDA-OpenML generalize
-that recipe onto open data and an open evaluation protocol.
+Four layers, each defined on top of the one before it, so that a reported result is
+attributable to a representation, a configuration or a search procedure rather than to the data
+it happened to be trained on.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/graph-learning-framework.png" title="The generalized graph learning framework" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/eda-learn-overview.svg" title="The four layers of EDA-Learn" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
-    The generalized framework the program grew out of: an automated design flow produces the
-    stored artifacts (netlist, timing reports, extracted parasitics), which are converted into
-    netlist, timing-path and interconnect graphs, which in turn feed a common training and
-    evaluation flow.
+    The four layers. Each one is defined on top of the layer before it and releases its own
+    artifacts, so a reported result can be traced to a representation, a configuration or a
+    search procedure rather than to the data it happened to be trained on.
 </div>
+
+The program began with graph neural networks for gate arrival time and interconnect parasitic
+prediction, unified into the task-agnostic **EDA-ML** framework. EDA-Schema and EDA-OpenML
+generalize that recipe onto open data and an open evaluation protocol. EDA-AutoML and the
+Neural Architect Agent are in progress; results will be posted as they are published.
+
+→ **[EDA-Schema]({{ '/eda-schema/data-model/' | relative_url }})** — the data and the benchmarks
+&nbsp;·&nbsp; **[EDA-OpenML]({{ '/eda-openml/' | relative_url }})** — the models and the evaluation
 
 ---
 
@@ -113,6 +111,19 @@ that recipe onto open data and an open evaluation protocol.
 
 A stage-aware **property-graph data model** for digital physical design, a large dataset
 generated entirely with open tools, and twelve standardized prediction tasks.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm-12 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/projects/ml-eda/eda-schema-pipeline.svg" title="How EDA-Schema is generated, represented and benchmarked" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    From design space to benchmark. Parameter sweeps over eighteen circuits and four open PDKs
+    are run through the OpenROAD flow; every stage's artifacts are parsed into one stage-aware
+    property graph carrying graph, image and heatmap representations; twelve prediction tasks
+    are defined on top, each scored against the EDA tool's own estimate under
+    leave-one-circuit-out evaluation.
+</div>
 
 | | |
 | --- | --- |
@@ -139,55 +150,29 @@ generated entirely with open tools, and twelve standardized prediction tasks.
 
 ## EDA-OpenML — reproducible neural prediction
 
-An open-source, open-weight framework in which the prediction problem and the model are
-specified separately, and the model is specified as an **executable configuration** — input
-features, architecture, hyperparameters, preprocessing, evaluation settings.
+An open-source, open-weight framework in which the **prediction problem** and the **model** are
+specified separately, and the model is an **executable configuration** rather than a prose
+description: input features, architecture, hyperparameters, preprocessing, evaluation settings.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-workflow.png" title="The EDA-OpenML workflow" class="img-fluid rounded z-depth-1" zoomable=true %}
-    </div>
-</div>
-<div class="caption">
-    The EDA-OpenML workflow. A prediction problem drawn from EDA-Schema-V2 and an executable
-    model configuration are combined, evaluated under circuit-level leave-one-circuit-out
-    cross-validation, aggregated both fold-averaged and sample-averaged, and released as a
-    package containing the configuration, the per-fold weights, the predictions and the metrics.
-</div>
+A single **Fixed MLP** — one architecture, one training configuration — is then run across every
+task, PDK and source stage as a controlled reference rather than a tuned model.
 
-A single **Fixed MLP** — one architecture, one training configuration — is run across every
-task, PDK and source stage as a controlled reference rather than as a tuned model.
+| Across 184 prediction conditions | |
+| --- | --- |
+| Lower fold-averaged error than the EDA tool's own estimate | **88** |
+| Better on a majority of eighteen held-out circuits | **81** |
+| Better on *all eighteen* held-out circuits | **15** |
+| NG45 interconnect length, global placement → detailed routing | MAE **4.69 → 3.39 µm** (−27.7%), R² **0.735 → 0.887** |
 
-- Lower fold-averaged error than the stage-specific EDA reference in **88 of 184** conditions.
-- **Interconnect length** is the strongest case: favorable in all twelve PDK-stage conditions,
-  and better on *all eighteen* held-out circuits in ten of them.
-- NG45 interconnect length, global placement → detailed routing: MAE **4.69 µm → 3.39 µm**
-  (−27.7% against HPWL), sample-averaged MAE −32.0%, R² **0.735 → 0.887**, winning on 15 of 18
-  circuits.
-- **No single configuration transfers uniformly.** Total negative slack, total power and
-  cell-arc prediction are not consistently favorable — reported rather than aggregated away.
+- Interconnect length is the strongest case: favorable in all twelve PDK-stage conditions.
+- **No single configuration transfers uniformly** — total negative slack, total power and
+  cell-arc prediction are not consistently favorable. Reported, not aggregated away.
+- Data efficiency is measured on two separate axes, *utilization* (how much existing data is
+  used) and *acquisition* (how many design runs are generated at all). Accuracy frequently
+  approaches the full-data result on substantially less of both.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-ng45-interconnect-mae.png" title="Per-circuit MAE, HPWL baseline versus Fixed MLP" class="img-fluid rounded z-depth-1" zoomable=true %}
-    </div>
-</div>
-<div class="caption">
-    Per-circuit mean absolute error for NG45 interconnect length predicted from global
-    placement, HPWL baseline against the Fixed MLP, one bar pair per held-out circuit. The ratio
-    above each pair is the model's error relative to the baseline; <code>i2c</code>,
-    <code>simple_spi</code> and <code>ss_pcm</code> are the three circuits where the model loses.
-</div>
-
-**Data efficiency** is measured along two separate axes: *utilization* (what fraction of
-existing samples is used for training) and *acquisition* (how many physical design runs are
-generated in the first place). Accuracy frequently approaches the full-data result on
-substantially less of both, with diminishing returns following power-law-like curves whose
-exponent depends on the target and the source stage.
-
-Every released model package carries its executable configuration, trained weights for each
-fold, preprocessing statistics, out-of-fold predictions and evaluation metrics. Results are
-published to a [public leaderboard](https://drexel-ice.github.io/EDA-learn-leaderboard/).
+→ **[Workflow, full results and data-efficiency analysis]({{ '/eda-openml/' | relative_url }})**
+&nbsp;·&nbsp; **[Leaderboard](https://drexel-ice.github.io/EDA-learn-leaderboard/)**
 
 ---
 
