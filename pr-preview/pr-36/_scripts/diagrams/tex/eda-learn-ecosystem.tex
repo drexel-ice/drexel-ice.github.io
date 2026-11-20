@@ -1,0 +1,196 @@
+% EDA-Learn technical ecosystem.
+% Body kept verbatim from the PESOSE Track 1 proposal (Figure 1).
+% Styling comes from ../site-preamble.tex -- do not add colours or fonts here.
+\begin{tikzpicture}[
+  font=\footnotesize,
+  >=Latex,
+  box/.style={
+    draw,
+    rounded corners,
+    align=center,
+    inner xsep=4.5pt,
+    inner ysep=6.5pt
+  },
+  input/.style={
+    box,
+    minimum width=1.25in,
+    minimum height=0.46in,
+    fill=blue!7
+  },
+  asset/.style={
+    box,
+    minimum width=1.48in,
+    text width=1.34in,
+    minimum height=0.54in,
+    fill=green!7
+  },
+  data/.style={
+    asset,
+    fill=orange!8
+  },
+  service/.style={
+    asset,
+    fill=purple!7
+  },
+  user/.style={
+    box,
+    minimum width=1.28in,
+    minimum height=0.46in,
+    fill=purple!7
+  }
+]
+
+% ------------------------------------------------------------
+% Open inputs
+% ------------------------------------------------------------
+\node[input] (designs)
+  {\textbf{Open-Source Designs}\\benchmark circuits};
+
+\node[input,below=6mm of designs] (openroad)
+  {\textbf{OpenROAD / ORFS}\\RTL-to-GDSII flow};
+
+\node[input,below=6mm of openroad] (pdks)
+  {\textbf{Open PDKs}\\4 technology nodes};
+
+\node[
+  draw,
+  dashed,
+  rounded corners,
+  fit=(designs)(openroad)(pdks),
+  inner xsep=6pt,
+  inner ysep=8pt,
+  label={[yshift=1.5mm]above:{\bfseries Open Inputs}}
+] (inputs) {};
+
+% ------------------------------------------------------------
+% EDA-datagen
+% ------------------------------------------------------------
+\node[asset,right=15mm of designs] (dgcode)
+  {\textbf{Codebase}\\Hydra wrapper +\\flow automation};
+
+\node[data,below=8mm of dgcode] (dgdata)
+  {\textbf{Raw Dataset}\\4 PDKs $\cdot$ 108 configs\\$\sim$2 TB};
+
+\node[
+  draw,
+  very thick,
+  rounded corners,
+  fit=(dgcode)(dgdata),
+  inner xsep=7pt,
+  inner ysep=10pt,
+  label={[yshift=-0.5mm]above:{\bfseries EDA-datagen}}
+] (datagen) {};
+
+% ------------------------------------------------------------
+% EDA-Schema
+% ------------------------------------------------------------
+\node[asset,right=14mm of dgcode] (schemacode)
+  {\textbf{Codebase}\\schema + data processing};
+
+\node[data,below=8mm of schemacode] (schemadata)
+  {\textbf{Processed Datasets}\\Full: $\sim$400 GB\\BP/BF subset: $\sim$10 GB};
+
+\node[
+  draw,
+  very thick,
+  rounded corners,
+  fit=(schemacode)(schemadata),
+  inner xsep=7pt,
+  inner ysep=10pt,
+  label={[yshift=-0.5mm]above:{\bfseries EDA-Schema}}
+] (schema) {};
+
+% ------------------------------------------------------------
+% EDA-ML / AutoML
+% ------------------------------------------------------------
+\node[asset,right=14mm of schemacode] (mlcode)
+  {\textbf{Codebase}\\12 ML tasks\\training + AutoML};
+
+\node[data,below=8mm of mlcode] (mlart)
+  {\textbf{Model Artifacts}\\weights + configs\\metrics + provenance};
+
+\node[
+  draw,
+  very thick,
+  rounded corners,
+  fit=(mlcode)(mlart),
+  inner xsep=7pt,
+  inner ysep=10pt,
+  label={[yshift=-0.5mm]above:{\bfseries EDA-ML / AutoML}}
+] (ml) {};
+
+% ------------------------------------------------------------
+% Leaderboard
+% ------------------------------------------------------------
+\node[service,right=9mm of mlcode,yshift=-10mm] (lbservice)
+  {\textbf{Benchmarking}\\leaderboard + rankings\\models + playground};
+
+\node[
+  draw,
+  very thick,
+  rounded corners,
+  fit=(lbservice),
+  inner xsep=7pt,
+  inner ysep=10pt,
+  label={[yshift=-0.5mm]above:{\bfseries Leaderboard}}
+] (leaderboard) {};
+
+% ------------------------------------------------------------
+% Users and contributors
+% ------------------------------------------------------------
+\node[user,below=18mm of datagen.south west,anchor=north west] (researchers)
+  {\textbf{ML / EDA Researchers}\\use + compare};
+
+\node[user,right=6mm of researchers] (universities)
+  {\textbf{Universities + Students}\\research + training};
+
+\node[user,right=6mm of universities] (industry)
+  {\textbf{EDA + Semiconductor}\\evaluate + guide};
+
+\node[user,right=6mm of industry] (contributors)
+  {\textbf{Contributors + Maintainers}\\data + code + models};
+
+\node[
+  draw,
+  dashed,
+  rounded corners,
+  fit=(researchers)(universities)(industry)(contributors),
+  inner xsep=7pt,
+  inner ysep=9pt,
+  label={[yshift=-1.5mm]below:{\bfseries Users and Contributors}}
+] (users) {};
+
+% ------------------------------------------------------------
+% EDA-Learn technical ecosystem
+% Match width of Users and Contributors
+% ------------------------------------------------------------
+\coordinate (eco-left)
+  at (users.west |- datagen.center);
+
+\coordinate (eco-right)
+  at (users.east |- leaderboard.center);
+
+\node[
+  draw,
+  very thick,
+  rounded corners,
+  fit=(eco-left)(eco-right)(datagen)(schema)(ml)(leaderboard),
+  inner xsep=0pt,
+  inner ysep=14pt,
+  label={[yshift=3.5mm]above:{\large\bfseries EDA-Learn Technical Ecosystem}}
+] (edalearn) {};
+
+% ------------------------------------------------------------
+% Technical flow
+% ------------------------------------------------------------
+\draw[->,thick] (inputs.east) -- (datagen.west);
+\draw[->,thick] (datagen.east) -- (schema.west);
+\draw[->,thick] (schema.east) -- (ml.west);
+\draw[->,thick] (ml.east) -- (leaderboard.west);
+
+% ------------------------------------------------------------
+% Community interaction
+% ------------------------------------------------------------
+\draw[<->,thick] (edalearn.south) -- (users.north);
+
+\end{tikzpicture}
