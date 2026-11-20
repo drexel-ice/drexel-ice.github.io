@@ -309,9 +309,9 @@ ninja.data = [{id: "nav-team",
           description: "EDA tools used for circuit design implement algorithms and methodologies that account for the power, area, and performance of the many blocks comprising the IC. With the more recent threat of untruste...",
           section: "Projects",handler: () => {
               window.location.href = "/pr-preview/pr-36/projects/design-for-trust/";
-            },},{id: "projects-eda-learn-open-and-reproducible-machine-learning-for-electronic-design-automation",
-          title: 'EDA-Learn: Open and Reproducible Machine Learning for Electronic Design Automation',
-          description: "Learned models that predict expensive late-stage chip metrics from early design stages, and the open schema, dataset, and benchmarks that make machine learning for design automation reproducible.",
+            },},{id: "projects-eda-learn",
+          title: 'EDA-Learn',
+          description: "Open and Reproducible Machine Learning for Electronic Design Automation",
           section: "Projects",handler: () => {
               window.location.href = "/pr-preview/pr-36/projects/eda-learn/";
             },},{id: "projects-run-time-detection-and-countermeasures",

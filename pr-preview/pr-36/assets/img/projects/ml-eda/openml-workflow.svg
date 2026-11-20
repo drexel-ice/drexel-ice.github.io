@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 376" width="1200" height="376" role="img" aria-label="The EDA-OpenML workflow">
+<title>EDA-OpenML: from a prediction problem to a released, reproducible model package</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker></defs>
+<rect width="1200" height="376" fill="#ffffff"/>
+<g font-family="Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect x="16" y="28" width="219" height="210" rx="12" fill="#eef6fd" stroke="#b7d8f4"/>
+<circle cx="46" cy="58" r="14" fill="#1d7dce"/>
+<text x="46" y="63" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="68" y="63" font-size="12.5" font-weight="700" fill="#07294d" text-anchor="start">Prediction problem</text>
+<line x1="32" y1="84" x2="219" y2="84" stroke="#b7d8f4"/>
+<rect x="30" y="96" width="191" height="126" rx="8" fill="#ffffff" stroke="#b7d8f4"/>
+<circle cx="46" cy="118" r="2.4" fill="#1d7dce"/>
+<text x="56" y="122" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">PDK and source stage</text>
+<circle cx="46" cy="141" r="2.4" fill="#1d7dce"/>
+<text x="56" y="145" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Target stage and quantity</text>
+<circle cx="46" cy="164" r="2.4" fill="#1d7dce"/>
+<text x="56" y="168" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">The EDA tool's own estimate</text>
+<text x="56" y="182" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">as the reference baseline</text>
+<path d="M238,133.0 L250,133.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#arb)"/>
+<rect x="253" y="28" width="219" height="210" rx="12" fill="#ecf7f0" stroke="#bbe1cb"/>
+<circle cx="283" cy="58" r="14" fill="#1b8a51"/>
+<text x="283" y="63" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="305" y="63" font-size="12.5" font-weight="700" fill="#07294d" text-anchor="start">Executable configuration</text>
+<line x1="269" y1="84" x2="456" y2="84" stroke="#bbe1cb"/>
+<rect x="267" y="96" width="191" height="126" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<circle cx="283" cy="118" r="2.4" fill="#1b8a51"/>
+<text x="293" y="122" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Ordered input features</text>
+<circle cx="283" cy="141" r="2.4" fill="#1b8a51"/>
+<text x="293" y="145" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Network architecture</text>
+<circle cx="283" cy="164" r="2.4" fill="#1b8a51"/>
+<text x="293" y="168" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Training hyperparameters</text>
+<circle cx="283" cy="187" r="2.4" fill="#1b8a51"/>
+<text x="293" y="191" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Preprocessing</text>
+<path d="M475,133.0 L487,133.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#arb)"/>
+<rect x="490" y="28" width="219" height="210" rx="12" fill="#fff7e4" stroke="#f0dca8"/>
+<circle cx="520" cy="58" r="14" fill="#a97b09"/>
+<text x="520" y="63" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="542" y="63" font-size="12.5" font-weight="700" fill="#07294d" text-anchor="start">Circuit-disjoint evaluation</text>
+<line x1="506" y1="84" x2="693" y2="84" stroke="#f0dca8"/>
+<rect x="504" y="96" width="191" height="126" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<circle cx="520" cy="118" r="2.4" fill="#a97b09"/>
+<text x="530" y="122" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Eighteen LOCO folds</text>
+<circle cx="520" cy="141" r="2.4" fill="#a97b09"/>
+<text x="530" y="145" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">One circuit withheld entirely</text>
+<circle cx="520" cy="164" r="2.4" fill="#a97b09"/>
+<text x="530" y="168" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Train on 17, test on the 18th</text>
+<circle cx="520" cy="187" r="2.4" fill="#a97b09"/>
+<text x="530" y="191" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">No circuit on both sides</text>
+<path d="M712,133.0 L724,133.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#arb)"/>
+<rect x="727" y="28" width="219" height="210" rx="12" fill="#fff7e4" stroke="#f0dca8"/>
+<circle cx="757" cy="58" r="14" fill="#a97b09"/>
+<text x="757" y="63" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="779" y="63" font-size="12.5" font-weight="700" fill="#07294d" text-anchor="start">Aggregation</text>
+<line x1="743" y1="84" x2="930" y2="84" stroke="#f0dca8"/>
+<rect x="741" y="96" width="191" height="126" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<circle cx="757" cy="118" r="2.4" fill="#a97b09"/>
+<text x="767" y="122" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Fold-averaged — equal weight</text>
+<text x="767" y="136" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">to every held-out circuit</text>
+<circle cx="757" cy="155" r="2.4" fill="#a97b09"/>
+<text x="767" y="159" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Sample-averaged — all out-of-</text>
+<text x="767" y="173" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">fold predictions pooled</text>
+<path d="M949,133.0 L961,133.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#arb)"/>
+<rect x="964" y="28" width="219" height="210" rx="12" fill="#f5f0fb" stroke="#d8cbee"/>
+<circle cx="994" cy="58" r="14" fill="#6b4fa8"/>
+<text x="994" y="63" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+<text x="1016" y="63" font-size="12.5" font-weight="700" fill="#07294d" text-anchor="start">Released model package</text>
+<line x1="980" y1="84" x2="1167" y2="84" stroke="#d8cbee"/>
+<rect x="978" y="96" width="191" height="126" rx="8" fill="#ffffff" stroke="#d8cbee"/>
+<circle cx="994" cy="118" r="2.4" fill="#6b4fa8"/>
+<text x="1004" y="122" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Configuration and fold weights</text>
+<circle cx="994" cy="141" r="2.4" fill="#6b4fa8"/>
+<text x="1004" y="145" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Preprocessing statistics</text>
+<circle cx="994" cy="164" r="2.4" fill="#6b4fa8"/>
+<text x="1004" y="168" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Out-of-fold predictions</text>
+<circle cx="994" cy="187" r="2.4" fill="#6b4fa8"/>
+<text x="1004" y="191" font-size="10.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Metrics, reports, provenance</text>
+<rect x="16" y="272" width="1168" height="56" rx="8" fill="#f3f5f8" stroke="#d7dee6"/>
+<text x="38" y="305" font-size="14" font-weight="700" fill="#07294d" text-anchor="start">EDA-Schema-V2 benchmarks</text>
+<text x="278" y="305" font-size="12" font-weight="400" fill="#55687c" text-anchor="start">4 open PDKs  ·  12 prediction tasks  ·  5 granularities  ·  18 circuits  ·  stage-specific EDA reference estimates</text>
+<path d="M125,268 L125,242" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#arb)"/>
+<path d="M362,268 L362,242" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#arb)"/>
+<path d="M599,268 L599,242" stroke="#55687c" stroke-width="1.4" fill="none" marker-end="url(#arb)"/>
+</g></svg>
