@@ -15,10 +15,15 @@ for src in tex/${1:-*}.tex; do
   name=$(basename "$src" .tex)
   cat site-preamble.tex "$src" > "$WORK/$name.tex"
   echo '\end{document}' >> "$WORK/$name.tex"
-  pdflatex -interaction=nonstopmode -halt-on-error -output-directory "$WORK" \
-           "$WORK/$name.tex" > "$WORK/$name.log" 2>&1 \
+  # latex -> DVI, not pdflatex -> PDF: the DVI route lets dvisvgm emit real
+  # <text> elements with a subsetted woff2 font instead of outlining every
+  # glyph, which is ~10x smaller and leaves the text selectable. The cost is
+  # that the dvips driver has no alpha, so figures must use colour mixes
+  # (accent!20) rather than fill opacity.
+  latex -interaction=nonstopmode -halt-on-error -output-directory "$WORK" \
+        "$WORK/$name.tex" > "$WORK/$name.log" 2>&1 \
     || { echo "LaTeX failed for $name:"; tail -25 "$WORK/$name.log"; exit 1; }
-  dvisvgm --pdf --exact-bbox --no-fonts --precision=4 \
-          -o "$OUT/$name.svg" "$WORK/$name.pdf" > /dev/null 2>&1
+  dvisvgm --exact-bbox --font-format=woff2 --precision=2 \
+          -o "$OUT/$name.svg" "$WORK/$name.dvi" > /dev/null 2>&1
   printf '%-28s %6sK\n' "$name.svg" "$(( $(stat -c%s "$OUT/$name.svg") / 1024 ))"
 done

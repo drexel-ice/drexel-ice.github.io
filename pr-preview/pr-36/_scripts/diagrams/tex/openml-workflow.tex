@@ -1,0 +1,66 @@
+% EDA-OpenML workflow: a prediction problem becomes a released model package.
+% Styling comes from ../site-preamble.tex -- no colours or fonts here.
+% Canvas units are the layout grid; see the preamble for the scale.
+\begin{tikzpicture}[sitecanvas]
+
+\def\PY{28}   % panel top
+\def\PH{194}  % panel height
+\def\PW{220}  % panel width
+
+% --- the five steps -------------------------------------------------------
+% #1 x  #2 tone  #3 tint  #4 accent  #5 number  #6 title
+\newcommand{\step}[6]{%
+  \path[panel,fill=#2!#3,draw=#2!30] (#1,\PY) rectangle ++(\PW,\PH);
+  \path[fill=#4] (#1+30,\PY+30) circle (14);
+  \node[bodybf,text=white] at (#1+30,\PY+30) {#5};
+  \node[lead,text=siteink,anchor=west] at (#1+52,\PY+30) {#6};
+  \draw[draw=#2!30,line width=.5pt] (#1+16,\PY+56) -- (#1+\PW-16,\PY+56);
+  \path[card] (#1+14,\PY+68) rectangle ++(\PW-28,110);
+}
+% #1 x  #2 accent  #3 y  #4 text (may contain \\)
+\newcommand{\bul}[4]{%
+  \path[fill=#2] (#1+30,#3+8) circle (2.4);
+  \node[tiny,anchor=north west,align=left,inner sep=0pt] at (#1+40,#3) {#4};
+}
+
+\step{16}{blue}{7}{accblue}{1}{Prediction problem}
+\bul{16}{accblue}{118}{PDK and source stage}
+\bul{16}{accblue}{140}{Target stage and quantity}
+\bul{16}{accblue}{162}{The EDA tool's own estimate\\as the reference baseline}
+
+\step{252}{green}{7}{accgreen}{2}{Executable configuration}
+\bul{252}{accgreen}{118}{Ordered input features}
+\bul{252}{accgreen}{140}{Network architecture}
+\bul{252}{accgreen}{162}{Training hyperparameters}
+\bul{252}{accgreen}{184}{Preprocessing}
+
+\step{488}{orange}{8}{accamber}{3}{Circuit-disjoint evaluation}
+\bul{488}{accamber}{118}{Eighteen LOCO folds}
+\bul{488}{accamber}{140}{One circuit withheld entirely}
+\bul{488}{accamber}{162}{Train on 17, test on the 18th}
+\bul{488}{accamber}{184}{No circuit on both sides}
+
+\step{724}{orange}{8}{accamber}{4}{Aggregation}
+\bul{724}{accamber}{118}{Fold-averaged --- equal weight\\to every held-out circuit}
+\bul{724}{accamber}{156}{Sample-averaged --- all out-of-\\fold predictions pooled}
+
+\step{960}{purple}{7}{accpurple}{5}{Released model package}
+\bul{960}{accpurple}{118}{Configuration and fold weights}
+\bul{960}{accpurple}{140}{Preprocessing statistics}
+\bul{960}{accpurple}{162}{Out-of-fold predictions}
+\bul{960}{accpurple}{184}{Metrics, reports, provenance}
+
+% --- step to step ---------------------------------------------------------
+\foreach \x in {16,252,488,724}
+  { \draw[flow] (\x+\PW+3,\PY+\PH/2) -- (\x+\PW+15,\PY+\PH/2); }
+
+% --- dataset band the first three steps draw on --------------------------
+\path[card,fill=black!3] (16,252) rectangle ++(1168,56);
+\node[cardtitle,text=siteink,anchor=west] at (38,280) {EDA-Schema-V2 benchmarks};
+\node[body,text=sitemuted,anchor=west] at (278,280)
+     {4 open PDKs $\cdot$ 12 prediction tasks $\cdot$ 5 granularities $\cdot$
+      18 circuits $\cdot$ stage-specific EDA reference estimates};
+\foreach \x in {16,252,488}
+  { \draw[flowthin] (\x+\PW/2,248) -- (\x+\PW/2,\PY+\PH+4); }
+
+\end{tikzpicture}
