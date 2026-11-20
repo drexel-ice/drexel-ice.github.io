@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 478" width="1200" height="478" role="img" aria-label="Conventional early estimation compared with learned prediction">
+<title>The prediction problem: source-stage information, two estimators, one target-stage measurement</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker></defs>
+<rect width="1200" height="478" fill="#ffffff"/>
+<g font-family="Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<text x="20" y="18" font-size="10" font-weight="700" letter-spacing="0.9" fill="#55687c" text-anchor="start">DIGITAL PHYSICAL DESIGN FLOW</text>
+<rect x="20" y="30" width="152" height="44" rx="7" fill="#f3f5f8" stroke="#d7dee6" stroke-width="1"/>
+<text x="96.0" y="51" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="middle">Logic synthesis</text>
+<path d="M174,52 L186,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="188" y="30" width="152" height="44" rx="7" fill="#f3f5f8" stroke="#d7dee6" stroke-width="1"/>
+<text x="264.0" y="51" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="middle">Floorplan</text>
+<path d="M342,52 L354,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="356" y="30" width="152" height="44" rx="7" fill="#eef6fd" stroke="#b7d8f4" stroke-width="1.8"/>
+<text x="432.0" y="51" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">Global placement</text>
+<text x="432.0" y="66" font-size="8.5" font-weight="700" letter-spacing="0.9" fill="#1d7dce" text-anchor="middle">SOURCE STAGE</text>
+<path d="M510,52 L522,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="524" y="30" width="152" height="44" rx="7" fill="#f3f5f8" stroke="#d7dee6" stroke-width="1"/>
+<text x="600.0" y="51" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="middle">Detailed placement</text>
+<path d="M678,52 L690,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="692" y="30" width="152" height="44" rx="7" fill="#f3f5f8" stroke="#d7dee6" stroke-width="1"/>
+<text x="768.0" y="51" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="middle">Clock tree synthesis</text>
+<path d="M846,52 L858,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="860" y="30" width="152" height="44" rx="7" fill="#f3f5f8" stroke="#d7dee6" stroke-width="1"/>
+<text x="936.0" y="51" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="middle">Global routing</text>
+<path d="M1014,52 L1026,52" stroke="#55687c" stroke-width="1.2"/>
+<rect x="1028" y="30" width="152" height="44" rx="7" fill="#fff7e4" stroke="#f0dca8" stroke-width="1.8"/>
+<text x="1104.0" y="51" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">Detailed routing</text>
+<text x="1104.0" y="66" font-size="8.5" font-weight="700" letter-spacing="0.9" fill="#a97b09" text-anchor="middle">TARGET STAGE</text>
+<path d="M432.0,74 L432.0,96 L600,96 L600,110" stroke="#1d7dce" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="112" width="600" height="66" rx="8" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="313" y="131" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1d7dce" text-anchor="start">WHAT EXISTS AT THE SOURCE STAGE</text>
+<text x="313" y="154" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="start">Numerical attributes  ·  spatial layout maps  ·  graph structure — everything the flow has produced so far</text>
+<path d="M600,178 L600,196 L330,196 L330,214" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<path d="M600,178 L600,196 L870,196 L870,214" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="120" y="216" width="420" height="150" rx="12" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="330.0" y="240" font-size="13.5" font-weight="700" fill="#07294d" text-anchor="middle">Conventional early estimation</text>
+<rect x="140" y="252" width="380" height="62" rx="8" fill="#ffffff" stroke="#b7d8f4"/>
+<text x="153" y="271" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1d7dce" text-anchor="start">ANALYTICAL ESTIMATOR</text>
+<text x="153" y="292" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Wireload models, half-perimeter wirelength,</text>
+<text x="153" y="306" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Steiner trees, congestion heuristics</text>
+<rect x="255.0" y="326" width="150" height="26" rx="13" fill="#1d7dce"/>
+<text x="330.0" y="344" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">Estimate</text>
+<path d="M330.0,314 L330.0,322" stroke="#1d7dce" stroke-width="1.4"/>
+<path d="M330.0,366 L330.0,394" stroke="#1d7dce" stroke-width="1.6" fill="none" marker-end="url(#arb)"/>
+<rect x="660" y="216" width="420" height="150" rx="12" fill="#ecf7f0" stroke="#bbe1cb"/>
+<text x="870.0" y="240" font-size="13.5" font-weight="700" fill="#07294d" text-anchor="middle">Learned prediction</text>
+<rect x="680" y="252" width="380" height="62" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="693" y="271" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="start">NEURAL PREDICTOR</text>
+<text x="693" y="292" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Trained on EDA-Schema benchmarks and</text>
+<text x="693" y="306" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">scored on circuits it has never seen</text>
+<rect x="795.0" y="326" width="150" height="26" rx="13" fill="#1b8a51"/>
+<text x="870.0" y="344" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">Prediction</text>
+<path d="M870.0,314 L870.0,322" stroke="#1b8a51" stroke-width="1.4"/>
+<path d="M870.0,366 L870.0,394" stroke="#1b8a51" stroke-width="1.6" fill="none" marker-end="url(#arb)"/>
+<path d="M1104.0,74 L1104.0,90 L1168,90 L1168,428 L906,428" stroke="#a97b09" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<rect x="300" y="396" width="600" height="66" rx="8" fill="#fff7e4" stroke="#f0dca8"/>
+<text x="313" y="415" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09" text-anchor="start">TARGET-STAGE MEASUREMENT</text>
+<text x="313" y="438" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="start">The real wirelength, delay or slack. Both estimates are scored against it — </text>
+<text x="313" y="452" font-size="11.5" font-weight="400" fill="#1f2d3a" text-anchor="start">it is the yardstick, never an input.</text>
+</g></svg>

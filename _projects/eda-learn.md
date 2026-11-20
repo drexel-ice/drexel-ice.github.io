@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "EDA-Learn: Open and Reproducible Machine Learning for Electronic Design Automation"
+title: EDA-Learn
 dropdown_label: EDA Learn
 dropdown_children:
   - title: EDA-Schema
@@ -9,7 +9,7 @@ dropdown_children:
     permalink: /eda-openml/
   - title: Benchmarks
     permalink: /eda-schema/
-description: Learned models that predict expensive late-stage chip metrics from early design stages, and the open schema, dataset, and benchmarks that make machine learning for design automation reproducible.
+description: Open and Reproducible Machine Learning for Electronic Design Automation
 img: assets/img/projects/ml-eda/cover.png
 importance: 1
 category: active
@@ -22,42 +22,51 @@ Digital physical design runs as a chain of stages — synthesis, floorplanning, 
 tree synthesis, routing, signoff. Timing, power, area and routability are only measured
 accurately at the end. Miss a target and the flow runs again, at hours to days per pass.
 
-**EDA-Learn** is an open, reproducible framework for predicting those late-stage outcomes from
-early-stage information — and for making such predictions comparable between research groups.
-
----
-
-## The prediction problem
-
-- **Given** the information that exists at a *source* stage — say, global placement.
-- **Predict** a quantity measured only at a later *target* stage — say, post-route wirelength.
-- **Beat** the tool's own analytical estimate for that quantity: wireload models, half-perimeter
-  wirelength, Steiner trees, congestion heuristics.
-- **Score** both against the real target-stage measurement, once the flow completes.
+EDA-Learn predicts those late-stage outcomes from early-stage information, and — just as
+importantly — makes such predictions comparable between research groups. It is an ecosystem
+rather than a model: open inputs, open generation code, an open dataset, open model weights,
+and a public leaderboard.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/prediction-vs-estimation.png" title="Conventional early estimation compared with machine learning prediction" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/eda-learn-ecosystem.svg" title="The EDA-Learn technical ecosystem" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
-    Conventional early estimation and machine learning prediction of a downstream metric.
-    Information available at an earlier source stage feeds both a conventional estimator and a
-    learned predictor; each estimate is evaluated against the target-stage measurement, which is
-    ground truth for scoring rather than an input at inference time.
+    The EDA-Learn ecosystem. Open designs, the OpenROAD flow and open PDKs feed a generation
+    pipeline; the raw flow output is processed into the EDA-Schema datasets; models are trained
+    and searched against twelve standardized tasks; results and weights are published to a
+    leaderboard. Every stage releases both its code and its artifacts.
 </div>
-
-Target-stage measurements are kept strictly out of the inputs. That is what prevents downstream
-information from leaking into an early predictor and producing accuracy that would not survive
-real use.
 
 ---
 
-## The closed-data problem
+## The problem
 
-Learned prediction has been demonstrated repeatedly across power, wirelength, timing,
-parasitics, routability and power integrity. The published results still cannot be reproduced or
-ranked against one another. Across a survey of fifteen representative studies:
+At any point in the flow, a designer has **source-stage** information and needs a
+**target-stage** measurement that does not exist yet. Conventional tools fill that gap with
+analytical proxies — wireload models, half-perimeter wirelength, Steiner trees, congestion
+heuristics. A learned predictor is trained to do the same job from the same early information,
+and both are scored against the real measurement once the flow completes. Keeping that
+measurement strictly out of the inputs is what stops downstream information leaking into an
+early predictor and producing accuracy that would not survive real use.
+
+<div class="row justify-content-sm-center">
+    <div class="col-sm-12 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/projects/ml-eda/prediction-problem.svg" title="Conventional early estimation compared with learned prediction" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    The prediction problem. Information available at an earlier source stage feeds both a
+    conventional analytical estimator and a learned predictor; each is evaluated against the
+    target-stage measurement, which is ground truth for scoring rather than an input at
+    inference time.
+</div>
+
+Learned prediction has been demonstrated repeatedly this way — across power, wirelength,
+timing, parasitics, routability and power integrity. The published results still cannot be
+reproduced or ranked against one another, because almost everything that determines a reported
+number is closed or unstated. Across a survey of fifteen representative studies:
 
 | | |
 | --- | --- |
@@ -66,25 +75,21 @@ ranked against one another. Across a survey of fifteen representative studies:
 | **12** | distinct network architectures across the fifteen studies |
 | **no two** | share a circuit set, a technology, a toolchain *and* an evaluation protocol |
 
-Three consequences follow:
-
-- Accuracy figures drawn from different circuits, nodes and toolchains are **not comparable**.
-- The contribution of a representation or an architecture to a reported number **cannot be
-  isolated**.
-- A model trained on confidential data **cannot be rerun** outside the group that built it.
-
-Open tools and datasets already exist — OpenROAD, CircuitNet, CircuitOps. The gap is not raw
+So accuracy figures drawn from different circuits, nodes and toolchains are not comparable; the
+contribution of a representation or an architecture to a reported number cannot be isolated;
+and a model trained on confidential data cannot be rerun outside the group that built it. Open
+tools and datasets already exist — OpenROAD, CircuitNet, CircuitOps — so the gap is not raw
 openness. It is that the design data, the evaluation procedure and the model configuration are
-each specified separately, so nothing downstream is attributable. **This is a specification
+each specified separately, leaving nothing downstream attributable. **This is a specification
 problem, not a modeling problem.**
 
 ---
 
-## EDA-Learn
+## The four layers
 
-Four layers, each defined on top of the one before it, so that a reported result is
-attributable to a representation, a configuration or a search procedure rather than to the data
-it happened to be trained on.
+Each layer is defined on top of the one before it, so that a reported result is attributable to
+a representation, a configuration or a search procedure rather than to the data it happened to
+be trained on.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
@@ -92,15 +97,11 @@ it happened to be trained on.
     </div>
 </div>
 <div class="caption">
-    The four layers. Each one is defined on top of the layer before it and releases its own
-    artifacts, so a reported result can be traced to a representation, a configuration or a
-    search procedure rather than to the data it happened to be trained on.
+    What each layer pins down, the question it answers, and where it stands. The program began
+    with graph neural networks for gate arrival time and interconnect parasitic prediction,
+    unified into the task-agnostic EDA-ML framework; EDA-Schema and EDA-OpenML generalize that
+    recipe onto open data and an open evaluation protocol.
 </div>
-
-The program began with graph neural networks for gate arrival time and interconnect parasitic
-prediction, unified into the task-agnostic **EDA-ML** framework. EDA-Schema and EDA-OpenML
-generalize that recipe onto open data and an open evaluation protocol. EDA-AutoML and the
-Neural Architect Agent are in progress; results will be posted as they are published.
 
 → **[EDA-Schema]({{ '/eda-schema/data-model/' | relative_url }})** — the data and the benchmarks
 &nbsp;·&nbsp; **[EDA-OpenML]({{ '/eda-openml/' | relative_url }})** — the models and the evaluation

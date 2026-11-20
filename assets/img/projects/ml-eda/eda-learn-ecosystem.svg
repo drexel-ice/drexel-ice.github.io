@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 482" width="1200" height="482" role="img" aria-label="The EDA-Learn technical ecosystem">
+<title>EDA-Learn: open inputs, the four components, and who uses them</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#55687c"/></marker></defs>
+<rect width="1200" height="482" fill="#ffffff"/>
+<g font-family="Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect x="16" y="44" width="176" height="268" rx="12" fill="#ffffff" stroke="#d7dee6" stroke-dasharray="6 4"/>
+<text x="104.0" y="68" font-size="10" font-weight="700" letter-spacing="0.9" fill="#55687c" text-anchor="middle">OPEN INPUTS</text>
+<rect x="30" y="90" width="148" height="62" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="104.0" y="115" font-size="12" font-weight="700" fill="#07294d" text-anchor="middle">Open-source designs</text>
+<text x="104.0" y="133" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">18 benchmark circuits</text>
+<rect x="30" y="164" width="148" height="62" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="104.0" y="189" font-size="12" font-weight="700" fill="#07294d" text-anchor="middle">OpenROAD / ORFS</text>
+<text x="104.0" y="207" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">RTL-to-GDSII flow</text>
+<rect x="30" y="238" width="148" height="62" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="104.0" y="263" font-size="12" font-weight="700" fill="#07294d" text-anchor="middle">Open PDKs</text>
+<text x="104.0" y="281" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">4 technology nodes</text>
+<rect x="228" y="44" width="956" height="268" rx="14" fill="#fbfcfe" stroke="#dde4ec" stroke-width="1.6"/>
+<rect x="250" y="33" width="104" height="22" rx="11" fill="#ffffff" stroke="#dde4ec"/>
+<text x="302" y="48" font-size="10.5" font-weight="700" letter-spacing="0.9" fill="#07294d" text-anchor="middle">EDA-LEARN</text>
+<path d="M197,178.0 L223,178.0" stroke="#55687c" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+<text x="353.0" y="80" font-size="14.5" font-weight="700" fill="#07294d" text-anchor="middle">EDA-datagen</text>
+<rect x="297.7" y="90" width="111" height="19" rx="9.5" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="353.0" y="103.0" font-size="9" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="middle">IN DEVELOPMENT</text>
+<rect x="242" y="126" width="222" height="76" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="255" y="145" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="start">CODEBASE</text>
+<text x="255" y="168" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Hydra wrapper and</text>
+<text x="255" y="183" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">flow automation</text>
+<rect x="242" y="216" width="222" height="76" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<text x="255" y="235" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09" text-anchor="start">RAW DATASET</text>
+<text x="255" y="258" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">4 PDKs · 108 configurations</text>
+<text x="255" y="273" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">~2 TB of flow output</text>
+<path d="M467,204 L477,204" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#arb)"/>
+<text x="591.0" y="80" font-size="14.5" font-weight="700" fill="#07294d" text-anchor="middle">EDA-Schema</text>
+<rect x="542.6" y="90" width="97" height="19" rx="9.5" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="591.0" y="103.0" font-size="9" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="middle">PUBLIC TODAY</text>
+<rect x="480" y="126" width="222" height="76" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="493" y="145" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="start">CODEBASE</text>
+<text x="493" y="168" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Schema definition and</text>
+<text x="493" y="183" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">data processing</text>
+<rect x="480" y="216" width="222" height="76" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<text x="493" y="235" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09" text-anchor="start">PROCESSED DATASETS</text>
+<text x="493" y="258" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Full set ~400 GB</text>
+<text x="493" y="273" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Barely-pass / fail set ~10 GB</text>
+<path d="M705,204 L715,204" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#arb)"/>
+<text x="829.0" y="80" font-size="14.5" font-weight="700" fill="#07294d" text-anchor="middle">EDA-ML / AutoML</text>
+<rect x="784.05" y="90" width="90" height="19" rx="9.5" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="829.0" y="103.0" font-size="9" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="middle">IN PROGRESS</text>
+<rect x="718" y="126" width="222" height="76" rx="8" fill="#ffffff" stroke="#bbe1cb"/>
+<text x="731" y="145" font-size="10" font-weight="700" letter-spacing="0.9" fill="#1b8a51" text-anchor="start">CODEBASE</text>
+<text x="731" y="168" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">12 prediction tasks,</text>
+<text x="731" y="183" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">training and AutoML</text>
+<rect x="718" y="216" width="222" height="76" rx="8" fill="#ffffff" stroke="#f0dca8"/>
+<text x="731" y="235" font-size="10" font-weight="700" letter-spacing="0.9" fill="#a97b09" text-anchor="start">MODEL ARTIFACTS</text>
+<text x="731" y="258" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Weights and configurations</text>
+<text x="731" y="273" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Metrics and provenance</text>
+<path d="M943,204 L953,204" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#arb)"/>
+<text x="1067.0" y="80" font-size="14.5" font-weight="700" fill="#07294d" text-anchor="middle">Leaderboard</text>
+<rect x="1046.2" y="90" width="42" height="19" rx="9.5" fill="#ffffff" stroke="#d8cbee"/>
+<text x="1067.0" y="103.0" font-size="9" font-weight="700" letter-spacing="0.9" fill="#6b4fa8" text-anchor="middle">LIVE</text>
+<rect x="956" y="126" width="222" height="76" rx="8" fill="#ffffff" stroke="#d8cbee"/>
+<text x="969" y="145" font-size="10" font-weight="700" letter-spacing="0.9" fill="#6b4fa8" text-anchor="start">SERVICE</text>
+<text x="969" y="168" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Rankings against the</text>
+<text x="969" y="183" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">EDA tool baseline</text>
+<rect x="956" y="216" width="222" height="76" rx="8" fill="#ffffff" stroke="#d8cbee"/>
+<text x="969" y="235" font-size="10" font-weight="700" letter-spacing="0.9" fill="#6b4fa8" text-anchor="start">BENCHMARKING</text>
+<text x="969" y="258" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Released models</text>
+<text x="969" y="273" font-size="11" font-weight="400" fill="#1f2d3a" text-anchor="start">Comparison playground</text>
+<rect x="228" y="342" width="956" height="96" rx="12" fill="#ffffff" stroke="#d7dee6" stroke-dasharray="6 4"/>
+<path d="M706.0,316 L706.0,338" stroke="#55687c" stroke-width="1.6" fill="none" marker-end="url(#arb)" marker-start="url(#arb)"/>
+<rect x="242" y="358" width="222" height="64" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="353.0" y="382" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">ML and EDA researchers</text>
+<text x="353.0" y="400" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">use + compare</text>
+<rect x="480" y="358" width="222" height="64" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="591.0" y="382" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">Universities and students</text>
+<text x="591.0" y="400" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">research + training</text>
+<rect x="718" y="358" width="222" height="64" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="829.0" y="382" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">EDA and semiconductor industry</text>
+<text x="829.0" y="400" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">evaluate + guide</text>
+<rect x="956" y="358" width="222" height="64" rx="8" fill="#eef6fd" stroke="#b7d8f4"/>
+<text x="1067.0" y="382" font-size="11.5" font-weight="700" fill="#07294d" text-anchor="middle">Contributors and maintainers</text>
+<text x="1067.0" y="400" font-size="10.5" font-weight="400" fill="#55687c" text-anchor="middle">data + code + models</text>
+<text x="706.0" y="458" font-size="10" font-weight="700" letter-spacing="0.9" fill="#55687c" text-anchor="middle">USERS AND CONTRIBUTORS</text>
+</g></svg>

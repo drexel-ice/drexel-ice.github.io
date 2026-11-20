@@ -26,7 +26,7 @@ design stages.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-workflow.png" title="The EDA-OpenML workflow" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/openml-workflow.svg" title="The EDA-OpenML workflow" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
