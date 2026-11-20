@@ -1,0 +1,30 @@
+% Shared styling for the EDA-Learn website figures.
+%
+% The TikZ bodies under tex/ are kept VERBATIM from the proposal and papers.
+% Everything that makes them look like the website lives here, so the figure
+% source stays a single shared artifact with the LaTeX documents.
+%
+% How the recolouring works: the proposal's TikZ fills with blue!7, green!7,
+% orange!8 and purple!7. Redefining the base colours makes those same mixes
+% land on the site palette, so no fill= key in the body has to change.
+\documentclass[border=6pt]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.94]{helvet}
+\renewcommand\familydefault{\sfdefault}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning,arrows.meta,calc,shapes.geometric,backgrounds}
+
+\definecolor{siteink}{HTML}{07294D}     % Drexel navy: text and strokes
+\definecolor{blue}{HTML}{0C7EE2}        % blue!7   -> #eef6fd
+\definecolor{green}{HTML}{008D29}       % green!7  -> #ecf7f0
+\definecolor{orange}{HTML}{FF9B00}      % orange!8 -> #fff7e4
+\definecolor{purple}{HTML}{7029C5}      % purple!7 -> #f5f0fb
+
+% TikZ takes its default draw colour from the ambient colour, so this sets
+% both the text and the rules in one go.
+\AtBeginDocument{\color{siteink}}
+
+\begin{document}
