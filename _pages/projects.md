@@ -4,7 +4,7 @@ title: projects
 permalink: /projects/
 description: Active research projects at the ICE Lab.
 nav: true
-nav_order: 4
+nav_order: 3
 display_categories: [active, completed]
 horizontal: false
 projects_dropdown: true
@@ -34,7 +34,7 @@ projects_dropdown: true
         </div>
       </div>
     {% else %}
-      <div class="row row-cols-1 row-cols-md-2">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
         {% for project in sorted_projects %}
           {% include projects.liquid %}
         {% endfor %}
