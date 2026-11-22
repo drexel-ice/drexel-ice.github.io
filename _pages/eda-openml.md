@@ -9,7 +9,7 @@ toc:
 ---
 
 EDA-OpenML is the prediction layer of [EDA-Learn]({{ '/projects/eda-learn/' | relative_url }}).
-It takes the tasks defined by [EDA-Schema]({{ '/eda-schema/data-model/' | relative_url }}) and
+It takes the tasks defined by [EDA-Schema]({{ '/eda-schema/' | relative_url }}) and
 fixes everything that normally varies silently between papers: what the model is, how it was
 trained, how it was scored, and what gets released afterwards.
 
@@ -26,7 +26,7 @@ design stages.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-workflow.svg" title="The EDA-OpenML workflow" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/openml-workflow.svg" alt="Flow diagram: a prediction problem and an executable model configuration combine, are evaluated under leave-one-circuit-out cross-validation, and are released as a model package." title="The EDA-OpenML workflow" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -107,7 +107,7 @@ against the tool's half-perimeter wirelength (HPWL) estimate, over all eighteen 
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-ng45-interconnect-mae.png" title="Per-circuit MAE, HPWL baseline versus Fixed MLP" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/openml-ng45-interconnect-mae.png" alt="Grouped bar chart of per-circuit mean absolute error, HPWL baseline against the Fixed MLP, one pair of bars for each of the eighteen held-out circuits." title="Per-circuit MAE, HPWL baseline versus Fixed MLP" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -130,7 +130,7 @@ costs are therefore measured **separately**, since conflating them hides which o
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/projects/ml-eda/openml-utilization-scaling.png" title="Utilization scaling for interconnect length prediction by source stage" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid path="assets/img/projects/ml-eda/openml-utilization-scaling.png" alt="Line chart of the error gap to the full-data result as the retained fraction of training samples shrinks, plotted separately for each source stage." title="Utilization scaling for interconnect length prediction by source stage" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
