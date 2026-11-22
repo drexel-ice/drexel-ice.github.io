@@ -1,0 +1,109 @@
+% EDA-OpenML end to end: a benchmark problem becomes one configuration file,
+% the EDA-ML library trains and scores it circuit-disjoint, and the run is
+% released whole.
+%!preamble: verbatim
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  flow/.style={-{Latex[length=2.3mm,width=1.7mm]},draw=black!70,line width=1.05pt},
+  feed/.style={-{Latex[length=1.8mm,width=1.3mm]},draw=black!55,line width=.7pt},
+  tick/.style={-{Latex[length=1.5mm,width=1.1mm]},draw=blue!55!black,line width=.6pt},
+  bandtitle/.style={font=\sffamily\bfseries\fontsize{9.6}{11.5}\selectfont,align=center},
+  title/.style={font=\sffamily\bfseries\fontsize{9.4}{11}\selectfont,align=center},
+  sub/.style={font=\sffamily\fontsize{7}{8.4}\selectfont,align=center},
+  item/.style={font=\sffamily\fontsize{7.8}{9.4}\selectfont,align=left},
+  muted/.style={font=\sffamily\fontsize{7.8}{9.6}\selectfont,align=center},
+  code/.style={font=\ttfamily\fontsize{6}{7.2}\selectfont,align=left},
+]
+\newcommand{\val}[1]{\textcolor{blue!58!black}{#1}}
+\newcommand{\key}[1]{\textcolor{black!82}{#1}}
+% #1 x  #2 y  #3 colour  #4 number
+\newcommand{\num}[4]{%
+  \path[fill=#3] (#1,#2) circle (.23);
+  \node[font=\sffamily\bfseries\fontsize{7.6}{8}\selectfont,text=white] at (#1,#2) {#4};
+}
+
+% ===================== the benchmark it starts from ===================
+\path[draw=black!45,fill=black!4,rounded corners=3.4pt,line width=.75pt]
+  (0,6.70) rectangle (17,7.90);
+\node[bandtitle,anchor=west] at (0.45,7.30) {EDA-Schema-V2 benchmark};
+\node[muted,text=black!62,anchor=west] at (5.3,7.30)
+  {18 circuits $\cdot$ 7,776 instances $\cdot$ 4 open PDKs $\cdot$
+   12 tasks $\cdot$ EDA tool baselines};
+\draw[feed] (3.65,6.70) -- (3.65,6.30);
+\draw[feed] (10.00,6.70) -- (10.00,5.20);
+
+% ===================== the configuration file =========================
+\path[draw=blue!55!black,fill=white,rounded corners=3pt,line width=.85pt]
+  (0.1,0.15) rectangle (7.2,6.30);
+\path[draw=none,fill=blue!8,rounded corners=2.6pt] (0.13,5.62) rectangle (7.17,6.27);
+\draw[draw=blue!35!black,line width=.5pt] (0.1,5.62) -- (7.2,5.62);
+\num{0.42}{5.95}{blue!62!black}{1}
+\node[font=\ttfamily\bfseries\fontsize{7.4}{8.8}\selectfont,text=blue!55!black,anchor=west]
+  at (0.78,5.95) {edaml\_config.yaml};
+
+\foreach \i/\l in {
+  0/{\key{problem\_formulation:}},
+  1/{\key{~~pdk:} \val{NG45}},
+  2/{\key{~~source\_stage:} \val{global\_place}},
+  3/{\key{~~target\_stage:} \val{detailed\_route}},
+  4/{\key{~~target:} \val{length}},
+  5/{\key{~~baseline:} \val{hpwl}},
+  6/{},
+  7/{\key{network\_architecture:}},
+  8/{\key{~~features:}},
+  9/{\key{~~~~net:} \val{[is\_special\_net, no\_of\_fanouts, hpwl,}},
+  10/{\val{~~~~~~~~~~x\_min, y\_min, x\_max, y\_max]}},
+  11/{\key{~~layers:}},
+  12/{\key{~~~~- \{type:} \val{Linear}\key{, in\_features:} \val{7}\key{, out\_features:} \val{64}\key{\}}},
+  13/{\key{~~~~- \{type:} \val{ReLU}\key{\}}},
+  14/{\key{~~~~- \{type:} \val{Linear}\key{, in\_features:} \val{64}\key{, out\_features:} \val{1}\key{\}}},
+  15/{},
+  16/{\key{hyperparameters:}},
+  17/{\key{~~loss:} \val{MSELoss}},
+  18/{\key{~~optimizer:} \val{SGD}},
+  19/{\key{~~learning\_rate:} \val{0.01}},
+  20/{\key{~~batch\_size:} \val{8192}},
+  21/{\key{~~no\_of\_epochs:} \val{25}}}
+{ \node[code,anchor=west] at (0.36,5.32-\i*0.237) {\l}; }
+
+\draw[flow] (7.30,3.25) -- (7.80,3.25);
+
+% ===================== the library ====================================
+\path[draw=black!55,fill=black!3,rounded corners=3.2pt,line width=.9pt]
+  (7.95,1.45) rectangle (12.05,5.20);
+\num{9.25}{4.82}{black!62}{2}
+\node[title,anchor=west] at (9.55,4.82) {EDA-ML};
+\node[font=\ttfamily\fontsize{6.2}{7.4}\selectfont,text=black!58] at (10.0,4.45)
+  {drexel-ice/EDA-ML};
+\draw[draw=black!30,line width=.5pt] (8.2,4.20) -- (11.8,4.20);
+\foreach \i/\t in {0/{Parse configuration},1/{Build the model},
+                   2/{Train 18 LOCO folds},3/{Evaluate vs baseline}}
+{
+  \path[draw=black!40,fill=white,rounded corners=2pt,line width=.5pt]
+    (8.25,3.64-\i*0.64) rectangle ++(3.5,0.5);
+  \node[item,anchor=center] at (10.0,3.89-\i*0.64) {\t};
+  \ifnum\i<3 \draw[tick,draw=black!55] (10.0,3.64-\i*0.64) -- (10.0,3.50-\i*0.64); \fi
+}
+
+\draw[flow] (12.15,3.25) -- (12.65,3.25);
+
+% ===================== what comes back ================================
+\path[draw=green!52!black,fill=green!4,rounded corners=3.2pt,line width=.9pt]
+  (12.80,0.62) rectangle (16.90,5.90);
+\num{13.40}{5.52}{green!52!black}{3}
+\node[title,text=green!45!black,anchor=west] at (13.70,5.52) {Released package};
+\node[sub,text=black!58] at (14.85,5.16) {one directory per condition};
+\foreach \i/\t in {0/{Trained model per fold},1/{Out-of-fold predictions},
+                   2/{Evaluation vs baseline},3/{Preprocessing statistics},
+                   4/{The configuration itself}}
+{
+  \path[draw=green!45!black,fill=white,rounded corners=2pt,line width=.5pt]
+    (13.00,4.32-\i*0.70) rectangle ++(3.7,0.56);
+  \node[item,anchor=west] at (13.18,4.60-\i*0.70) {\t};
+}
+\draw[tick,draw=green!45!black] (14.85,1.52) -- (14.85,1.36);
+\path[draw=green!55!black,fill=green!10,rounded corners=2.4pt,line width=.6pt]
+  (13.00,0.82) rectangle ++(3.7,0.52);
+\node[item,anchor=center,text=green!42!black] at (14.85,1.08) {Public leaderboard entry};
+
+\end{tikzpicture}
