@@ -7,8 +7,8 @@ dropdown_children:
     permalink: /eda-schema/
   - title: EDA-OpenML
     permalink: /eda-openml/
-description: Open and Reproducible Machine Learning for Electronic Design Automation
-img: assets/img/projects/ml-eda/cover.png
+description: EDA-Learn is an integrated research ecosystem from Drexel ICE for reproducible machine learning in electronic design automation, spanning design data, model development and evaluation.
+img: assets/img/projects/ml-eda/prediction-problem.svg
 importance: 1
 category: active
 research_area: ml-eda
@@ -16,18 +16,16 @@ toc:
   sidebar: left
 ---
 
-**EDA-Learn** is an integrated research ecosystem from Drexel ICE for reproducible machine
-learning in electronic design automation, spanning design data, model development and
-evaluation.
-
 It has three main components:
 
-1. **EDA-Schema** — RTL-to-GDSII generation, a stage-aware multimodal representation, datasets
-   and twelve benchmark tasks. 4 PDKs × 108 configs, ~320 GB. **Public today.**
-2. **EDA-ML / AutoML** — configuration-driven model development, optimization and evaluation
-   against those tasks. *In development.*
-3. **Leaderboard** — standardized comparison, every result tied to its dataset, task, config
-   and artifact. **Live**, seeded with the EDA-OpenML results.
+1. **[EDA-Schema]({{ '/eda-schema/' | relative_url }})** — RTL-to-GDSII generation, a stage-aware
+   multimodal representation, datasets and twelve benchmark tasks. 4 PDKs × 108 configs, ~320 GB.
+   **Public today.**
+2. **[EDA-ML / AutoML]({{ '/eda-openml/' | relative_url }})** — configuration-driven model
+   development, optimization and evaluation against those tasks. *In development.*
+3. **[Leaderboard](https://drexel-ice.github.io/EDA-learn-leaderboard/)** — standardized
+   comparison, every result tied to its dataset, task, config and artifact. **Live**, seeded
+   with the EDA-OpenML results.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-12 mt-3 mt-md-0">
