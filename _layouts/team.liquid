@@ -24,6 +24,15 @@ layout: default
       {% if page.description %}
         <p class="post-description">{{ page.description }}</p>
       {% endif %}
+      {% if page.website or page.github or page.scholar or page.linkedin or page.resume %}
+        <p class="team-profile-links">
+          {% if page.website %}<a href="{{ page.website }}">Website</a>{% endif %}
+          {% if page.scholar %}<a href="{{ page.scholar }}">Google Scholar</a>{% endif %}
+          {% if page.github %}<a href="{{ page.github }}">GitHub</a>{% endif %}
+          {% if page.linkedin %}<a href="{{ page.linkedin }}">LinkedIn</a>{% endif %}
+          {% if page.resume %}<a href="{{ page.resume }}">R&eacute;sum&eacute;</a>{% endif %}
+        </p>
+      {% endif %}
     </div>
   </header>
 
