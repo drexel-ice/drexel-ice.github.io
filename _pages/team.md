@@ -4,7 +4,7 @@ title: team
 permalink: /team/
 description: Current and former members of the ICE Lab.
 nav: true
-nav_order: 2
+nav_order: 4
 display_categories: [faculty, phd, masters, alumni]
 horizontal: false
 ---
@@ -44,7 +44,7 @@ horizontal: false
           </div>
         </div>
       {% else %}
-        <div class="row row-cols-1 row-cols-md-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
           {% for project in sorted_members %}
             {% include projects.liquid %}
           {% endfor %}
@@ -56,7 +56,7 @@ horizontal: false
 {% else %}
 
 {% assign sorted_members = site.team | sort: "importance" %}
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
     {% for project in sorted_members %}
       {% include projects.liquid %}
     {% endfor %}

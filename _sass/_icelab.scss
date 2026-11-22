@@ -206,6 +206,15 @@ html[data-theme="dark"] {
       object-fit: cover;
     }
 
+    // A diagram has to be shown whole; cropping it to the card cuts off the
+    // ends of a flow that only reads end to end. Photographs still fill.
+    .research-area-img[src$=".svg"],
+    figure img[src$=".svg"] {
+      object-fit: contain;
+      background-color: #fff;
+      padding: 0.4rem;
+    }
+
     .card-text {
       font-size: 0.95rem;
       margin-bottom: 0.5rem;
@@ -249,6 +258,18 @@ html[data-theme="dark"] {
       object-fit: cover;
       object-position: top center;
       padding-top: 0;
+    }
+
+    // A diagram is drawn to be read whole, so cropping it to the card's
+    // aspect ratio cuts the ends off a flow that only makes sense end to
+    // end. Fit it inside the frame instead, on the white the figure is
+    // already drawn against. Photographs keep filling the frame.
+    .card-img-top[src$=".svg"],
+    .card-img[src$=".svg"],
+    figure img[src$=".svg"] {
+      object-fit: contain;
+      background-color: #fff;
+      padding: 0.4rem;
     }
 
     .card-title {
