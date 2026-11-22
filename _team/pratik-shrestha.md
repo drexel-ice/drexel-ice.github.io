@@ -5,6 +5,7 @@ description: Ph.D. Student | ps937@drexel.edu
 img: assets/img/team/pratik-shrestha.jpeg
 importance: 1
 category: phd
+scholar: https://scholar.google.com/citations?user=HeaeSksAAAAJ
 website: https://prtx.github.io
 github: https://github.com/prtx
 resume: https://github.com/prtx/resume/raw/master/resume.pdf
