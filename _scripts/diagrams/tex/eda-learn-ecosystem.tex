@@ -1,6 +1,10 @@
 % EDA-Learn technical ecosystem.
-% Body kept verbatim from the PESOSE Track 1 proposal (Figure 1).
-% Styling comes from ../site-preamble.tex -- do not add colours or fonts here.
+% Adapted from the PESOSE Track 1 proposal (Figure 1): the separate
+% EDA-datagen component is folded into EDA-Schema, which owns generation
+% through to benchmarks on the website, and the contributors/maintainers
+% group is dropped from the users band.
+%!preamble: verbatim
+% Rendered verbatim: no website restyling, so it matches the printed figure.
 \begin{tikzpicture}[
   font=\footnotesize,
   >=Latex,
@@ -34,7 +38,7 @@
   },
   user/.style={
     box,
-    minimum width=1.28in,
+    minimum width=1.75in,
     minimum height=0.46in,
     fill=purple!7
   }
@@ -63,32 +67,13 @@
 ] (inputs) {};
 
 % ------------------------------------------------------------
-% EDA-datagen
-% ------------------------------------------------------------
-\node[asset,right=15mm of designs] (dgcode)
-  {\textbf{Codebase}\\Hydra wrapper +\\flow automation};
-
-\node[data,below=8mm of dgcode] (dgdata)
-  {\textbf{Raw Dataset}\\4 PDKs $\cdot$ 108 configs\\$\sim$2 TB};
-
-\node[
-  draw,
-  very thick,
-  rounded corners,
-  fit=(dgcode)(dgdata),
-  inner xsep=7pt,
-  inner ysep=10pt,
-  label={[yshift=-0.5mm]above:{\bfseries EDA-datagen}}
-] (datagen) {};
-
-% ------------------------------------------------------------
 % EDA-Schema
 % ------------------------------------------------------------
-\node[asset,right=14mm of dgcode] (schemacode)
-  {\textbf{Codebase}\\schema + data processing};
+\node[asset,right=15mm of designs] (schemacode)
+  {\textbf{Codebase}\\flow automation +\\schema + data processing};
 
 \node[data,below=8mm of schemacode] (schemadata)
-  {\textbf{Processed Datasets}\\Full: $\sim$400 GB\\BP/BF subset: $\sim$10 GB};
+  {\textbf{Datasets}\\4 PDKs $\cdot$ 108 configs\\Full: $\sim$320 GB};
 
 \node[
   draw,
@@ -103,7 +88,7 @@
 % ------------------------------------------------------------
 % EDA-ML / AutoML
 % ------------------------------------------------------------
-\node[asset,right=14mm of schemacode] (mlcode)
+\node[asset,right=10mm of schemacode] (mlcode)
   {\textbf{Codebase}\\12 ML tasks\\training + AutoML};
 
 \node[data,below=8mm of mlcode] (mlart)
@@ -122,7 +107,7 @@
 % ------------------------------------------------------------
 % Leaderboard
 % ------------------------------------------------------------
-\node[service,right=9mm of mlcode,yshift=-10mm] (lbservice)
+\node[service,right=10mm of mlcode,yshift=-10mm] (lbservice)
   {\textbf{Benchmarking}\\leaderboard + rankings\\models + playground};
 
 \node[
@@ -138,7 +123,7 @@
 % ------------------------------------------------------------
 % Users and contributors
 % ------------------------------------------------------------
-\node[user,below=18mm of datagen.south west,anchor=north west] (researchers)
+\node[user,below=18mm of schema.south west,anchor=north west] (researchers)
   {\textbf{ML / EDA Researchers}\\use + compare};
 
 \node[user,right=6mm of researchers] (universities)
@@ -147,14 +132,11 @@
 \node[user,right=6mm of universities] (industry)
   {\textbf{EDA + Semiconductor}\\evaluate + guide};
 
-\node[user,right=6mm of industry] (contributors)
-  {\textbf{Contributors + Maintainers}\\data + code + models};
-
 \node[
   draw,
   dashed,
   rounded corners,
-  fit=(researchers)(universities)(industry)(contributors),
+  fit=(researchers)(universities)(industry),
   inner xsep=7pt,
   inner ysep=9pt,
   label={[yshift=-1.5mm]below:{\bfseries Users and Contributors}}
@@ -165,7 +147,7 @@
 % Match width of Users and Contributors
 % ------------------------------------------------------------
 \coordinate (eco-left)
-  at (users.west |- datagen.center);
+  at (users.west |- schema.center);
 
 \coordinate (eco-right)
   at (users.east |- leaderboard.center);
@@ -174,7 +156,7 @@
   draw,
   very thick,
   rounded corners,
-  fit=(eco-left)(eco-right)(datagen)(schema)(ml)(leaderboard),
+  fit=(eco-left)(eco-right)(schema)(ml)(leaderboard),
   inner xsep=0pt,
   inner ysep=14pt,
   label={[yshift=3.5mm]above:{\large\bfseries EDA-Learn Technical Ecosystem}}
@@ -183,8 +165,7 @@
 % ------------------------------------------------------------
 % Technical flow
 % ------------------------------------------------------------
-\draw[->,thick] (inputs.east) -- (datagen.west);
-\draw[->,thick] (datagen.east) -- (schema.west);
+\draw[->,thick] (inputs.east) -- (schema.west);
 \draw[->,thick] (schema.east) -- (ml.west);
 \draw[->,thick] (ml.east) -- (leaderboard.west);
 
