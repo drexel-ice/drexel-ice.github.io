@@ -305,5 +305,14 @@
     "deployed_at": "2026-11-22T23:10:22.007518+00:00",
     "workflow_run_id": 45081523395,
     "changed_files": []
+  },
+  {
+    "tag": "site-snapshot/2026-11-22T231645Z",
+    "commit": "874bf2c0f24eae8a440f0f9a18246929b0b8f270",
+    "deployed_at": "2026-11-22T23:16:47.077970+00:00",
+    "workflow_run_id": 45082111727,
+    "changed_files": [
+      "_team/pratik-shrestha.md"
+    ]
   }
 ]
