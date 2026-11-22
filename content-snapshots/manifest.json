@@ -291,5 +291,12 @@
     "deployed_at": "2026-11-22T21:56:54.809503+00:00",
     "workflow_run_id": 45074659405,
     "changed_files": []
+  },
+  {
+    "tag": "site-snapshot/2026-11-22T225011Z",
+    "commit": "eda207b1f3355ba184c6e8c87e219e0c3c945cca",
+    "deployed_at": "2026-11-22T22:50:12.817668+00:00",
+    "workflow_run_id": 45079679476,
+    "changed_files": []
   }
 ]
