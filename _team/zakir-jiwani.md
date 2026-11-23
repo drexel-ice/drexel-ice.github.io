@@ -8,3 +8,8 @@ category: masters
 ---
 
 Zakir Jiwani is a Bachelor of Science student in Electrical and Computer Engineering at Drexel University and a member of the ICE Lab.
+
+## Research interests
+
+- Integrated circuit design
+- Electronic design automation

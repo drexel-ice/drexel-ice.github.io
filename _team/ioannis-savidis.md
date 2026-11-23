@@ -12,8 +12,27 @@ I was born and raised in Rochester, New York in December, 1982. I enjoy watching
 
 I received the B.S.E. degree in Electrical and Computer Engineering and Biomedical Engineering from Duke University, Durham, NC, in 2005. I received the M.Sc. degree in Electrical and Computer Engineering from the University of Rochester, Rochester, NY, in 2007, and have completed the Ph.D. degree in Electrical and Computer Engineering under the guidance of Professor Eby G. Friedman.
 
-Professional Experience: I interned at Freescale Semiconductor Corporation, Austin, TX, during the summers of 2006 and 2007, where he worked on the electrical characterization and modeling of interplane 3-D vias. During the summers of 2008, 2009, and 2010 I interned at the IBM T. J. Watson Research Center, Yorktown Heights, NY. While there, I worked on electrical characterization and modeling, reticle design, and DC and high frequency electrical measurements of test vehicles implementing various interplane 3-D via topologies.
-
-My research interests include analysis, modeling, and design methodologies for high performance digital and mixed-signal integrated circuits, emerging integrated circuit technologies, and interconnect related issues, with an emphasis on electrical and thermal modeling and characterization, signal and power integrity, and power and clock delivery for 3-D integrated circuit technologies.
+Professional Experience: I interned at Freescale Semiconductor Corporation, Austin, TX, during the summers of 2006 and 2007, where I worked on the electrical characterization and modeling of interplane 3-D vias. During the summers of 2008, 2009, and 2010 I interned at the IBM T. J. Watson Research Center, Yorktown Heights, NY. While there, I worked on electrical characterization and modeling, reticle design, and DC and high frequency electrical measurements of test vehicles implementing various interplane 3-D via topologies.
 
 Education: University of Rochester, Ph.D. Electrical and Computer Engineering (Dissertation: Characterization and Modeling of TSV Based 3-D Integrated Circuits, August 2013); M.S. ECE, May 2007; Duke University, B.S.E. ECE and Biomedical Engineering, May 2005.
+
+## Research interests
+
+- Analysis, modeling, and design methodologies for high performance digital and mixed-signal
+  integrated circuits
+- Emerging integrated circuit technologies and interconnect related issues, with an emphasis on
+  electrical and thermal modeling and characterization
+- Signal and power integrity, and power and clock delivery for 3-D integrated circuit
+  technologies
+- [Machine learning for electronic design automation]({{ '/research/' | relative_url }}),
+  including open datasets, benchmarks, and representation learning for physical design
+- [Hardware security and trust]({{ '/research/hardware-security/' | relative_url }}),
+  spanning logic locking, analog obfuscation, and side-channel analysis
+
+## Publications
+
+As principal investigator of the ICE Lab, I am an author on the great majority of the lab's
+publications — 24 journal articles, 77 conference papers, a book and a book chapter, together
+with preprints, tutorials, and invited presentations.
+
+→ **[All publications]({{ '/publications/' | relative_url }})**
