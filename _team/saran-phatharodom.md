@@ -3,7 +3,7 @@ layout: team
 title: Saran Phatharodom
 description: Ph.D. Student
 img: assets/img/team/saran-phatharodom.jpeg
-importance: 4
+importance: 3
 category: phd
 ---
 

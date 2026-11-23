@@ -3,7 +3,7 @@ layout: team
 title: Alec Aversa
 description: Ph.D. Candidate | aja367@drexel.edu
 img: assets/img/team/alec-aversa.jpeg
-importance: 5
+importance: 4
 category: phd
 ---
 

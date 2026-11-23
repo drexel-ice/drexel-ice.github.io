@@ -3,7 +3,7 @@ layout: team
 title: Prof. Kyle Juretus
 description: Assistant Professor, Villanova University | kyle.juretus@villanova.edu
 img: assets/img/team/kyle-juretus.jpeg
-importance: 3
+importance: 4
 category: alumni
 ---
 

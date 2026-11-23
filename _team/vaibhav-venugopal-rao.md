@@ -3,7 +3,7 @@ layout: team
 title: Dr. Vaibhav Venugopal Rao
 description: Staff Engineer, Kioxia | vaibhavvrao93@gmail.com
 img: assets/img/team/vaibhav-venugopal-rao.jpeg
-importance: 1
+importance: 2
 category: alumni
 ---
 

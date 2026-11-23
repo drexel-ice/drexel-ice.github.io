@@ -3,7 +3,7 @@ layout: team
 title: Ashish Sharma
 description: Ph.D. Student | as5463@drexel.edu
 img: assets/img/team/ashish-sharma.jpeg
-importance: 6
+importance: 5
 category: phd
 ---
 
