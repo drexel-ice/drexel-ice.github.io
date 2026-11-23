@@ -1,0 +1,418 @@
+% EDA-OpenML workflow (paper Figure 2), body verbatim from its source.
+% Rendered with ../verbatim-preamble.tex so the stock xcolor tints and the
+% figure's own type scale come out exactly as they do in the paper.
+%!preamble: verbatim
+\begin{tikzpicture}[
+  x=1cm,y=.75cm,
+  >={Latex[length=1.45mm,width=1.00mm]},
+  flow/.style={-{Latex[length=1.65mm,width=1.14mm]},draw=black!78,line width=.92pt},
+  support/.style={-{Latex[length=1.40mm,width=.98mm]},draw=black!66,line width=.70pt},
+  heading/.style={font=\sffamily\bfseries\fontsize{7.6}{8.6}\selectfont,
+                  anchor=center,align=center},
+  sub/.style={font=\sffamily\bfseries\fontsize{7.0}{8.0}\selectfont,align=left},
+  small/.style={font=\sffamily\fontsize{6.55}{7.55}\selectfont,align=left},
+  micro/.style={font=\sffamily\fontsize{5.9}{6.8}\selectfont,align=center},
+  inner/.style={draw=black!13,fill=white,rounded corners=1.8pt,line width=.38pt},
+  netnode/.style={circle,draw=blue!70!black,fill=white,minimum size=1.6mm,inner sep=0pt,line width=.44pt},
+]
+% Five equal-width stages; light fills and fine outlines follow the
+% visual language of the native/transfer MLP illustration.
+\newcommand{\Stage}[3]{%
+  \path[draw=#2!69!black,fill=#2!3,rounded corners=3.1pt,line width=.66pt]
+    (#1,.14) rectangle ++(3.12,6.12);
+  \path[draw=none,fill=#2!9,rounded corners=2.6pt]
+    (#1+.022,5.44) rectangle (#1+3.098,6.238);
+  \draw[draw=#2!32!black,line width=.42pt]
+    (#1,5.44)--(#1+3.12,5.44);
+  % All stage headings are centered in their header bands.
+  \node[heading] at (#1+1.56,5.86) {#3};
+}
+\Stage{.04}{orange}{Problem\\Formulation}
+\Stage{3.52}{blue}{Executable Model\\Configuration}
+\Stage{7.00}{green}{Circuit-Level\\LOCO Evaluation}
+\Stage{10.48}{red}{Aggregate\\Evaluation}
+\Stage{13.96}{purple}{Reproducible\\Model Package}
+
+% Horizontal flow, kept outside all stage borders.
+\foreach \start in {3.16,6.64,10.12,13.60}{
+  \draw[flow] (\start+.045,3.20)--(\start+.310,3.20);
+}
+
+% ================================================================
+% 1. Prediction Problem: evenly spaced specification panels.
+% Uniform inter-card gaps make the four groups visually balanced.
+% ================================================================
+% Four groups: PDK, Source -> Target Stages, Prediction Task,
+% and EDA Baseline. Equal vertical gaps of 0.38 cm.
+\foreach \bottom/\top in {4.39/5.12,1.70/2.42,.60/1.32}{%
+  \path[draw=orange!55!black,fill=white,
+        line width=.49pt,rounded corners=1.6pt]
+    (.36,\bottom) rectangle (2.84,\top);
+}
+\node[sub,anchor=center,text=black!85] at (1.60,4.755) {PDK};
+\node[sub,anchor=center,text=black!85] at (1.60,2.060) {Prediction Task};
+\node[sub,anchor=center,text=black!85] at (1.60,.960) {EDA Baseline};
+
+% One grouped Source -> Target Stage relationship, with the same
+% 0.38 cm vertical clearance as the other configuration cards.
+\path[draw=orange!55!black,fill=white,
+      line width=.49pt,rounded corners=1.6pt]
+  (.36,2.80) rectangle (2.84,4.01);
+\path[draw=orange!60!black,fill=orange!8,
+      line width=.42pt,rounded corners=1.1pt]
+  (.49,3.055) rectangle (1.40,3.745);
+\path[draw=orange!60!black,fill=orange!8,
+      line width=.42pt,rounded corners=1.1pt]
+  (1.81,3.055) rectangle (2.72,3.745);
+\node[font=\sffamily\fontsize{6.4}{7.5}\selectfont,
+      align=center,text=black!85] at (.945,3.40) {Source\\Stage};
+\node[font=\sffamily\fontsize{6.4}{7.5}\selectfont,
+      align=center,text=black!85] at (2.265,3.40) {Target\\Stage};
+\draw[-{Latex[length=1.35mm,width=.92mm]},
+      draw=orange!74!black,line width=.72pt]
+  (1.48,3.40)--(1.74,3.40);
+
+% ================================================================
+% 2. Executable Model Configuration
+% Three compact cards follow the original Figure 2 organization:
+% Input Features, MLP Architecture, and Training Setup.
+% All artwork is native TikZ; no equations or layer-size labels.
+% ================================================================
+% Sub-panel outlines.
+\foreach \lo/\hi in {4.04/5.26,2.45/3.92,.39/2.31}{
+  \path[draw=blue!56!black,fill=white,rounded corners=2.0pt,
+        line width=.48pt] (3.73,\lo) rectangle (6.43,\hi);
+}
+
+% ---------------------------------------------------------------
+% Input Features -- centered ordered feature boxes, no grid icon.
+% ---------------------------------------------------------------
+\node[sub,text=blue!67!black,anchor=center] at (5.08,5.03)
+  {Input Features};
+% Five ordered feature boxes and ellipsis, shifted left to stay
+% comfortably inside the Input Features sub-panel.
+\foreach \i in {0,...,4}{
+  \path[draw=blue!58!black,fill=blue!14,line width=.44pt]
+    (4.06+\i*.31,4.45) rectangle ++(.25,.23);
+}
+\node[small,anchor=west,text=blue!66!black] at (5.72,4.56)
+  {$\cdots$};
+
+% ---------------------------------------------------------------
+% MLP Architecture -- two vertically separated inputs, three hidden
+% neurons and one output. No numerical layer labels.
+% ---------------------------------------------------------------
+\node[sub,text=blue!67!black,anchor=center] at (5.08,3.68)
+  {MLP Architecture};
+% Draw connections first so neuron disks remain unobstructed.
+\foreach \ya in {2.78,3.38}{
+  \foreach \yb in {2.75,3.07,3.39}{
+    \draw[blue!38!black,line width=.39pt] (4.14,\ya)--(5.02,\yb);
+  }
+}
+\foreach \ya in {2.75,3.07,3.39}{
+  \draw[blue!38!black,line width=.39pt]
+    (5.02,\ya)--(5.90,3.07);
+}
+\foreach \yy in {2.78,3.38}{
+  \node[netnode,minimum size=2.5mm,fill=white] at (4.14,\yy) {};
+}
+\foreach \yy in {2.75,3.07,3.39}{
+  \node[netnode,minimum size=2.6mm,fill=blue!17] at (5.02,\yy) {};
+}
+\node[netnode,minimum size=2.9mm,fill=blue!32] at (5.90,3.07) {};
+
+% ---------------------------------------------------------------
+% Training Setup -- centered, text-only list without gear icon.
+% ---------------------------------------------------------------
+\node[sub,text=blue!67!black,anchor=center] at (5.08,2.08)
+  {Training Setup};
+\foreach \yy in {1.67,1.25,.83}{
+  \fill[blue!67!black] (3.98,\yy) circle (.025);
+}
+\node[small,text=black!83,anchor=west,inner sep=0pt]
+  at (4.18,1.67) {Hyperparameters};
+\node[small,text=black!83,anchor=west,inner sep=0pt]
+  at (4.18,1.25) {Preprocessing};
+\node[small,text=black!83,anchor=west,inner sep=0pt]
+  at (4.18,.83) {Training Procedure};
+
+% ================================================================
+% 3. Circuit-Level LOCO Evaluation
+% Three consistent fold cards with a two-line heading.
+% ================================================================
+% Breaking the text prevents it from exceeding the panel width and
+% creates a clear gap above Fold 1.
+\node[font=\sffamily\fontsize{6.4}{7.5}\selectfont,
+      align=center,text=black!72,inner sep=0pt]
+  at (8.56,5.08) {Folds trained on\\$K-1$ Circuits};
+
+% #1 = card center y; #2 = index of held-out circuit;
+% #3 = fold label.
+\newcommand{\LocoFold}[3]{%
+  \path[draw=green!48!black,fill=white,rounded corners=2.0pt,
+        line width=.52pt]
+     (7.25,#1-.56) rectangle (9.87,#1+.56);
+  \node[sub,anchor=west,text=green!57!black]
+     at (7.42,#1+.33) {#3};
+
+  % Headings align above the centers of the respective icon groups.
+  \node[micro,text=black!74,inner sep=0pt]
+     at (8.18,#1+.06) {Train};
+  \node[micro,text=black!74,inner sep=0pt]
+     at (9.46,#1+.06) {Test};
+
+  % Four equal 0.24 x 0.24 cm circuit blocks.
+  % The excluded circuit has the same glyph as the test circuit.
+  \foreach \j in {1,...,4}{%
+    \ifnum\j=#2\relax
+      \path[draw=green!65!black,fill=white,line width=.55pt]
+        (7.61+\j*.30-.30,#1-.35) rectangle ++(.24,.24);
+      \draw[green!50!black,line width=.40pt]
+        (7.62+\j*.30-.30,#1-.34)--(7.84+\j*.30-.30,#1-.12);
+    \else
+      \path[draw=black!45,fill=black!13,line width=.40pt]
+        (7.61+\j*.30-.30,#1-.35) rectangle ++(.24,.24);
+    \fi
+  }
+
+  % Balanced train -> test arrow.
+  \draw[-{Latex[length=1.50mm,width=1.06mm]},
+        draw=black!77,line width=.77pt]
+       (8.87,#1-.23)--(9.22,#1-.23);
+
+  % Test glyph matches the held-out training glyph exactly.
+  \path[draw=green!65!black,fill=white,line width=.55pt]
+    (9.34,#1-.35) rectangle ++(.24,.24);
+  \draw[green!50!black,line width=.40pt]
+    (9.35,#1-.34)--(9.57,#1-.12);
+}
+% Spaced consistently while reserving room for the ellipsis.
+\LocoFold{4.09}{1}{Fold 1}
+\LocoFold{2.77}{2}{Fold 2}
+\node[font=\sffamily\bfseries\fontsize{11}{11}\selectfont,
+      text=black!55] at (8.56,1.98) {$\vdots$};
+\LocoFold{1.04}{4}{Fold $K$}
+
+% ================================================================
+% 4. Aggregate Evaluation: one set of held-out predictions, then
+%    two complementary ways to aggregate the same observations.
+%    Circuit folds contribute equally in the first summary, whereas
+%    individual out-of-fold samples contribute equally in the second.
+% ================================================================
+% Top card: held-out predictions grouped by circuit.  The tile
+% counts are schematic (not actual benchmark cardinalities), but
+% each small tile always denotes one prediction sample.
+\path[draw=red!62!black,fill=white,rounded corners=2pt,line width=.53pt]
+  (10.69,3.13) rectangle (13.40,5.22);
+\node[font=\sffamily\bfseries\fontsize{6.05}{7.0}\selectfont,
+      text=red!67!black] at (12.045,5.00) {Out-of-Fold Predictions};
+\node[font=\sffamily\fontsize{5.4}{6.25}\selectfont,
+      text=black!60] at (12.045,4.73) {Grouped by Held-Out Circuit};
+
+% Schematic circuit groups: C_1 has 3 samples, C_2 has 6,
+% and C_K has 4. Labels sit BELOW the corresponding tile sets.
+\foreach \cx in {11.18,12.00,12.93}{%
+  \path[draw=red!30!black,fill=red!3,rounded corners=1pt,
+        line width=.34pt] (\cx-.305,3.55) rectangle (\cx+.305,4.53);
+}
+% Tile macro: #1 center X, #2 number of samples.
+% Tiles are raised, with tighter row pitch, to clear circuit labels.
+\newcommand{\CircuitSamples}[2]{%
+  \foreach \j in {1,...,#2}{%
+    \pgfmathtruncatemacro{\cc}{mod(\j-1,2)}
+    \pgfmathtruncatemacro{\rr}{int((\j-1)/2)}
+    \path[draw=red!56!black,fill=red!14,line width=.32pt]
+      (#1-.128+\cc*.152,4.32-\rr*.135) rectangle ++(.112,.112);
+  }
+}
+\CircuitSamples{11.18}{3}
+\CircuitSamples{12.00}{6}
+\CircuitSamples{12.93}{4}
+% Actual node scaling (not just \fontsize) makes the math visibly smaller.
+\node[scale=.72,transform shape,inner sep=0pt,text=black!75]
+  at (11.18,3.77) {$C_{\scriptscriptstyle 1}$};
+\node[scale=.72,transform shape,inner sep=0pt,text=black!75]
+  at (12.00,3.77) {$C_{\scriptscriptstyle 2}$};
+\node[scale=.72,transform shape,inner sep=0pt,text=black!75]
+  at (12.93,3.77) {$C_{\scriptscriptstyle K}$};
+% Tiny three-dot ellipsis drawn natively, centered in the inter-card gap.
+\foreach \dx in {-.075,0,.075}{%
+  \fill[black!47] (12.47+\dx,4.00) circle (.012);
+}
+
+% Two arrows signal that BOTH summaries use the SAME out-of-fold
+% predictions. Keep the split symmetric and outside all cards.
+\foreach \x in {11.35,12.74}{%
+  \draw[-{Latex[length=.98mm,width=.69mm]},draw=red!58!black,
+        line width=.56pt] (\x,3.10)--(\x,2.87);
+}
+
+% Lower comparison cards: balanced widths and consistent structure.
+% Both Equal Weight labels use the same font, height and line spacing.
+\path[draw=red!62!black,fill=white,rounded corners=2pt,line width=.53pt]
+  (10.69,.45) rectangle (12.00,2.81);
+\path[draw=red!62!black,fill=white,rounded corners=2pt,line width=.53pt]
+  (12.10,.45) rectangle (13.40,2.81);
+
+% Fold averaging: each held-out circuit is one equal-sized unit,
+% irrespective of the number of predictions it contains.
+\node[font=\sffamily\bfseries\fontsize{6.15}{7.2}\selectfont,
+      text=red!67!black,align=center] at (11.345,2.47)
+  {Fold-\\Averaged};
+\foreach \cx/\kk in {10.94/1,11.35/2,11.76/K}{%
+  \path[draw=red!60!black,fill=red!8,line width=.41pt,
+        rounded corners=.65pt]
+    (\cx-.17,1.55) rectangle (\cx+.17,1.85);
+  % Scale the math label itself so C_K has clear margin in the box.
+  \node[scale=.56,transform shape,inner sep=0pt,
+        text=red!65!black] at (\cx,1.70) {$C_{\scriptscriptstyle \kk}$};
+}
+\node[font=\sffamily\fontsize{4.60}{5.60}\selectfont,
+      align=center,text=black!70] at (11.345,.93)
+  {Equal Weight\\per Circuit};
+
+% Sample averaging: groups have different sample counts, while
+% the individual tile sizes (i.e. sample weights) remain uniform.
+\node[font=\sffamily\bfseries\fontsize{6.15}{7.2}\selectfont,
+      text=red!67!black,align=center] at (12.75,2.47)
+  {Sample-\\Averaged};
+\newcommand{\SmallSampleGroup}[3]{%
+  \foreach \j in {1,...,#2}{%
+    \pgfmathtruncatemacro{\cc}{mod(\j-1,2)}
+    \pgfmathtruncatemacro{\rr}{int((\j-1)/2)}
+    \path[draw=red!57!black,fill=red!14,line width=.30pt]
+      (#1-.065+\cc*.092,1.96-\rr*.105) rectangle ++(.070,.070);
+  }
+  \node[scale=.64,transform shape,inner sep=0pt,
+        text=black!70] at (#1,1.40) {$C_{\scriptscriptstyle #3}$};
+}
+\SmallSampleGroup{12.30}{3}{1}
+\SmallSampleGroup{12.75}{6}{2}
+\SmallSampleGroup{13.19}{4}{K}
+\node[font=\sffamily\fontsize{4.60}{5.60}\selectfont,
+      align=center,text=black!70] at (12.75,.93)
+  {Equal Weight\\per Sample};
+
+% ================================================================
+% 5. Reproducible Model Package
+% Group released artifacts by their role in reproduction and comparison.
+% The configuration is described as planned in Section 6 of the paper.
+% ================================================================
+
+% Configuration artifact.
+\path[draw=purple!57!black,fill=white,rounded corners=2.0pt,
+      line width=.51pt] (14.20,4.27) rectangle (16.84,5.25);
+\node[sub,text=purple!65!black] at (15.52,5.00)
+  {Executable Config};
+% Native TikZ file symbol, rather than an external icon.
+\path[draw=purple!67!black,fill=purple!8,line width=.51pt,
+      rounded corners=.5pt] (14.55,4.48) rectangle (14.91,4.80);
+\node[micro,text=purple!65!black] at (14.73,4.64) {\texttt{\{\}}};
+\node[font=\ttfamily\fontsize{5.0}{6.0}\selectfont,anchor=west,text=black!72] at (15.01,4.63)
+  {\texttt{edaml\_config.yaml}};
+
+% Per-fold model artifacts.
+\path[draw=purple!57!black,fill=white,rounded corners=2.0pt,
+      line width=.51pt] (14.20,2.56) rectangle (16.84,4.12);
+\node[sub,text=purple!65!black] at (15.52,3.88)
+  {Fold Artifacts};
+% Three matching fold/checkpoint symbols.
+\foreach \xx/\kk in {14.79/1,15.52/2,16.25/K}{
+  \path[draw=purple!62!black,fill=purple!10,
+        rounded corners=.7pt,line width=.47pt]
+     (\xx-.22,3.21) rectangle (\xx+.22,3.58);
+  \node[micro,text=purple!69!black] at (\xx,3.40) {$C_{\kk}$};
+}
+\node[micro,text=black!67] at (15.52,2.98)
+  {Checkpoints};
+\node[micro,text=black!67] at (15.52,2.74)
+  {Preprocessing};
+
+% Evaluation and experiment records.
+\path[draw=purple!57!black,fill=white,rounded corners=2.0pt,
+      line width=.51pt] (14.20,1.04) rectangle (16.84,2.42);
+\node[sub,text=purple!65!black] at (15.52,2.19)
+  {Leaderboard};
+% A small comparison table, not a generic bar-chart icon.
+\path[draw=purple!55!black,fill=purple!5,line width=.38pt]
+  (14.47,1.42) rectangle (15.18,1.91);
+\draw[purple!48!black,line width=.32pt]
+  (14.47,1.75)--(15.18,1.75)
+  (14.47,1.58)--(15.18,1.58)
+  (14.73,1.42)--(14.73,1.91);
+\node[micro,text=black!70,anchor=west] at (15.36,1.76)
+  {Model Scores};
+\node[micro,text=black!65,anchor=west] at (15.36,1.46)
+  {Run Metrics};
+
+% Open-weight release is the output of the package, not another file.
+\path[draw=purple!56!black,fill=purple!10,rounded corners=1.9pt,
+      line width=.52pt] (14.35,.40) rectangle (16.69,.84);
+\node[micro,text=purple!70!black] at (15.52,.62)
+  {Open-Weight Release};
+
+% ================================================================
+% EDA-Schema-V2 dataset header at TOP (not bottom).
+% First row: dataset, PDK coverage, and design stages.
+% Second row: the twelve paper-defined numerical prediction tasks.
+% This preserves legibility at two-column figure width.
+% ================================================================
+\path[draw=black!43,fill=black!4,rounded corners=3.6pt,line width=.66pt]
+  (.04,6.81) rectangle (17.08,9.14);
+
+% Horizontal subdivision and top-row vertical separators.
+\draw[black!48,line width=.74pt] (.20,8.09)--(16.92,8.09);
+\foreach \x in {5.08,9.20}{%
+  \draw[black!51,line width=.78pt] (\x,8.24)--(\x,8.99);
+}
+
+% Dataset glyph: compact 3-disk data store, identical visual vocabulary.
+\draw[draw=black!63,fill=black!9,line width=.48pt]
+  (.55,8.77) ellipse (.22 and .07);
+\draw[black!63,line width=.48pt]
+  (.33,8.77)--(.33,8.44) (.77,8.77)--(.77,8.44);
+\draw[black!63,line width=.48pt] (.55,8.61) ellipse (.22 and .07);
+\draw[black!63,line width=.48pt] (.55,8.44) ellipse (.22 and .07);
+
+% Align title and subtitle left edges in each first-row group.
+\node[sub,anchor=north west,inner sep=0pt] at (.95,8.94)
+  {EDA-Schema-V2 Dataset};
+\node[small,anchor=north west,inner sep=0pt,text=black!57]
+  at (.95,8.58) {18 Circuits / 7,776 Instances};
+
+\node[sub,anchor=north west,inner sep=0pt] at (5.37,8.94) {4 PDKs};
+\node[small,anchor=north west,inner sep=0pt,text=black!58]
+  at (5.37,8.57) {NG45, SKY130, IHP130, ASAP7};
+
+\node[sub,anchor=north west,inner sep=0pt] at (9.49,8.94)
+  {5 Design Stages};
+\node[small,anchor=north west,inner sep=0pt,text=black!58]
+  at (9.49,8.57)
+  {Floorplan, Global Place, Detailed Place, CTS, Global Routing};
+
+% Twelve tasks, transcribed from the paper (Section 2.1).
+% Four columns x three rows make the full names readable.
+\node[sub,anchor=west,align=left,text=black!80] at (.36,7.48)
+  {12 Prediction\\Tasks};
+\draw[black!36,line width=.60pt] (2.69,7.02)--(2.69,7.88);
+\foreach \xx/\a/\b/\c in {
+  2.99/{Total Area}/{Total Power}/{Total Wirelength},
+  6.31/{Worst Arrival Time}/{Worst Slack}/{Total Negative Slack},
+  9.88/{Interconnect Length}/{Timing-Path Arrival Time}/{Timing-Path Slack},
+  13.68/{Net-Arc Delay}/{Cell-Arc Delay}/{Cell-Arc Slew}
+}{%
+  \node[font=\sffamily\fontsize{5.8}{6.8}\selectfont,
+        anchor=west,text=black!69] at (\xx,7.82) {\a};
+  \node[font=\sffamily\fontsize{5.8}{6.8}\selectfont,
+        anchor=west,text=black!69] at (\xx,7.49) {\b};
+  \node[font=\sffamily\fontsize{5.8}{6.8}\selectfont,
+        anchor=west,text=black!69] at (\xx,7.16) {\c};
+}
+
+% The dataset feeds into the prediction problem, model specification,
+% and circuit-level LOCO evaluation (downward arrows).
+\foreach \x in {1.60,5.08,8.56}{%
+  \draw[support] (\x,6.81)--(\x,6.31);
+}
+\end{tikzpicture}

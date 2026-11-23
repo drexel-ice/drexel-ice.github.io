@@ -1,0 +1,32 @@
+% Renders a figure exactly as its source document does -- Computer Modern,
+% stock xcolor tints, black rules -- with none of the website restyling in
+% site-preamble.tex.
+%
+% A body file opts in by carrying the line
+%     %!preamble: verbatim
+% anywhere in it. Use this when the figure must match the printed document
+% pixel for pixel; otherwise prefer site-preamble.tex.
+%
+% Mirrors the proposal's own preamble: article 11pt, lmodern, T1.
+\documentclass[11pt,border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+% dvisvgm emits a transparent SVG, but the site has a dark theme and these
+% figures are drawn for a light surface -- labels outside a box would sit on
+% the page background and nearly vanish. Give every picture a white card, the
+% same as the raster figures elsewhere on the site.
+\usetikzlibrary{backgrounds}
+\tikzset{
+  every picture/.append style={
+    show background rectangle,
+    inner frame sep=7pt,
+    background rectangle/.style={fill=white},
+  },
+}
+
+\begin{document}
