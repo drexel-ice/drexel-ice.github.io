@@ -6,4 +6,4 @@ description: The patent “ Power supply voltage detection and power delivery ci
 tags: news
 ---
 
-The patent “ Power supply voltage detection and power delivery circuit ” is issued by the USPTO on March 6, 2018 as United States Patent Number 9,912,325. Prof. Ioannis Savidis and Divy Pathak are the co-founders of the patent.
+The patent “ Power supply voltage detection and power delivery circuit ” is issued by the USPTO on March 6, 2018 as United States Patent Number 9,912,325. Prof. Ioannis Savidis and Divya Pathak are the co-founders of the patent.
