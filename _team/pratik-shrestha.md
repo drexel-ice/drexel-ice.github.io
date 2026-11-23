@@ -30,6 +30,12 @@ locking. I received my B.E. in Computer Engineering from Kathmandu University in
 
 ## Selected publications
 
+- **ResizerAgent: Agentic Strategy Selection for Timing Optimization in OpenROAD Resizer.**
+  V. A. Chhabria, A. Dey, A. B. Kahng, I. Savidis, P. Shrestha, B.-Y. Wu. *MLCAD*, 2026.
+  [[PDF]]({{ '/assets/pdf/conferences/MLCAD_2026-ResizerAgent.pdf' | relative_url }})
+- **2026 Extensions of IEEE CEDA DATC's Robust Design Flow and Other Activities.**
+  A. Aversa, D. Chinnery, A. Ghose, A. Jain, A. Johnson, Y. Kothari, J. Lee, Y. Liu, et al. *ICCAD*, 2026. **Invited.**
+  [[PDF]]({{ '/assets/pdf/conferences/ICCAD_2026-DATC-RDF.pdf' | relative_url }})
 - **EDA-Schema-V2: A Multimodal Schema, Open Datasets, and Benchmarks for Machine Learning in Digital Physical Design.**
   P. Shrestha, A. Aversa, I. Savidis. *arXiv:2605.06952*, 2026.
   [[PDF]]({{ '/assets/pdf/preprints/2605.06952v1.pdf' | relative_url }})
