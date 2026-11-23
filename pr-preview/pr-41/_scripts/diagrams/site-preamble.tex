@@ -1,0 +1,87 @@
+% Shared styling for the EDA-Learn website figures.
+%
+% The TikZ bodies under tex/ are kept VERBATIM from the proposal and papers.
+% Everything that makes them look like the website lives here, so the figure
+% source stays a single shared artifact with the LaTeX documents.
+%
+% How the recolouring works: the proposal's TikZ fills with blue!7, green!7,
+% orange!8 and purple!7. Redefining the base colours makes those same mixes
+% land on the site palette, so no fill= key in the body has to change.
+\documentclass[border=6pt]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.94]{helvet}
+\renewcommand\familydefault{\sfdefault}
+
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning,arrows.meta,calc,shapes.geometric,backgrounds}
+
+\definecolor{siteink}{HTML}{07294D}     % Drexel navy: text and strokes
+\definecolor{blue}{HTML}{0C7EE2}        % blue!7   -> #eef6fd
+\definecolor{green}{HTML}{008D29}       % green!7  -> #ecf7f0
+\definecolor{orange}{HTML}{FF9B00}      % orange!8 -> #fff7e4
+\definecolor{purple}{HTML}{7029C5}      % purple!7 -> #f5f0fb
+
+% TikZ takes its default draw colour from the ambient colour, so this sets
+% both the text and the rules in one go.
+\AtBeginDocument{\color{siteink}}
+
+\definecolor{sitemuted}{HTML}{55687C}   % secondary text
+\definecolor{siterule}{HTML}{DDE4EC}    % hairlines and card borders
+\definecolor{accblue}{HTML}{1D7DCE}     % accents, one per tone
+\definecolor{accgreen}{HTML}{1B8A51}
+\definecolor{accamber}{HTML}{A97B09}
+\definecolor{accpurple}{HTML}{6B4FA8}
+
+% ---------------------------------------------------------------------------
+% Shared idiom for the figures drawn for the website.
+%
+% They use a design-unit canvas: one unit is one pixel of the original layout
+% and one pixel is 0.03cm, so coordinates can be written as whole numbers and
+% the figure comes out around 36cm wide. Physical size is irrelevant once it
+% is an SVG; only the ratio of text size to figure width matters, and at this
+% scale a 12-unit label is a natural 10pt.
+%
+% Boxes are drawn as paths rather than nodes so that their geometry follows
+% the x/y scaling; nodes carry text only.
+% ---------------------------------------------------------------------------
+
+
+\tikzset{
+  sitecanvas/.style={x=0.03cm,y=-0.03cm},
+  % type scale, in points, at the canvas scale above
+  kicker/.style   ={font=\bfseries\fontsize{8.5}{10}\selectfont},
+  tiny/.style     ={font=\fontsize{7.8}{9.5}\selectfont},
+  body/.style     ={font=\fontsize{9.4}{11.5}\selectfont},
+  bodybf/.style   ={font=\bfseries\fontsize{9.4}{11.5}\selectfont},
+  bodymd/.style   ={font=\fontsize{10.7}{13}\selectfont},
+  bodyit/.style   ={font=\itshape\fontsize{10.7}{13}\selectfont},
+  lead/.style     ={font=\bfseries\fontsize{10.7}{13}\selectfont},
+  cardtitle/.style={font=\bfseries\fontsize{12}{14}\selectfont},
+  figtitle/.style ={font=\bfseries\fontsize{14.5}{17}\selectfont},
+  % surfaces
+  card/.style     ={draw=siterule,fill=white,rounded corners=0.24cm,line width=.5pt},
+  panel/.style    ={rounded corners=0.33cm,line width=.5pt},
+  chip/.style     ={draw=siterule,fill=white,rounded corners=0.28cm,line width=.5pt},
+  % connectors
+  flow/.style     ={-{Latex[length=1.9mm,width=1.4mm]},draw=sitemuted,line width=.6pt},
+  flowthin/.style ={-{Latex[length=1.6mm,width=1.2mm]},draw=sitemuted,line width=.5pt},
+  hair/.style     ={draw=siterule,line width=.5pt},
+}
+
+% dvisvgm emits a transparent SVG, but the site has a dark theme and these
+% figures are drawn for a light surface -- labels outside a box would sit on
+% the page background and nearly vanish. Give every picture a white card, the
+% same as the raster figures elsewhere on the site.
+\usetikzlibrary{backgrounds}
+\tikzset{
+  every picture/.append style={
+    show background rectangle,
+    inner frame sep=7pt,
+    background rectangle/.style={fill=white},
+  },
+}
+
+\begin{document}
